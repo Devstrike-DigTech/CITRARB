@@ -1,6 +1,7 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="640dp"
     android:height="960dp"
+    android:alpha="0.7"
     android:viewportWidth="640"
     android:viewportHeight="960">
   <group>
@@ -15,11 +16,7 @@
         <path
             android:pathData="M-5.66,-5.2V968.4H643.4V-5.2ZM257.06,264.54l4.34,-4.34L256,257l3.61,-8L251,241.24l8.65,7.76L256,257l5.4,3.23 -4.34,4.34 11.27,8.07Z"
             android:fillColor="#fff9db"/>
-        <path
-            android:pathData="M-20.3,-24.8V979.77H649.42V-24.8ZM250.78,253.52l4.48,-4.48 -5.57,-3.33 3.72,-8.22 -8.93,-8 8.93,8 -3.72,8.22 5.57,3.33 -4.48,4.48 11.63,8.33Z"
-            android:strokeAlpha="0.14"
-            android:fillColor="url(#Bird_Feet)"
-            android:fillAlpha="0.14"/>
+
         <path
             android:pathData="M367.62,66.62L345.71,66.62a7.27,7.27 0,0 1,-7.26 -7.27L338.45,-7.09a7.27,7.27 0,0 1,7.26 -7.27h21.91a7.27,7.27 0,0 1,7.26 7.27L374.88,59.35A7.27,7.27 0,0 1,367.62 66.62ZM345.71,-13.38a6.25,6.25 0,0 0,-6.25 6.25L339.46,59.35a6.25,6.25 0,0 0,6.25 6.25h21.91a6.25,6.25 0,0 0,6.24 -6.25L373.86,-7.09a6.25,6.25 0,0 0,-6.24 -6.25Z"
             android:strokeAlpha="0.8"

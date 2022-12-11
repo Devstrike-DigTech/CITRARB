@@ -11,7 +11,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/app_background"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.features.SplashScreen">
 
@@ -26,16 +25,17 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="@dimen/padding_mini"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal"
+        android:id="@+id/layout_devstrike"
+        android:padding="@dimen/padding_mini">
 
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
-            app:srcCompat="@drawable/devstrike_logo"
-            android:contentDescription="@string/devstrike_logo"/>
+            android:contentDescription="@string/devstrike_logo"
+            app:srcCompat="@drawable/devstrike_logo" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -45,11 +45,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/powered_by_text"/>
+                android:text="@string/powered_by_text" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/dev_strike_text"/>
+                android:text="@string/dev_strike_text" />
 
         </LinearLayout>
 

@@ -9,5 +9,14 @@
         android:id="@+id/splashScreen"
         android:name="org.devstrike.app.citrarb.ui.features.SplashScreen"
         android:label="fragment_splash_screen"
-        tools:layout="@layout/fragment_splash_screen" />
+        tools:layout="@layout/fragment_splash_screen" >
+        <action
+            android:id="@+id/action_splashScreen_to_landingScreen"
+            app:destination="@id/landingScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/landingScreen"
+        android:name="org.devstrike.app.citrarb.ui.features.landing.LandingScreen"
+        android:label="fragment_landing_screen"
+        tools:layout="@layout/fragment_landing_screen" />
 </navigation>
