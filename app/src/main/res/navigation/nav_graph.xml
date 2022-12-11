@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/splashScreen">
+
+    <fragment
+        android:id="@+id/splashScreen"
+        android:name="org.devstrike.app.citrarb.ui.features.SplashScreen"
+        android:label="fragment_splash_screen"
+        tools:layout="@layout/fragment_splash_screen" >
+        <action
+            android:id="@+id/action_splashScreen_to_landingScreen"
+            app:destination="@id/landingScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/landingScreen"
+        android:name="org.devstrike.app.citrarb.ui.features.landing.LandingScreen"
+        android:label="fragment_landing_screen"
+        tools:layout="@layout/fragment_landing_screen" />
+</navigation>
