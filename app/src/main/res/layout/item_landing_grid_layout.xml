@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2022.
+  ~ Richard Uzor
+  ~ For Afro Connect Technologies
+  ~ Under the Authority of Devstrike Digital Ltd.
+  ~
+  -->
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="landingMenu"
+            type="org.devstrike.app.citrarb.data.LandingMenu"/>
+        <variable
+            name="menuClick"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+<!--    <com.google.android.material.button.MaterialButton-->
+<!--        android:layout_width="100dp"-->
+<!--        android:layout_height="120dp"-->
+<!--        app:elevation="@dimen/padding_mini"-->
+<!--        android:layout_margin="@dimen/padding_mini"-->
+<!--        android:padding="@dimen/padding_mini"-->
+<!--        style="@style/Widget.MaterialComponents.Button"-->
+<!--        android:gravity="bottom|center"-->
+<!--        app:cornerRadius="@dimen/padding_mini"-->
+<!--        android:text="@{landingMenu.itemName}"-->
+<!--        tools:text="News"-->
+<!--        android:textAllCaps="false"-->
+<!--        android:textSize="@dimen/text_l"/>-->
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="100dp"
+        android:layout_height="120dp"
+        app:cardElevation="@dimen/padding_mini"
+        android:layout_margin="@dimen/padding_mini"
+        android:padding="@dimen/padding_mini"
+        android:background="@drawable/devstrike_logo"
+        tools:cardBackgroundColor="@color/custom_secondary"
+        app:cardCornerRadius="@dimen/padding_midi">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="News"
+            android:text="@{landingMenu.itemName}"
+            android:layout_gravity="bottom|center_horizontal"
+            android:padding="@dimen/padding_mini"
+            android:textSize="@dimen/text_l"
+            android:textAlignment="center"
+            tools:textColor="@color/white"/>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>
