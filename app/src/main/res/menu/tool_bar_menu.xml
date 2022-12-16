@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2022.
+  ~ Richard Uzor
+  ~ For Afro Connect Technologies
+  ~ Under the Authority of Devstrike Digital Ltd.
+  ~
+  -->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:title="@string/menu_settings"
+        android:id="@+id/menu_settings"
+        app:showAsAction="never"/>
+    <item
+        android:title="@string/menu_account"
+        android:id="@+id/menu_account"
+        android:icon="@drawable/ic_account_circle"
+        app:showAsAction="ifRoom"/>
+
+</menu>

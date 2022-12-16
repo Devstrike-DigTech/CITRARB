@@ -3,10 +3,16 @@
     <dimen name="padding_mini">4dp</dimen>
     <dimen name="padding_midi">8dp</dimen>
     <dimen name="padding_maxi">16dp</dimen>
+    <dimen name="padding_mega">24dp</dimen>
 
     <dimen name="margin_maxi">32dp</dimen>
     <dimen name="margin_mini">8dp</dimen>
     <dimen name="margin_midi">16dp</dimen>
+
+    <dimen name="text_xxl">32sp</dimen>
+    <dimen name="text_xl">24sp</dimen>
+    <dimen name="text_l">18sp</dimen>
+    <dimen name="text_s">16sp</dimen>
 
     <dimen name="button_width_xxl">256dp</dimen>
 

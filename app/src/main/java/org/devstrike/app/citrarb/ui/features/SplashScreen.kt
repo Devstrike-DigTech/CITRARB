@@ -8,11 +8,16 @@
 
 package org.devstrike.app.citrarb.ui.features
 
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.navigation.fragment.findNavController
 import org.devstrike.app.citrarb.R
 import org.devstrike.app.citrarb.base.BaseFragment
@@ -24,6 +29,7 @@ class SplashScreen : BaseFragment<FragmentSplashScreenBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         with(binding){
+            hideSystemUI()
             appLogo.animate().setDuration(2000).alpha(1f).withEndAction{
                 layoutDevstrike.animate().setDuration(2000).alpha(1f).withEndAction {
                     val navToLanding = SplashScreenDirections.actionSplashScreenToLandingScreen()
@@ -31,6 +37,22 @@ class SplashScreen : BaseFragment<FragmentSplashScreenBinding>() {
                 }
 
             }
+        }
+    }
+
+    // Function to hide NavigationBar
+    @RequiresApi(Build.VERSION_CODES.R)
+    private fun hideSystemUI() {
+        WindowCompat.setDecorFitsSystemWindows(requireActivity().window, false)
+
+        WindowInsetsControllerCompat(requireActivity().window,
+            requireActivity().window.decorView.findViewById(android.R.id.content)).let { controller ->
+            controller.hide(WindowInsetsCompat.Type.systemBars())
+
+            // When the screen is swiped up at the bottom
+            // of the application, the navigationBar shall
+            // appear for some time
+            controller.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         }
     }
 

@@ -7,18 +7,75 @@
   ~
   -->
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/app_background"
     tools:context=".ui.features.landing.LandingScreen">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:textSize="24sp"
-        android:text="@string/landing_page" />
+<!--    <com.google.android.material.appbar.AppBarLayout-->
+<!--        android:id="@+id/custom_app_bar"-->
+<!--        android:layout_width=""-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_above="@id/grid_card"-->
+<!--        android:layout_margin="@dimen/padding_mini"-->
+<!--        android:background="@drawable/app_background">-->
 
-</RelativeLayout>
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/padding_mini"
+            android:padding="@dimen/padding_mini"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/card_tool_bar"
+            app:cardCornerRadius="@dimen/padding_mini"
+            app:cardElevation="@dimen/padding_mini">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/customToolBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="4dp"
+                app:menu="@menu/tool_bar_menu"
+                android:padding="@dimen/padding_mini"
+                app:subtitle="@string/tool_bar_sub_title"
+                app:title="@string/tool_bar_title">
+
+            </androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.card.MaterialCardView>
+
+<!--    </com.google.android.material.appbar.AppBarLayout>-->
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/grid_card"
+        app:cardElevation="@dimen/padding_mini"
+        android:layout_margin="@dimen/padding_midi"
+        android:padding="@dimen/padding_mini"
+        app:layout_constraintTop_toBottomOf="@id/card_tool_bar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/landing_menu_grid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout_height="wrap_content"
+            android:layout_margin="@dimen/padding_mini"
+            android:padding="@dimen/padding_mini"
+            tools:listitem="@layout/item_landing_grid_layout"
+            tools:itemCount="3"
+            tools:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+
+            />
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
