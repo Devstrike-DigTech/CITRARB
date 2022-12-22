@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2022.
+  ~ Richard Uzor
+  ~ For Afro Connect Technologies
+  ~ Under the Authority of Devstrike Digital Ltd.
+  ~
+  -->
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.features.landing.AppMenu">
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/grid_card"
+        app:cardElevation="@dimen/padding_mini"
+        android:layout_margin="@dimen/padding_midi"
+        android:padding="@dimen/padding_mini"
+        >
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/landing_menu_grid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout_height="wrap_content"
+            android:layout_margin="@dimen/padding_mini"
+            android:padding="@dimen/padding_mini"
+            tools:listitem="@layout/item_landing_grid_layout"
+            tools:itemCount="3"
+            tools:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+
+            />
+
+    </com.google.android.material.card.MaterialCardView>
+
+</FrameLayout>
