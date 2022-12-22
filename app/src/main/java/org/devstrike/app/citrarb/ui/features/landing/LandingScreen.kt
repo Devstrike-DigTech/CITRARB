@@ -23,31 +23,15 @@ import org.devstrike.app.citrarb.utils.toast
 
 class LandingScreen : BaseFragment<FragmentLandingScreenBinding>() {
 
-    private val landingMenuAdapter = LandingMenuAdapter()
-    val landingMenuList = mutableListOf<LandingMenu>()
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         (activity as AppCompatActivity).setSupportActionBar(binding.customToolBar)
 
-        setUpRecyclerView()
 
 
     }
-    //function to set up views and logic for the recycler view UI
-    private fun setUpRecyclerView() {
-        binding.landingMenuGrid.apply {
-            adapter = landingMenuAdapter
-            layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
-
-        }
-        landingMenuAdapter.submitList(Common.landingMenuList)
-
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

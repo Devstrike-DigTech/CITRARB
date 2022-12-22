@@ -16,6 +16,7 @@ import android.graphics.Color
 import android.view.View
 import android.widget.Toast
 import androidx.core.graphics.drawable.toDrawable
+import com.google.android.material.snackbar.Snackbar
 import org.devstrike.app.citrarb.R
 import java.text.SimpleDateFormat
 import java.util.*
@@ -28,6 +29,16 @@ import java.util.*
 //toast function
 fun Context.toast(message: String) =
     Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+
+fun View.snackbar(message: String, action: (() -> Unit)? = null) {
+    val snackbar = Snackbar.make(this, message, Snackbar.LENGTH_LONG)
+    action?.let {
+        snackbar.setAction("Retry") {
+            it()
+        }
+    }
+    snackbar.show()
+}
 
 
 //common function to handle progress bar visibility

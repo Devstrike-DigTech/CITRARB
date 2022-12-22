@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (c) 2022.
   ~ Richard Uzor
   ~ For Afro Connect Technologies
@@ -8,32 +7,33 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="fill_parent"
     android:orientation="vertical"
     tools:context=".ui.features.news.NewsLanding">
 
     <com.google.android.material.tabs.TabLayout
-    android:id="@+id/tab_title"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:elevation="6dp"
-    android:paddingLeft="12dp"
-    android:paddingRight="12dp"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-    android:minHeight="?attr/actionBarSize"/>
+        android:id="@+id/tab_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="6dp"
+        android:minHeight="?attr/actionBarSize"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:tabTextAppearance="@style/TabTextAppearance" />
 
     <ImageView
+        android:id="@+id/iv_saved_news"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        app:srcCompat="@drawable/ic_saved_news"
         android:layout_gravity="end"
         android:layout_margin="@dimen/padding_mini"
+        android:contentDescription="@string/saved_news"
         android:padding="@dimen/padding_mini"
-        android:id="@+id/iv_saved_news"
-        android:contentDescription="@string/saved_news"/>
+        app:srcCompat="@drawable/ic_saved_news" />
 
 
     <androidx.viewpager.widget.ViewPager

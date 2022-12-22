@@ -13,16 +13,42 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import org.devstrike.app.citrarb.R
+import org.devstrike.app.citrarb.base.BaseFragment
+import org.devstrike.app.citrarb.data.LandingMenu
+import org.devstrike.app.citrarb.databinding.FragmentAppMenuBinding
+import org.devstrike.app.citrarb.utils.Common
 
-class AppMenu : Fragment() {
+class AppMenu : BaseFragment<FragmentAppMenuBinding>() {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_app_menu, container, false)
+
+    private val landingMenuAdapter = LandingMenuAdapter()
+    val landingMenuList = mutableListOf<LandingMenu>()
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setUpRecyclerView()
+
     }
+
+    //function to set up views and logic for the recycler view UI
+    private fun setUpRecyclerView() {
+        binding.landingMenuGrid.apply {
+            adapter = landingMenuAdapter
+            layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
+
+        }
+        landingMenuAdapter.submitList(Common.landingMenuList)
+
+
+    }
+
+    override fun getFragmentBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ) = FragmentAppMenuBinding.inflate(inflater, container, false)
+
 
 }
