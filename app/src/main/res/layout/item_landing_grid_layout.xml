@@ -39,6 +39,7 @@
         app:cardElevation="@dimen/padding_mini"
         android:layout_margin="@dimen/padding_mini"
         android:padding="@dimen/padding_mini"
+        android:onClick="@{menuClick}"
         android:background="@drawable/devstrike_logo"
         tools:cardBackgroundColor="@color/custom_secondary"
         app:cardCornerRadius="@dimen/padding_midi">

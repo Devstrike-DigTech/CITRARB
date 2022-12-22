@@ -18,6 +18,7 @@ import com.google.android.material.tabs.TabLayout
 import org.devstrike.app.citrarb.R
 import org.devstrike.app.citrarb.base.BaseFragment
 import org.devstrike.app.citrarb.databinding.FragmentNewsLandingBinding
+import org.devstrike.app.citrarb.utils.snackbar
 
 class NewsLanding : BaseFragment<FragmentNewsLandingBinding>() {
 
@@ -46,8 +47,8 @@ class NewsLanding : BaseFragment<FragmentNewsLandingBinding>() {
             tabTitle.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab) {
                     newsLandingViewPager.currentItem = tab.position
-                    tabTitle.setSelectedTabIndicatorColor(Color.WHITE)
-                    tabTitle.setTabTextColors(Color.WHITE, resources.getColor(R.color.custom_primary))
+                    tabTitle.setSelectedTabIndicatorColor(resources.getColor(R.color.custom_primary))
+                    tabTitle.setTabTextColors(Color.BLACK, resources.getColor(R.color.custom_primary))
                 }
 
                 override fun onTabUnselected(tab: TabLayout.Tab) {
@@ -56,6 +57,10 @@ class NewsLanding : BaseFragment<FragmentNewsLandingBinding>() {
 
                 override fun onTabReselected(tab: TabLayout.Tab) {}
             })
+
+            ivSavedNews.setOnClickListener {
+                requireView().snackbar("Saved News Coming Soon...")
+            }
 
         }
 

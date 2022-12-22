@@ -16,6 +16,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -24,6 +25,7 @@ import org.devstrike.app.citrarb.R
 import org.devstrike.app.citrarb.data.LandingMenu
 import org.devstrike.app.citrarb.databinding.ItemLandingGridLayoutBinding
 import org.devstrike.app.citrarb.utils.Common.TAG
+import org.devstrike.app.citrarb.utils.snackbar
 
 /**
  * Created by Richard Uzor  on 15/12/2022
@@ -31,7 +33,7 @@ import org.devstrike.app.citrarb.utils.Common.TAG
 class LandingMenuAdapter: ListAdapter<LandingMenu, LandingMenuAdapter.LandingMenuViewHolder>(DiffCallback()) {
 
     class LandingMenuViewHolder(private val binding: ItemLandingGridLayoutBinding): RecyclerView.ViewHolder(binding.root){
-        fun bind(itemData: LandingMenu, listener: View.OnClickListener){
+        fun bind(listener: View.OnClickListener, itemData: LandingMenu){
             binding.apply {
                 landingMenu = itemData
                 menuClick = listener
@@ -62,7 +64,7 @@ class LandingMenuAdapter: ListAdapter<LandingMenu, LandingMenuAdapter.LandingMen
     override fun onBindViewHolder(holder: LandingMenuViewHolder, position: Int) {
         val menuItem = getItem(position)
         holder.apply {
-            bind(menuItem, createOnClickListener(menuItem))
+            bind(createOnClickListener(menuItem), menuItem)
             itemView.tag = menuItem
             itemView.setBackgroundColor(Color.parseColor(menuItem.itemColor))
             if (menuItem.itemName == "News")
@@ -73,6 +75,36 @@ class LandingMenuAdapter: ListAdapter<LandingMenu, LandingMenuAdapter.LandingMen
         return View.OnClickListener {
             //navigate to page to show doctor details using navigation directions
             Log.d(TAG, "createOnClickListener: ${menuItem.itemName}")
+            when (menuItem.itemName){
+                "News" -> {
+                    val navToNews = AppMenuDirections.actionAppMenuToNewsLanding()
+                    it.findNavController().navigate(navToNews)
+                }
+                "Eye Witness" -> {
+                    it.snackbar("${menuItem.itemName} coming soon...")
+                }
+                "TV" -> {
+                    it.snackbar("${menuItem.itemName} coming soon...")
+                }
+                "Events" -> {
+                    it.snackbar("${menuItem.itemName} coming soon...")
+                }
+                "Market Place" -> {
+                    it.snackbar("${menuItem.itemName} coming soon...")
+                }
+                "Music" -> {
+                    it.snackbar("${menuItem.itemName} coming soon...")
+                }
+                "Connect" -> {
+                    it.snackbar("${menuItem.itemName} coming soon...")
+                }
+                "Members" -> {
+                    it.snackbar("${menuItem.itemName} coming soon...")
+                }
+                "Uploads" -> {
+                    it.snackbar("${menuItem.itemName} coming soon...")
+                }
+            }
 //            if (menuItem.itemName == "News"){
 //                //val direction = PersonnelFragmentDirections.actionPersonnelFragmentToPractitionerItem2(pharmacist.id)
 //                //it.findNavController().navigate(direction)
