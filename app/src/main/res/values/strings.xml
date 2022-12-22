@@ -11,4 +11,7 @@
     <string name="menu_account">Account</string>
     <string name="tool_bar_title">Coal City Connect</string>
     <string name="tool_bar_sub_title">Connecting People</string>
+    <string name="share_news">Share News</string>
+    <string name="save_news">Save News</string>
+    <string name="saved_news">Saved News</string>
 </resources>

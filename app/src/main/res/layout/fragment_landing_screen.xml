@@ -51,31 +51,19 @@
 
 <!--    </com.google.android.material.appbar.AppBarLayout>-->
 
-    <com.google.android.material.card.MaterialCardView
+    <androidx.fragment.app.FragmentContainerView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/grid_card"
-        app:cardElevation="@dimen/padding_mini"
+        android:layout_height="match_parent"
+        android:id="@+id/main_container"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/content_graph"
         android:layout_margin="@dimen/padding_midi"
         android:padding="@dimen/padding_mini"
         app:layout_constraintTop_toBottomOf="@id/card_tool_bar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/landing_menu_grid"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:layout_height="wrap_content"
-            android:layout_margin="@dimen/padding_mini"
-            android:padding="@dimen/padding_mini"
-            tools:listitem="@layout/item_landing_grid_layout"
-            tools:itemCount="3"
-            tools:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
-
-            />
-
-    </com.google.android.material.card.MaterialCardView>
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
