@@ -13,7 +13,7 @@
     <data>
         <variable
             name="landingMenu"
-            type="org.devstrike.app.citrarb.data.LandingMenu"/>
+            type="org.devstrike.app.citrarb.features.landing.data.LandingMenu"/>
         <variable
             name="menuClick"
             type="android.view.View.OnClickListener" />

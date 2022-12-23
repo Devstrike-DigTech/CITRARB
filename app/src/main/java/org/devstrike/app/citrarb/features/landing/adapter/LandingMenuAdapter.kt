@@ -6,31 +6,30 @@
  *
  */
 
-package org.devstrike.app.citrarb.ui.features.landing
+package org.devstrike.app.citrarb.features.landing.adapter
 
-import android.content.Context
 import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import dagger.hilt.android.qualifiers.ApplicationContext
 import org.devstrike.app.citrarb.R
-import org.devstrike.app.citrarb.data.LandingMenu
+import org.devstrike.app.citrarb.features.landing.data.LandingMenu
 import org.devstrike.app.citrarb.databinding.ItemLandingGridLayoutBinding
+import org.devstrike.app.citrarb.features.landing.ui.AppMenuDirections
 import org.devstrike.app.citrarb.utils.Common.TAG
 import org.devstrike.app.citrarb.utils.snackbar
 
 /**
  * Created by Richard Uzor  on 15/12/2022
  */
-class LandingMenuAdapter: ListAdapter<LandingMenu, LandingMenuAdapter.LandingMenuViewHolder>(DiffCallback()) {
+class LandingMenuAdapter: ListAdapter<LandingMenu, LandingMenuAdapter.LandingMenuViewHolder>(
+    DiffCallback()
+) {
 
     class LandingMenuViewHolder(private val binding: ItemLandingGridLayoutBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(listener: View.OnClickListener, itemData: LandingMenu){

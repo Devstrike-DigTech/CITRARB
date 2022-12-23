@@ -6,7 +6,7 @@
  *
  */
 
-package org.devstrike.app.citrarb.ui.features.news.politics
+package org.devstrike.app.citrarb.features.news.politics
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

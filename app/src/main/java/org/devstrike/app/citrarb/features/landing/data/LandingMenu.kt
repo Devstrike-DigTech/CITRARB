@@ -6,7 +6,7 @@
  *
  */
 
-package org.devstrike.app.citrarb.data
+package org.devstrike.app.citrarb.features.landing.data
 
 import android.graphics.Color
 

@@ -6,17 +6,17 @@
  *
  */
 
-package org.devstrike.app.citrarb.ui.features.news
+package org.devstrike.app.citrarb.features.news.newsLanding
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import org.devstrike.app.citrarb.ui.features.news.all.AllNews
-import org.devstrike.app.citrarb.ui.features.news.entertainment.EntertainmentNews
-import org.devstrike.app.citrarb.ui.features.news.hot.HotNews
-import org.devstrike.app.citrarb.ui.features.news.politics.PoliticsNews
-import org.devstrike.app.citrarb.ui.features.news.sports.SportsNews
+import org.devstrike.app.citrarb.features.news.all.AllNews
+import org.devstrike.app.citrarb.features.news.entertainment.EntertainmentNews
+import org.devstrike.app.citrarb.features.news.hot.HotNews
+import org.devstrike.app.citrarb.features.news.politics.PoliticsNews
+import org.devstrike.app.citrarb.features.news.sports.SportsNews
 
 /**
  * Created by Richard Uzor  on 20/12/2022

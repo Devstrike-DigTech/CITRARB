@@ -6,19 +6,14 @@
  *
  */
 
-package org.devstrike.app.citrarb.ui.features.landing
+package org.devstrike.app.citrarb.features.landing.ui
 
 import android.os.Bundle
 import android.view.*
-import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import org.devstrike.app.citrarb.R
 import org.devstrike.app.citrarb.base.BaseFragment
-import org.devstrike.app.citrarb.data.LandingMenu
 import org.devstrike.app.citrarb.databinding.FragmentLandingScreenBinding
-import org.devstrike.app.citrarb.utils.Common
 import org.devstrike.app.citrarb.utils.toast
 
 class LandingScreen : BaseFragment<FragmentLandingScreenBinding>() {

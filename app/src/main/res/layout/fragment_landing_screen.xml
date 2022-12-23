@@ -14,7 +14,7 @@
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/app_background"
-    tools:context=".ui.features.landing.LandingScreen">
+    tools:context=".features.landing.ui.LandingScreen">
 
 <!--    <com.google.android.material.appbar.AppBarLayout-->
 <!--        android:id="@+id/custom_app_bar"-->
