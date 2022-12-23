@@ -23,7 +23,11 @@
     </fragment>
     <fragment
         android:id="@+id/newsLanding"
+<<<<<<< Updated upstream
         android:name="org.devstrike.app.citrarb.ui.features.news.NewsLanding"
+=======
+        android:name="org.devstrike.app.citrarb.features.news.newsLanding.ui.NewsLanding"
+>>>>>>> Stashed changes
         android:label="fragment_news_landing"
         tools:layout="@layout/fragment_news_landing" />
 </navigation>

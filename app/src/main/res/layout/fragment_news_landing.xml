@@ -12,7 +12,11 @@
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
+<<<<<<< Updated upstream
     tools:context=".ui.features.news.NewsLanding">
+=======
+    tools:context=".features.news.newsLanding.ui.NewsLanding">
+>>>>>>> Stashed changes
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_title"
