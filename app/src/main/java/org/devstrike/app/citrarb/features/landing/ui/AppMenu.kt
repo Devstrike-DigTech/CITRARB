@@ -6,18 +6,17 @@
  *
  */
 
-package org.devstrike.app.citrarb.ui.features.landing
+package org.devstrike.app.citrarb.features.landing.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import org.devstrike.app.citrarb.R
 import org.devstrike.app.citrarb.base.BaseFragment
-import org.devstrike.app.citrarb.data.LandingMenu
+import org.devstrike.app.citrarb.features.landing.data.LandingMenu
 import org.devstrike.app.citrarb.databinding.FragmentAppMenuBinding
+import org.devstrike.app.citrarb.features.landing.adapter.LandingMenuAdapter
 import org.devstrike.app.citrarb.utils.Common
 
 class AppMenu : BaseFragment<FragmentAppMenuBinding>() {

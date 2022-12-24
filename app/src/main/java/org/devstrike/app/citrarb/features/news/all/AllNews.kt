@@ -9,6 +9,7 @@
 package org.devstrike.app.citrarb.features.news.all
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +20,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import org.devstrike.app.citrarb.R
 import org.devstrike.app.citrarb.base.BaseFragment
 import org.devstrike.app.citrarb.databinding.FragmentAllNewsBinding
@@ -26,6 +28,7 @@ import org.devstrike.app.citrarb.databinding.FragmentAllNewsBinding
 @AndroidEntryPoint
 class AllNews : BaseFragment<FragmentAllNewsBinding>() {
 
+    private val TAG = "allNews"
     private lateinit var newsListAdapter: NewsListAdapter
     private val  allNewsViewModel: AllNewsViewModel by activityViewModels()
 
@@ -39,6 +42,7 @@ class AllNews : BaseFragment<FragmentAllNewsBinding>() {
 
     private fun subscribeToNewsList() = viewLifecycleOwner.lifecycleScope.launchWhenCreated {
         allNewsViewModel.newsList.collectLatest{ pagingData ->
+            Log.d(TAG, "subscribeToNewsList: $pagingData")
             newsListAdapter.submitData(pagingData)
         }
     }

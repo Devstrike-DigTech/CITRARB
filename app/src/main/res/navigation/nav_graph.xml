@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/splashScreen"
-        android:name="org.devstrike.app.citrarb.ui.features.SplashScreen"
+        android:name="org.devstrike.app.citrarb.features.SplashScreen"
         android:label="fragment_splash_screen"
         tools:layout="@layout/fragment_splash_screen" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/landingScreen"
-        android:name="org.devstrike.app.citrarb.ui.features.landing.LandingScreen"
+        android:name="org.devstrike.app.citrarb.features.landing.ui.LandingScreen"
         android:label="fragment_landing_screen"
         tools:layout="@layout/fragment_landing_screen" />
 </navigation>

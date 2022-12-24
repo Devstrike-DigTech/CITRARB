@@ -14,7 +14,7 @@
 
     <fragment
         android:id="@+id/appMenu"
-        android:name="org.devstrike.app.citrarb.ui.features.landing.AppMenu"
+        android:name="org.devstrike.app.citrarb.features.landing.ui.AppMenu"
         android:label="fragment_app_menu"
         tools:layout="@layout/fragment_app_menu" >
         <action
@@ -23,11 +23,7 @@
     </fragment>
     <fragment
         android:id="@+id/newsLanding"
-<<<<<<< Updated upstream
-        android:name="org.devstrike.app.citrarb.ui.features.news.NewsLanding"
-=======
-        android:name="org.devstrike.app.citrarb.features.news.newsLanding.ui.NewsLanding"
->>>>>>> Stashed changes
+        android:name="org.devstrike.app.citrarb.features.news.newsLanding.NewsLanding"
         android:label="fragment_news_landing"
         tools:layout="@layout/fragment_news_landing" />
 </navigation>

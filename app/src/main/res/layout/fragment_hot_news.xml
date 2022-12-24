@@ -11,13 +11,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.features.news.hot.HotNews">
+    tools:context=".features.news.hot.HotNews">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="wrap_content"
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hot News"
-        android:layout_centerInParent="true"/>
+        android:layout_margin="@dimen/padding_mini"
+        android:clipToPadding="false"
+        tools:listitem="@layout/item_news_list_layout"
+        tools:itemCount="4"
+        android:padding="@dimen/padding_mini"
+        android:id="@+id/rv_hot_news_list"/>
 
 </RelativeLayout>
