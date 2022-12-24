@@ -16,15 +16,25 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import org.devstrike.app.citrarb.databinding.ItemNewsListLayoutBinding
+<<<<<<< Updated upstream
 import org.devstrike.app.citrarb.features.landing.data.LandingMenu
+=======
+>>>>>>> Stashed changes
 import org.devstrike.app.citrarb.features.news.newsLanding.data.remote.NewsListResponse
 import javax.inject.Inject
 
 /**
+<<<<<<< Updated upstream
  * Created by Richard Uzor  on 23/12/2022
  */
 /**
  * Created by Richard Uzor  on 23/12/2022
+=======
+ * Created by Richard Uzor  on 24/12/2022
+ */
+/**
+ * Created by Richard Uzor  on 24/12/2022
+>>>>>>> Stashed changes
  */
 class NewsListAdapter @Inject constructor(): PagingDataAdapter<NewsListResponse, NewsListAdapter.NewsListViewHolder>(
     NewsListComparator
@@ -33,7 +43,11 @@ class NewsListAdapter @Inject constructor(): PagingDataAdapter<NewsListResponse,
     val TAG = "newsListAdapter"
 
     inner class NewsListViewHolder(private val binding: ItemNewsListLayoutBinding): RecyclerView.ViewHolder(binding.root){
+<<<<<<< Updated upstream
         fun bind(listener: View.OnClickListener,item: NewsListResponse) = binding.apply {
+=======
+        fun bind(listener: View.OnClickListener, item: NewsListResponse) = binding.apply {
+>>>>>>> Stashed changes
             newsListItem = item
             newsListItemClickListener = listener
             executePendingBindings()
@@ -56,11 +70,19 @@ class NewsListAdapter @Inject constructor(): PagingDataAdapter<NewsListResponse,
     override fun onBindViewHolder(holder: NewsListViewHolder, position: Int) {
         val newsListItem = getItem(position)
 
+<<<<<<< Updated upstream
             holder.apply {
                 bind(createOnClickListener(newsListItem!!), newsListItem)
                 itemView.tag = newsListItem
 
             }
+=======
+        holder.apply {
+            bind(createOnClickListener(newsListItem!!), newsListItem)
+            itemView.tag = newsListItem
+
+        }
+>>>>>>> Stashed changes
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = NewsListViewHolder(
@@ -73,4 +95,8 @@ class NewsListAdapter @Inject constructor(): PagingDataAdapter<NewsListResponse,
         }
     }
 
+<<<<<<< Updated upstream
     }
+=======
+}
+>>>>>>> Stashed changes
