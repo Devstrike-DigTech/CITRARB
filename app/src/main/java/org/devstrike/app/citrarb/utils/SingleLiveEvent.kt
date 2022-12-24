@@ -16,7 +16,11 @@ import androidx.lifecycle.Observer
 import java.util.concurrent.atomic.AtomicBoolean
 
 /**
+<<<<<<< Updated upstream
  * Created by Richard Uzor  on 23/12/2022
+=======
+ * Created by Richard Uzor  on 24/12/2022
+>>>>>>> Stashed changes
  */
 /**
  * A lifecycle-aware observable that sends only new updates after subscription, used for events like

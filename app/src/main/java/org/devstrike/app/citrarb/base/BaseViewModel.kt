@@ -16,10 +16,14 @@ import org.devstrike.app.citrarb.utils.SingleLiveEvent
 import retrofit2.Response
 
 /**
+<<<<<<< Updated upstream
  * Created by Richard Uzor  on 23/12/2022
  */
 /**
  * Created by Richard Uzor  on 23/12/2022
+=======
+ * Created by Richard Uzor  on 24/12/2022
+>>>>>>> Stashed changes
  */
 open class BaseViewModel : ViewModel() {
     var progressLiveEvent = SingleLiveEvent<Boolean>()

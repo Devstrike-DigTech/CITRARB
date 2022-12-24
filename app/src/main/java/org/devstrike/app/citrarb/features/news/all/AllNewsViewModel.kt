@@ -8,8 +8,11 @@
 
 package org.devstrike.app.citrarb.features.news.all
 
+<<<<<<< Updated upstream
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
+=======
+>>>>>>> Stashed changes
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
@@ -21,10 +24,14 @@ import org.devstrike.app.citrarb.features.news.repositories.NewsRepo
 import javax.inject.Inject
 
 /**
+<<<<<<< Updated upstream
  * Created by Richard Uzor  on 23/12/2022
  */
 /**
  * Created by Richard Uzor  on 23/12/2022
+=======
+ * Created by Richard Uzor  on 24/12/2022
+>>>>>>> Stashed changes
  */
 @HiltViewModel
 class AllNewsViewModel @Inject constructor(
@@ -33,7 +40,11 @@ class AllNewsViewModel @Inject constructor(
 
     private lateinit var _newsListFlow: Flow<PagingData<NewsListResponse>>
     val newsList: Flow<PagingData<NewsListResponse>>
+<<<<<<< Updated upstream
     get() = _newsListFlow
+=======
+        get() = _newsListFlow
+>>>>>>> Stashed changes
 
     init {
         getAllNewsList()
