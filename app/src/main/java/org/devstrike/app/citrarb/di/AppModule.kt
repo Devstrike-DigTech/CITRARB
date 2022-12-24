@@ -25,7 +25,6 @@ import org.devstrike.app.citrarb.features.news.repositories.NewsRepo
 import org.devstrike.app.citrarb.features.news.repositories.NewsRepoImpl
 import org.devstrike.app.citrarb.utils.Common.BASE_URL
 import org.devstrike.app.citrarb.utils.Common.LOCAL_DB_NAME
-import org.devstrike.app.citrarb.utils.SessionManager
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -46,7 +45,7 @@ object AppModule {
     //Initialize, Build and Provide Retrofit Instance
     @Singleton
     @Provides
-    fun provideNewsApi(): NewsApi {
+    fun provideNewsApi(): NewsApi{
         val httpLoggingInterceptor = HttpLoggingInterceptor()
             .setLevel(HttpLoggingInterceptor.Level.BODY)
 
@@ -61,7 +60,6 @@ object AppModule {
             .build()
             .create(NewsApi::class.java)
     }
-
     //Create and Provide Note Database
     @Singleton
     @Provides
@@ -84,13 +82,11 @@ object AppModule {
     @Singleton
     @Provides
     fun providesNewsRepo(
-        noteApi: NewsApi,
-        noteDao: NewsDao,
-        //sessionManager: SessionManager
+        newsApi: NewsApi,
+        newsDao: NewsDao,
     ): NewsRepo{
         return NewsRepoImpl(
-            noteApi, noteDao
-            //, sessionManager
+            newsApi, newsDao
         )
     }
 

@@ -6,11 +6,7 @@
  *
  */
 
-<<<<<<< Updated upstream:app/src/main/java/org/devstrike/app/citrarb/ui/features/news/NewsLanding.kt
-package org.devstrike.app.citrarb.ui.features.news
-=======
-package org.devstrike.app.citrarb.features.news.newsLanding.ui
->>>>>>> Stashed changes:app/src/main/java/org/devstrike/app/citrarb/ui/features/news/ui/NewsLanding.kt
+package org.devstrike.app.citrarb.features.news.newsLanding
 
 import android.graphics.Color
 import android.os.Bundle

@@ -17,13 +17,7 @@ import org.devstrike.app.citrarb.features.news.newsLanding.data.remote.NewsListR
  * Created by Richard Uzor  on 23/12/2022
  */
 interface NewsRepo {
-<<<<<<< Updated upstream
 
     suspend fun getNewsListFromServer(): Flow<PagingData<NewsListResponse>>
     suspend fun saveNewsListItemToDB(newsList: LocalNewsList)
-
-=======
-    suspend fun getNewsListFromServer(): Flow<PagingData<NewsListResponse>>
-    suspend fun saveNewsListItemToDB(newsList: LocalNewsList)
->>>>>>> Stashed changes
 }

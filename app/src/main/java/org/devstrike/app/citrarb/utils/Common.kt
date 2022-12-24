@@ -8,13 +8,17 @@
 
 package org.devstrike.app.citrarb.utils
 
-import org.devstrike.app.citrarb.data.LandingMenu
+import org.devstrike.app.citrarb.features.landing.data.LandingMenu
 
 /**
  * Created by Richard Uzor  on 15/12/2022
  */
 object Common {
 
+    const val BASE_URL = "https://fair-cyan-crayfish-sock.cyclic.app/"
+    const val NEWS_LIST_INDEX_PAGE = 1
+    const val NETWORK_PAGE_SIZE = 25
+    const val LOCAL_DB_NAME = "citrarb_db"
     const val TAG = "EQUA"
 
     private val newsMenu = LandingMenu(

@@ -16,10 +16,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import org.devstrike.app.citrarb.databinding.ItemNewsListLayoutBinding
-<<<<<<< Updated upstream
 import org.devstrike.app.citrarb.features.landing.data.LandingMenu
-=======
->>>>>>> Stashed changes
 import org.devstrike.app.citrarb.features.news.newsLanding.data.remote.NewsListResponse
 import javax.inject.Inject
 
@@ -42,15 +39,11 @@ class NewsListAdapter @Inject constructor(): PagingDataAdapter<NewsListResponse,
 
     val TAG = "newsListAdapter"
 
-    inner class NewsListViewHolder(private val binding: ItemNewsListLayoutBinding): RecyclerView.ViewHolder(binding.root){
-<<<<<<< Updated upstream
-        fun bind(listener: View.OnClickListener,item: NewsListResponse) = binding.apply {
-=======
+    inner class NewsListViewHolder(private val binding: ItemNewsListLayoutBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(listener: View.OnClickListener, item: NewsListResponse) = binding.apply {
->>>>>>> Stashed changes
-            newsListItem = item
-            newsListItemClickListener = listener
-            executePendingBindings()
+                newsListItem = item
+                newsListItemClickListener = listener
+                executePendingBindings()
         }
     }
 
@@ -70,19 +63,11 @@ class NewsListAdapter @Inject constructor(): PagingDataAdapter<NewsListResponse,
     override fun onBindViewHolder(holder: NewsListViewHolder, position: Int) {
         val newsListItem = getItem(position)
 
-<<<<<<< Updated upstream
             holder.apply {
                 bind(createOnClickListener(newsListItem!!), newsListItem)
                 itemView.tag = newsListItem
 
             }
-=======
-        holder.apply {
-            bind(createOnClickListener(newsListItem!!), newsListItem)
-            itemView.tag = newsListItem
-
-        }
->>>>>>> Stashed changes
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = NewsListViewHolder(
@@ -95,8 +80,5 @@ class NewsListAdapter @Inject constructor(): PagingDataAdapter<NewsListResponse,
         }
     }
 
-<<<<<<< Updated upstream
     }
-=======
-}
->>>>>>> Stashed changes
+
