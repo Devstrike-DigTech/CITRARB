@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2022.
+  ~ Richard Uzor
+  ~ For Afro Connect Technologies
+  ~ Under the Authority of Devstrike Digital Ltd.
+  ~
+  -->
+
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="@dimen/padding_mini"
+    app:cardElevation="@dimen/padding_mini"
+    tools:context=".features.news.NewsDetail">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/padding_mini"
+            app:cardElevation="@dimen/padding_mini">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_margin="@dimen/padding_mini"
+                tools:src="@drawable/devstrike_logo"
+                android:id="@+id/news_detail_image"
+                android:contentDescription="@string/news_detail_image"/>
+        </com.google.android.material.card.MaterialCardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="News Title"
+                    android:textSize="@dimen/text_l"
+                    android:textColor="@color/black"
+                    android:layout_margin="@dimen/padding_mini"
+                    android:padding="@dimen/padding_mini"
+                    android:id="@+id/news_detail_news_title"/>
+
+                <TextView
+                    android:id="@+id/news_detail_news_author"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/padding_mini"
+                    android:padding="@dimen/padding_mini"
+                    android:textSize="@dimen/text_l"
+                    tools:text="@tools:sample/full_names" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_gravity="center|center_horizontal"
+                android:gravity="center"
+                android:weightSum="2">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_unsaved_bookmark"
+                    android:id="@+id/news_detail_iv_save_news"
+                    android:padding="@dimen/padding_midi"
+                    android:layout_margin="@dimen/margin_mini"
+                    android:contentDescription="@string/news_detail_iv_save_news"
+                    />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_share"
+                    android:id="@+id/news_detail_iv_share_news"
+                    android:padding="@dimen/padding_midi"
+                    android:layout_margin="@dimen/margin_mini"
+                    android:contentDescription="@string/news_detail_iv_share_news"/>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="@tools:sample/lorem/random"
+            android:justificationMode="inter_word"
+            android:lines="20"
+            android:layout_margin="@dimen/padding_mini"
+            android:padding="@dimen/padding_mini"
+            android:id="@+id/news_detail_text"/>
+
+    </LinearLayout>
+
+
+</com.google.android.material.card.MaterialCardView>

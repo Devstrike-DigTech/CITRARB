@@ -16,7 +16,9 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
 import org.devstrike.app.citrarb.base.BaseViewModel
+import org.devstrike.app.citrarb.features.news.newsLanding.data.local.LocalNewsList
 import org.devstrike.app.citrarb.features.news.newsLanding.data.remote.NewsListResponse
 import org.devstrike.app.citrarb.features.news.repositories.NewsRepo
 import javax.inject.Inject
@@ -43,5 +45,9 @@ class AllNewsViewModel @Inject constructor(
         _newsListFlow = it
     })
     //var newsList = newsRepo.getNewsListFromServer().asLiveData()
+
+    private fun saveNewsListItemToDB(newsList: LocalNewsList) = viewModelScope.launch {
+        newsRepo.saveNewsListItemToDB(newsList)
+    }
 
 }

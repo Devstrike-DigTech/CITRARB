@@ -15,7 +15,10 @@
         <entry key="app/src/main/res/layout/fragment_entertainment_news.xml" value="0.15081521739130435" />
         <entry key="app/src/main/res/layout/fragment_hot_news.xml" value="0.15081521739130435" />
         <entry key="app/src/main/res/layout/fragment_landing_screen.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/fragment_local_news.xml" value="0.1099290780141844" />
+        <entry key="app/src/main/res/layout/fragment_national_news.xml" value="0.1099290780141844" />
         <entry key="app/src/main/res/layout/fragment_news_category.xml" value="0.1897644927536232" />
+        <entry key="app/src/main/res/layout/fragment_news_detail.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_news_landing.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_politics_news.xml" value="0.1897644927536232" />
         <entry key="app/src/main/res/layout/fragment_splash_screen.xml" value="0.25" />

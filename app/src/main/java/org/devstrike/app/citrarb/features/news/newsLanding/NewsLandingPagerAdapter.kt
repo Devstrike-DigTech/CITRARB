@@ -13,10 +13,8 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import org.devstrike.app.citrarb.features.news.all.AllNews
-import org.devstrike.app.citrarb.features.news.entertainment.EntertainmentNews
-import org.devstrike.app.citrarb.features.news.hot.HotNews
-import org.devstrike.app.citrarb.features.news.politics.PoliticsNews
-import org.devstrike.app.citrarb.features.news.sports.SportsNews
+import org.devstrike.app.citrarb.features.news.local.LocalNews
+import org.devstrike.app.citrarb.features.news.national.NationalNews
 
 /**
  * Created by Richard Uzor  on 20/12/2022
@@ -35,19 +33,13 @@ class NewsLandingPagerAdapter(var context: FragmentActivity?,
     override fun getItem(position: Int): Fragment {
         return when (position) {
             0 -> {
-                HotNews()
-            }
-            1 -> {
                 AllNews()
             }
+            1 -> {
+                LocalNews()
+            }
             2 -> {
-                PoliticsNews()
-            }
-            3 -> {
-                EntertainmentNews()
-            }
-            4 -> {
-                SportsNews()
+                NationalNews()
             }
             else -> getItem(position)
         }

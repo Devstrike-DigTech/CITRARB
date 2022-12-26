@@ -20,4 +20,5 @@ interface NewsRepo {
 
     suspend fun getNewsListFromServer(): Flow<PagingData<NewsListResponse>>
     suspend fun saveNewsListItemToDB(newsList: LocalNewsList)
+
 }

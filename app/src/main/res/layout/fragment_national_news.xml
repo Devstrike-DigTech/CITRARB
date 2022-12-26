@@ -11,7 +11,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".features.news.hot.HotNews">
+    tools:context=".features.news.national.NationalNews">
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
@@ -21,6 +22,6 @@
         tools:listitem="@layout/item_news_list_layout"
         tools:itemCount="4"
         android:padding="@dimen/padding_mini"
-        android:id="@+id/rv_hot_news_list"/>
+        android:id="@+id/rv_national_news_list"/>
 
 </RelativeLayout>
