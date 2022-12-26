@@ -12,11 +12,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import org.devstrike.app.citrarb.databinding.ItemNewsListLayoutBinding
 import org.devstrike.app.citrarb.features.landing.data.LandingMenu
+import org.devstrike.app.citrarb.features.news.newsLanding.NewsLandingDirections
 import org.devstrike.app.citrarb.features.news.newsLanding.data.remote.NewsListResponse
 import javax.inject.Inject
 
@@ -86,7 +88,8 @@ class NewsListAdapter @Inject constructor(): PagingDataAdapter<NewsListResponse,
 
     private fun createOnClickListener(newsListItem: NewsListResponse): View.OnClickListener {
         return View.OnClickListener {
-            Log.d(TAG, "createOnClickListener: ${newsListItem.title}")
+            val navToDetail = NewsLandingDirections.actionNewsLandingToNewsDetail(newsListItem.link)
+            it.findNavController().navigate(navToDetail)
         }
     }
 
