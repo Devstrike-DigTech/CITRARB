@@ -25,5 +25,21 @@
         android:id="@+id/newsLanding"
         android:name="org.devstrike.app.citrarb.features.news.newsLanding.NewsLanding"
         android:label="fragment_news_landing"
-        tools:layout="@layout/fragment_news_landing" />
+        tools:layout="@layout/fragment_news_landing" >
+        <action
+            android:id="@+id/action_newsLanding_to_newsDetail"
+            app:destination="@id/newsDetail" />
+    </fragment>
+    <fragment
+        android:id="@+id/newsDetail"
+        android:name="org.devstrike.app.citrarb.features.news.NewsDetail"
+        android:label="fragment_news_detail"
+        tools:layout="@layout/fragment_news_detail" >
+        <action
+            android:id="@+id/action_newsDetail_to_newsLanding"
+            app:destination="@id/newsLanding" />
+        <argument
+            android:name="newsLink"
+            app:argType="string" />
+    </fragment>
 </navigation>
