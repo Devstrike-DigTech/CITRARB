@@ -11,6 +11,7 @@ package org.devstrike.app.citrarb.features.landing.ui
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import org.devstrike.app.citrarb.R
 import org.devstrike.app.citrarb.base.BaseFragment
 import org.devstrike.app.citrarb.databinding.FragmentLandingScreenBinding
@@ -18,20 +19,26 @@ import org.devstrike.app.citrarb.utils.toast
 
 class LandingScreen : BaseFragment<FragmentLandingScreenBinding>() {
 
-
+//    private lateinit var screenBinding: FragmentLandingScreenBinding
+//    lateinit var mCustomToolBar: Toolbar
+//
+//    fun toolBar(): View{
+//        return mCustomToolBar
+//    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+//        mCustomToolBar = screenBinding.customToolBar
         (activity as AppCompatActivity).setSupportActionBar(binding.customToolBar)
 
-
-
     }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         setHasOptionsMenu(true)
         return super.onCreateView(inflater, container, savedInstanceState)
     }
@@ -64,5 +71,6 @@ class LandingScreen : BaseFragment<FragmentLandingScreenBinding>() {
         inflater: LayoutInflater,
         container: ViewGroup?
     )= FragmentLandingScreenBinding.inflate(layoutInflater, container, false)
+
 
 }

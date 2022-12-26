@@ -52,12 +52,14 @@
 
                 <ImageView
                     android:id="@+id/news_item_image_view"
+                    imageUrl="@{newsListItem.cover_photo_small_size}"
                     android:layout_width="100dp"
                     android:layout_height="120dp"
                     android:layout_below="@id/news_item_date_time_txt"
-                    android:layout_margin="@dimen/padding_mini"
+                    android:layout_marginStart="@dimen/padding_mini"
+                    android:layout_marginTop="@dimen/padding_mini"
+                    android:layout_marginEnd="@dimen/padding_mini"
                     android:padding="@dimen/padding_mini"
-                    imageUrl="@{newsListItem.cover_photo_small_size}"
                     tools:srcCompat="@drawable/citrarb_logo_png" />
 
                 <TextView
@@ -65,11 +67,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/news_item_date_time_txt"
-                    android:layout_margin="@dimen/padding_mini"
+                    android:layout_marginStart="@dimen/padding_mini"
+                    android:layout_marginTop="@dimen/padding_midi"
+                    android:layout_marginEnd="@dimen/padding_mini"
+                    android:layout_marginBottom="@dimen/padding_mini"
                     android:layout_toEndOf="@id/news_item_image_view"
                     android:padding="@dimen/padding_mini"
-                    android:textColor="@color/black"
+                    android:justificationMode="inter_word"
                     android:text="@{newsListItem.title}"
+                    android:textColor="@color/black"
                     tools:text="@tools:sample/lorem" />
 
 
@@ -77,14 +83,13 @@
                     android:id="@+id/news_item_news_description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/news_item_news_title"
+                    android:layout_below="@id/news_item_image_view"
                     android:layout_marginStart="@dimen/padding_mini"
-                    android:layout_marginTop="@dimen/padding_mini"
                     android:layout_marginEnd="@dimen/padding_mini"
                     android:layout_marginBottom="@dimen/padding_mini"
-                    android:layout_toEndOf="@id/news_item_image_view"
                     android:lines="2"
                     android:padding="@dimen/padding_mini"
+                    android:justificationMode="inter_word"
                     android:text="@{newsListItem.description}"
                     tools:text="@tools:sample/lorem/random" />
 

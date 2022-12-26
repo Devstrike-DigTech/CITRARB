@@ -14,27 +14,34 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.Toolbar
+import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
 import org.devstrike.app.citrarb.R
 import org.devstrike.app.citrarb.base.BaseFragment
 import org.devstrike.app.citrarb.databinding.FragmentNewsLandingBinding
+import org.devstrike.app.citrarb.features.landing.ui.LandingScreen
 import org.devstrike.app.citrarb.utils.snackbar
 
 @AndroidEntryPoint
 class NewsLanding : BaseFragment<FragmentNewsLandingBinding>() {
 
+//    lateinit var customToolbar: Toolbar
+//    val landingScreen = LandingScreen()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         with(binding) {
-            tabTitle.addTab(tabTitle.newTab().setText("Hot"))
             tabTitle.addTab(tabTitle.newTab().setText("All"))
-            tabTitle.addTab(tabTitle.newTab().setText("Politics"))
-            tabTitle.addTab(tabTitle.newTab().setText("Sports"))
-            tabTitle.addTab(tabTitle.newTab().setText("Entertainment"))
+            tabTitle.addTab(tabTitle.newTab().setText("Local"))
+            tabTitle.addTab(tabTitle.newTab().setText("National"))
 
             tabTitle.tabGravity = TabLayout.GRAVITY_FILL
+
+//            customToolbar = landingScreen.toolBar() as Toolbar
+//            customToolbar.title = "News"
 
             val adapter = childFragmentManager.let {
                 NewsLandingPagerAdapter(

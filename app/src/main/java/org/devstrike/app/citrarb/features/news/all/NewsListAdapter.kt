@@ -63,10 +63,20 @@ class NewsListAdapter @Inject constructor(): PagingDataAdapter<NewsListResponse,
     override fun onBindViewHolder(holder: NewsListViewHolder, position: Int) {
         val newsListItem = getItem(position)
 
+
             holder.apply {
                 bind(createOnClickListener(newsListItem!!), newsListItem)
                 itemView.tag = newsListItem
 
+            }.also {
+                when(newsListItem!!.category){
+                    "Local News" -> {
+                        Log.d(TAG, "onBindViewHolder| local: $newsListItem")
+                    }
+                    "National" -> {
+                        Log.d(TAG, "onBindViewHolder| national: $newsListItem")
+                    }
+                }
             }
     }
 

@@ -21,6 +21,7 @@ import org.devstrike.app.citrarb.R
 import org.devstrike.app.citrarb.features.landing.data.LandingMenu
 import org.devstrike.app.citrarb.databinding.ItemLandingGridLayoutBinding
 import org.devstrike.app.citrarb.features.landing.ui.AppMenuDirections
+import org.devstrike.app.citrarb.features.landing.ui.LandingScreen
 import org.devstrike.app.citrarb.utils.Common.TAG
 import org.devstrike.app.citrarb.utils.snackbar
 
@@ -30,6 +31,8 @@ import org.devstrike.app.citrarb.utils.snackbar
 class LandingMenuAdapter: ListAdapter<LandingMenu, LandingMenuAdapter.LandingMenuViewHolder>(
     DiffCallback()
 ) {
+
+    val landingScreen = LandingScreen()
 
     class LandingMenuViewHolder(private val binding: ItemLandingGridLayoutBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(listener: View.OnClickListener, itemData: LandingMenu){

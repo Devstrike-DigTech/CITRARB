@@ -44,6 +44,7 @@ class AllNews : BaseFragment<FragmentAllNewsBinding>() {
         allNewsViewModel.newsList.collectLatest{ pagingData ->
             Log.d(TAG, "subscribeToNewsList: $pagingData")
             newsListAdapter.submitData(pagingData)
+
         }
     }
 

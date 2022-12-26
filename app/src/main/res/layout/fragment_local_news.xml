@@ -11,7 +11,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".features.news.politics.PoliticsNews">
+    tools:context=".features.news.local.LocalNews">
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -22,6 +22,6 @@
         tools:listitem="@layout/item_news_list_layout"
         tools:itemCount="4"
         android:padding="@dimen/padding_mini"
-        android:id="@+id/rv_politics_news_list"/>
+        android:id="@+id/rv_local_news_list"/>
 
 </RelativeLayout>
