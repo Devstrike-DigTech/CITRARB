@@ -19,14 +19,19 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
+import org.devstrike.app.citrarb.R
 import org.devstrike.app.citrarb.base.BaseFragment
 import org.devstrike.app.citrarb.databinding.FragmentNewsDetailBinding
 import org.devstrike.app.citrarb.features.news.NewsApi
 import org.devstrike.app.citrarb.features.news.NewsDao
 import org.devstrike.app.citrarb.features.news.all.AllNewsViewModel
+import org.devstrike.app.citrarb.features.news.detail.data.NewsArticle
+import org.devstrike.app.citrarb.features.news.newsLanding.data.local.LocalNewsList
+import org.devstrike.app.citrarb.features.news.newsLanding.data.remote.NewsListResponse
 import org.devstrike.app.citrarb.features.news.repositories.NewsRepoImpl
 import org.devstrike.app.citrarb.network.Resource
 import org.devstrike.app.citrarb.network.handleApiError
+import org.devstrike.app.citrarb.utils.getDate
 import org.devstrike.app.citrarb.utils.loadImage
 import org.devstrike.app.citrarb.utils.snackbar
 import javax.inject.Inject
@@ -42,6 +47,7 @@ class NewsDetail : BaseFragment<AllNewsViewModel, FragmentNewsDetailBinding, New
     private val args by navArgs<NewsDetailArgs>()
     lateinit var newsLink: String
     lateinit var newsAuthor: String
+    lateinit var newsList: NewsListResponse
 
     private val  newsDetailViewModel: AllNewsViewModel by activityViewModels()
 
@@ -51,6 +57,7 @@ class NewsDetail : BaseFragment<AllNewsViewModel, FragmentNewsDetailBinding, New
 
         newsLink = args.newsLink
         newsAuthor = args.newsAuthor
+        newsList = args.newsList
         fetchNewsArticle(newsLink)
         with(binding){
 
@@ -82,7 +89,7 @@ class NewsDetail : BaseFragment<AllNewsViewModel, FragmentNewsDetailBinding, New
                         newsDetailIvSaveNews.apply {
                             isVisible = true
                             setOnClickListener {
-                                requireView().snackbar("save to db coming soon...")
+                                saveToDB(response.value.data)
                             }
 
                         }
@@ -105,6 +112,22 @@ class NewsDetail : BaseFragment<AllNewsViewModel, FragmentNewsDetailBinding, New
                 }
             }
         })
+    }
+
+    private fun saveToDB(data: NewsArticle) {
+        val saveTime = System.currentTimeMillis()
+         val newsForDB = LocalNewsList(
+             newsListInfo = newsList,
+             uid = newsList.id,
+             newsArticle = data,
+             savedDate = getDate(saveTime, "dd mmmm yyyy| hh:mm"),
+             isSaved = true,
+             locallyDeleted = 0
+         )
+        newsDetailViewModel.saveNewsListItemToDB(newsForDB)
+        requireView().snackbar("Saved to DB")
+        binding.newsDetailIvSaveNews.setImageResource(R.drawable.ic_saved_bookmark)
+
     }
 
     override fun getFragmentBinding(

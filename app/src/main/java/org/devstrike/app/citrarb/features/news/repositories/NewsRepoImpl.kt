@@ -11,6 +11,7 @@ package org.devstrike.app.citrarb.features.news.repositories
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import dagger.hilt.android.scopes.ActivityRetainedScoped
 import kotlinx.coroutines.flow.Flow
 import org.devstrike.app.citrarb.base.BaseRepo
 import org.devstrike.app.citrarb.features.news.NewsApi
@@ -22,6 +23,7 @@ import org.devstrike.app.citrarb.features.news.newsLanding.data.local.LocalNewsL
 import org.devstrike.app.citrarb.features.news.newsLanding.data.remote.NewsListResponse
 import org.devstrike.app.citrarb.network.Resource
 import org.devstrike.app.citrarb.utils.Common.NETWORK_PAGE_SIZE
+import org.devstrike.app.citrarb.utils.getDate
 import javax.inject.Inject
 
 /**
@@ -30,6 +32,7 @@ import javax.inject.Inject
 /**
  * Created by Richard Uzor  on 23/12/2022
  */
+@ActivityRetainedScoped
 class NewsRepoImpl @Inject constructor(
     private val newsApi: NewsApi,
     private val newsDao: NewsDao,
@@ -54,7 +57,8 @@ class NewsRepoImpl @Inject constructor(
     }
 
     override suspend fun saveNewsListItemToDB(newsList: LocalNewsList) {
-        newsDao.insertNewsListItem(newsList.also { it.isSaved= true })
+        val timeSaved = System.currentTimeMillis()
+        newsDao.insertNewsListItem(newsList)
     }
 
     override suspend fun getNewsArticle(link: String): Resource<NewsArticleResponse> = safeApiCall {

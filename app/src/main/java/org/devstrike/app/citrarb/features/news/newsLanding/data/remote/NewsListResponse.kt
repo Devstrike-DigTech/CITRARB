@@ -8,6 +8,10 @@
 
 package org.devstrike.app.citrarb.features.news.newsLanding.data.remote
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class NewsListResponse(
     val author: String,
     val category: String,
@@ -18,4 +22,4 @@ data class NewsListResponse(
     val id: String,
     val link: String,
     val title: String
-)
+): Parcelable

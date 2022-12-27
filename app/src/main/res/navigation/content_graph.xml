@@ -44,5 +44,8 @@
         <argument
             android:name="newsAuthor"
             app:argType="string" />
+        <argument
+            android:name="newsList"
+            app:argType="org.devstrike.app.citrarb.features.news.newsLanding.data.remote.NewsListResponse" />
     </fragment>
 </navigation>

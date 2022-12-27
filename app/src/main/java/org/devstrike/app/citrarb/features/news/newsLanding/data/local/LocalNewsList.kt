@@ -10,22 +10,19 @@ package org.devstrike.app.citrarb.features.news.newsLanding.data.local
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import org.devstrike.app.citrarb.features.news.detail.data.NewsArticle
+import org.devstrike.app.citrarb.features.news.newsLanding.data.remote.NewsListResponse
 
 /**
  * Created by Richard Uzor  on 23/12/2022
  */
 @Entity
 data class LocalNewsList(
-    val author: String,
-    val category: String,
-    val cover_photo_big_size: String,
-    val cover_photo_small_size: String,
-    val date: String,
-    val description: String,
-    @PrimaryKey
-    val id: String,
-    val link: String,
-    val title: String,
+    var newsListInfo: NewsListResponse,
+    var newsArticle: NewsArticle,
+    var savedDate: String,
+    @PrimaryKey (autoGenerate = false)
+    var uid: String,
     var isSaved: Boolean,
-    val locallyDeleted: Int
+    var locallyDeleted: Int
 )

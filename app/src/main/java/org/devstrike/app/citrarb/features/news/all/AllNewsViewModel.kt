@@ -53,7 +53,7 @@ class AllNewsViewModel @Inject constructor(
     })
     //var newsList = newsRepo.getNewsListFromServer().asLiveData()
 
-    private fun saveNewsListItemToDB(newsList: LocalNewsList) = viewModelScope.launch {
+    fun saveNewsListItemToDB(newsList: LocalNewsList) = viewModelScope.launch {
         newsRepo.saveNewsListItemToDB(newsList)
     }
 
