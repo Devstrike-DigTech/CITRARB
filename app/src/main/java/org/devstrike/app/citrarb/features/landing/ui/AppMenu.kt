@@ -19,7 +19,7 @@ import org.devstrike.app.citrarb.databinding.FragmentAppMenuBinding
 import org.devstrike.app.citrarb.features.landing.adapter.LandingMenuAdapter
 import org.devstrike.app.citrarb.utils.Common
 
-class AppMenu : BaseFragment<FragmentAppMenuBinding>() {
+class AppMenu : BaseFragment<LandingViewModel, FragmentAppMenuBinding, LandingRepo>() {
 
 
     private val landingMenuAdapter = LandingMenuAdapter()
@@ -48,6 +48,10 @@ class AppMenu : BaseFragment<FragmentAppMenuBinding>() {
         inflater: LayoutInflater,
         container: ViewGroup?
     ) = FragmentAppMenuBinding.inflate(inflater, container, false)
+
+    override fun getFragmentRepo() = LandingRepo()
+
+    override fun getViewModel() = LandingViewModel::class.java
 
 
 }

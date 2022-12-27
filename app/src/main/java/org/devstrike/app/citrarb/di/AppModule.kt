@@ -19,6 +19,8 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.devstrike.app.citrarb.CitrarbDatabase
+import org.devstrike.app.citrarb.base.BaseRepo
+import org.devstrike.app.citrarb.features.landing.ui.LandingRepo
 import org.devstrike.app.citrarb.features.news.NewsApi
 import org.devstrike.app.citrarb.features.news.NewsDao
 import org.devstrike.app.citrarb.features.news.repositories.NewsRepo
@@ -42,10 +44,9 @@ object AppModule {
     @Provides
     fun provideGson() = Gson()
 
-    //Initialize, Build and Provide Retrofit Instance
-    @Singleton
     @Provides
-    fun provideNewsApi(): NewsApi{
+    @Singleton
+    fun providesRetrofit(): Retrofit {
         val httpLoggingInterceptor = HttpLoggingInterceptor()
             .setLevel(HttpLoggingInterceptor.Level.BODY)
 
@@ -58,8 +59,16 @@ object AppModule {
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-            .create(NewsApi::class.java)
+
     }
+
+    //Initialize, Build and Provide Retrofit Instance
+    @Singleton
+    @Provides
+    fun provideNewsApi(retrofit: Retrofit): NewsApi =
+        retrofit.create(NewsApi::class.java)
+
+
     //Create and Provide Note Database
     @Singleton
     @Provides
@@ -84,11 +93,18 @@ object AppModule {
     fun providesNewsRepo(
         newsApi: NewsApi,
         newsDao: NewsDao,
-    ): NewsRepo{
+    ): NewsRepo {
         return NewsRepoImpl(
             newsApi, newsDao
         )
     }
 
+    //provide landing repo returning the implementation parameters
+    @Singleton
+    @Provides
+    fun providesLandingRepo() = LandingRepo()
 
+@Singleton
+@Provides
+fun providesBaseRepo() = BaseRepo()
 }

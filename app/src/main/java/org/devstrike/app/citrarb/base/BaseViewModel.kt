@@ -10,15 +10,18 @@ package org.devstrike.app.citrarb.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import org.devstrike.app.citrarb.utils.SingleLiveEvent
 import retrofit2.Response
+import javax.inject.Inject
 
 /**
  * Created by Richard Uzor  on 23/12/2022
  */
-open class BaseViewModel : ViewModel() {
+@HiltViewModel
+open class BaseViewModel @Inject constructor(private val repository: BaseRepo) : ViewModel() {
     var progressLiveEvent = SingleLiveEvent<Boolean>()
     var errorMessage = SingleLiveEvent<String>()
 

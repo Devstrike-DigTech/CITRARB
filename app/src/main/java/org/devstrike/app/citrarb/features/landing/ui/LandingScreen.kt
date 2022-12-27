@@ -14,10 +14,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import org.devstrike.app.citrarb.R
 import org.devstrike.app.citrarb.base.BaseFragment
+import org.devstrike.app.citrarb.base.BaseRepo
+import org.devstrike.app.citrarb.base.BaseViewModel
 import org.devstrike.app.citrarb.databinding.FragmentLandingScreenBinding
 import org.devstrike.app.citrarb.utils.toast
 
-class LandingScreen : BaseFragment<FragmentLandingScreenBinding>() {
+class LandingScreen : BaseFragment<LandingViewModel, FragmentLandingScreenBinding, LandingRepo>() {
 
 //    private lateinit var screenBinding: FragmentLandingScreenBinding
 //    lateinit var mCustomToolBar: Toolbar
@@ -71,6 +73,10 @@ class LandingScreen : BaseFragment<FragmentLandingScreenBinding>() {
         inflater: LayoutInflater,
         container: ViewGroup?
     )= FragmentLandingScreenBinding.inflate(layoutInflater, container, false)
+
+    override fun getFragmentRepo() = LandingRepo()
+
+    override fun getViewModel() = LandingViewModel::class.java
 
 
 }

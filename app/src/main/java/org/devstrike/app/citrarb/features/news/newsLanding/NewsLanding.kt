@@ -10,24 +10,31 @@ package org.devstrike.app.citrarb.features.news.newsLanding
 
 import android.graphics.Color
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.Toolbar
-import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
 import org.devstrike.app.citrarb.R
 import org.devstrike.app.citrarb.base.BaseFragment
+import org.devstrike.app.citrarb.base.BaseRepo
 import org.devstrike.app.citrarb.databinding.FragmentNewsLandingBinding
-import org.devstrike.app.citrarb.features.landing.ui.LandingScreen
+import org.devstrike.app.citrarb.di.AppModule
+import org.devstrike.app.citrarb.features.news.NewsApi
+import org.devstrike.app.citrarb.features.news.NewsDao
+import org.devstrike.app.citrarb.features.news.all.AllNewsViewModel
+import org.devstrike.app.citrarb.features.news.repositories.NewsRepoImpl
 import org.devstrike.app.citrarb.utils.snackbar
+import javax.inject.Inject
+import kotlin.properties.Delegates
 
 @AndroidEntryPoint
-class NewsLanding : BaseFragment<FragmentNewsLandingBinding>() {
+class NewsLanding : BaseFragment<AllNewsViewModel, FragmentNewsLandingBinding, BaseRepo>() {
 
-//    lateinit var customToolbar: Toolbar
+    @set:Inject var newsApi: NewsApi by Delegates.notNull<NewsApi>()
+    @set:Inject var newsDao: NewsDao by Delegates.notNull<NewsDao>()
+
+    //    lateinit var customToolbar: Toolbar
 //    val landingScreen = LandingScreen()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -81,6 +88,10 @@ override fun getFragmentBinding(
     inflater: LayoutInflater,
     container: ViewGroup?
 ) = FragmentNewsLandingBinding.inflate(inflater, container, false)
+
+
+    override fun getViewModel() = AllNewsViewModel::class.java
+    override fun getFragmentRepo() = NewsRepoImpl(newsApi, newsDao)
 
 
 }

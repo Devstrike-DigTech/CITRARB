@@ -8,19 +8,22 @@
 
 package org.devstrike.app.citrarb.features.news.all
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
+import androidx.lifecycle.*
 
-import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import org.devstrike.app.citrarb.base.BaseViewModel
+import org.devstrike.app.citrarb.features.news.detail.data.NewsArticle
+import org.devstrike.app.citrarb.features.news.detail.data.NewsArticleResponse
 import org.devstrike.app.citrarb.features.news.newsLanding.data.local.LocalNewsList
 import org.devstrike.app.citrarb.features.news.newsLanding.data.remote.NewsListResponse
 import org.devstrike.app.citrarb.features.news.repositories.NewsRepo
+import org.devstrike.app.citrarb.features.news.repositories.NewsRepoImpl
+import org.devstrike.app.citrarb.network.Resource
+import org.devstrike.app.citrarb.network.Resource.Loading
 import javax.inject.Inject
 
 /**
@@ -28,12 +31,16 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class AllNewsViewModel @Inject constructor(
-    private val newsRepo: NewsRepo
-): BaseViewModel() {
+    private val newsRepo: NewsRepoImpl
+): BaseViewModel(newsRepo) {
 
     private lateinit var _newsListFlow: Flow<PagingData<NewsListResponse>>
     val newsList: Flow<PagingData<NewsListResponse>>
     get() = _newsListFlow
+
+    private val _newsArticle: MutableLiveData<Resource<NewsArticleResponse>> = MutableLiveData()
+    val newsArticle: LiveData<Resource<NewsArticleResponse>>
+    get() = _newsArticle
 
     init {
         getAllNewsList()
@@ -48,6 +55,11 @@ class AllNewsViewModel @Inject constructor(
 
     private fun saveNewsListItemToDB(newsList: LocalNewsList) = viewModelScope.launch {
         newsRepo.saveNewsListItemToDB(newsList)
+    }
+
+    fun getNewsArticle(link: String) = viewModelScope.launch {
+        _newsArticle.value = Loading
+        _newsArticle.value = newsRepo.getNewsArticle(link)
     }
 
 }

@@ -23,4 +23,12 @@
         android:padding="@dimen/padding_mini"
         android:id="@+id/rv_all_news_list"/>
 
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:id="@+id/all_news_progress_bar"
+        tools:visibility="visible"/>
+
 </RelativeLayout>
