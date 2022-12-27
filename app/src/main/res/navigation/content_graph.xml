@@ -32,7 +32,7 @@
     </fragment>
     <fragment
         android:id="@+id/newsDetail"
-        android:name="org.devstrike.app.citrarb.features.news.NewsDetail"
+        android:name="org.devstrike.app.citrarb.features.news.detail.ui.NewsDetail"
         android:label="fragment_news_detail"
         tools:layout="@layout/fragment_news_detail" >
         <action
@@ -40,6 +40,9 @@
             app:destination="@id/newsLanding" />
         <argument
             android:name="newsLink"
+            app:argType="string" />
+        <argument
+            android:name="newsAuthor"
             app:argType="string" />
     </fragment>
 </navigation>

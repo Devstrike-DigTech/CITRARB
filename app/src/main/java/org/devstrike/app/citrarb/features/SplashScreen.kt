@@ -20,15 +20,17 @@ import androidx.core.view.WindowInsetsControllerCompat
 import androidx.navigation.fragment.findNavController
 import org.devstrike.app.citrarb.base.BaseFragment
 import org.devstrike.app.citrarb.databinding.FragmentSplashScreenBinding
+import org.devstrike.app.citrarb.features.landing.ui.LandingRepo
+import org.devstrike.app.citrarb.features.landing.ui.LandingViewModel
 
-class SplashScreen : BaseFragment<FragmentSplashScreenBinding>() {
+class SplashScreen : BaseFragment<LandingViewModel, FragmentSplashScreenBinding, LandingRepo>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        with(binding){
+        with(binding) {
             hideSystemUI()
-            appLogo.animate().setDuration(2000).alpha(1f).withEndAction{
+            appLogo.animate().setDuration(2000).alpha(1f).withEndAction {
                 layoutDevstrike.animate().setDuration(2000).alpha(1f).withEndAction {
                     val navToLanding = SplashScreenDirections.actionSplashScreenToLandingScreen()
                     findNavController().navigate(navToLanding)
@@ -43,19 +45,28 @@ class SplashScreen : BaseFragment<FragmentSplashScreenBinding>() {
     private fun hideSystemUI() {
         WindowCompat.setDecorFitsSystemWindows(requireActivity().window, false)
 
-        WindowInsetsControllerCompat(requireActivity().window,
-            requireActivity().window.decorView.findViewById(android.R.id.content)).let { controller ->
+        WindowInsetsControllerCompat(
+            requireActivity().window,
+            requireActivity().window.decorView.findViewById(android.R.id.content)
+        ).let { controller ->
             controller.hide(WindowInsetsCompat.Type.systemBars())
 
             // When the screen is swiped up at the bottom
             // of the application, the navigationBar shall
             // appear for some time
-            controller.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+            controller.systemBarsBehavior =
+                WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         }
     }
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    )= FragmentSplashScreenBinding.inflate(layoutInflater, container, false)
+    ) = FragmentSplashScreenBinding.inflate(layoutInflater, container, false)
+
+    override fun getFragmentRepo() = LandingRepo()
+
+
+
+    override fun getViewModel() = LandingViewModel::class.java
 }

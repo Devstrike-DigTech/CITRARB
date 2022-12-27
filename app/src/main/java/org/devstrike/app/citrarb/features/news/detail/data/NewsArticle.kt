@@ -6,11 +6,11 @@
  *
  */
 
-package org.devstrike.app.citrarb.features.news.detail
+package org.devstrike.app.citrarb.features.news.detail.data
 
 data class NewsArticle(
     val article: String,
     val coverPhoto: String,
-    val images: String,
+    val images: List<String>?,
     val title: String
 )
