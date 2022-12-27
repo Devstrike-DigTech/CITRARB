@@ -92,6 +92,7 @@
                         android:layout_margin="@dimen/padding_mini"
                         android:layout_weight="1"
                         android:visibility="invisible"
+                        tools:visibility="visible"
                         android:contentDescription="@string/news_detail_iv_save_news"
                         android:padding="@dimen/padding_mini"
                         app:srcCompat="@drawable/ic_unsaved_bookmark" />
@@ -99,12 +100,13 @@
                     <ImageView
                         android:id="@+id/news_detail_iv_share_news"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="28dp"
                         android:layout_margin="@dimen/padding_mini"
                         android:layout_weight="1"
-                        android:visibility="invisible"
                         android:contentDescription="@string/news_detail_iv_share_news"
                         android:padding="@dimen/padding_mini"
+                        android:visibility="invisible"
+                        tools:visibility="visible"
                         app:srcCompat="@drawable/ic_share" />
 
                 </LinearLayout>

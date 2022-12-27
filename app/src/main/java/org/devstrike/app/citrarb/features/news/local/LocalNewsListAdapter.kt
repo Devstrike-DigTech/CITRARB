@@ -81,7 +81,7 @@ class LocalNewsListAdapter @Inject constructor(): PagingDataAdapter<NewsListResp
 
     private fun createOnClickListener(newsListItem: NewsListResponse): View.OnClickListener {
         return View.OnClickListener {
-            val navToDetail = NewsLandingDirections.actionNewsLandingToNewsDetail(newsListItem.link, newsListItem.author)
+            val navToDetail = NewsLandingDirections.actionNewsLandingToNewsDetail(newsListItem.link, newsListItem.author, newsListItem)
             it.findNavController().navigate(navToDetail)
         }
     }

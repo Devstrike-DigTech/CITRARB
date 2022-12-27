@@ -76,7 +76,7 @@ fun View.enable(enabled: Boolean) {
 //}
 
 //function to change milliseconds to date format
-fun getDate(milliSeconds: Long?, dateFormat: String?): String? {
+fun getDate(milliSeconds: Long?, dateFormat: String?): String {
     // Create a DateFormatter object for displaying date in specified format.
     val formatter = SimpleDateFormat(dateFormat)
 
