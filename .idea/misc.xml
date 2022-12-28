@@ -21,10 +21,13 @@
         <entry key="app/src/main/res/layout/fragment_news_detail.xml" value="0.18" />
         <entry key="app/src/main/res/layout/fragment_news_landing.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_politics_news.xml" value="0.1897644927536232" />
+        <entry key="app/src/main/res/layout/fragment_saved_news_detail.xml" value="0.11956521739130435" />
+        <entry key="app/src/main/res/layout/fragment_saved_news_list.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_splash_screen.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_sports_news.xml" value="0.15081521739130435" />
         <entry key="app/src/main/res/layout/item_landing_grid_layout.xml" value="0.33" />
         <entry key="app/src/main/res/layout/item_news_list_layout.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/item_saved_news_list_layout.xml" value="0.1" />
         <entry key="app/src/main/res/menu/tool_bar_menu.xml" value="0.22604166666666667" />
       </map>
     </option>

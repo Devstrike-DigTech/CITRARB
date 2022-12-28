@@ -20,7 +20,7 @@ import androidx.core.view.WindowInsetsControllerCompat
 import androidx.navigation.fragment.findNavController
 import org.devstrike.app.citrarb.base.BaseFragment
 import org.devstrike.app.citrarb.databinding.FragmentSplashScreenBinding
-import org.devstrike.app.citrarb.features.landing.ui.LandingRepo
+import org.devstrike.app.citrarb.features.landing.repositories.LandingRepo
 import org.devstrike.app.citrarb.features.landing.ui.LandingViewModel
 
 class SplashScreen : BaseFragment<LandingViewModel, FragmentSplashScreenBinding, LandingRepo>() {

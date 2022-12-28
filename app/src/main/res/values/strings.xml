@@ -17,4 +17,5 @@
     <string name="news_detail_image">"News Details Image "</string>
     <string name="news_detail_iv_save_news">Save news to Database</string>
     <string name="news_detail_iv_share_news">Share News Detail</string>
+    <string name="saved_news_title">Saved News</string>
 </resources>

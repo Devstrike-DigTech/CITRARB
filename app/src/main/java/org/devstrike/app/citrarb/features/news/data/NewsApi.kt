@@ -6,7 +6,7 @@
  *
  */
 
-package org.devstrike.app.citrarb.features.news
+package org.devstrike.app.citrarb.features.news.data
 
 import org.devstrike.app.citrarb.features.news.detail.data.NewsArticle
 import org.devstrike.app.citrarb.features.news.detail.data.NewsArticleResponse

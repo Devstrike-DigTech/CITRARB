@@ -17,6 +17,7 @@ import org.devstrike.app.citrarb.base.BaseFragment
 import org.devstrike.app.citrarb.features.landing.data.LandingMenu
 import org.devstrike.app.citrarb.databinding.FragmentAppMenuBinding
 import org.devstrike.app.citrarb.features.landing.adapter.LandingMenuAdapter
+import org.devstrike.app.citrarb.features.landing.repositories.LandingRepo
 import org.devstrike.app.citrarb.utils.Common
 
 class AppMenu : BaseFragment<LandingViewModel, FragmentAppMenuBinding, LandingRepo>() {

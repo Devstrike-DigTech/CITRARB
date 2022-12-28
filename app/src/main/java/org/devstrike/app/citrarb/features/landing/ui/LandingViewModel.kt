@@ -10,6 +10,7 @@ package org.devstrike.app.citrarb.features.landing.ui
 
 import dagger.hilt.android.lifecycle.HiltViewModel
 import org.devstrike.app.citrarb.base.BaseViewModel
+import org.devstrike.app.citrarb.features.landing.repositories.LandingRepo
 import javax.inject.Inject
 
 /**

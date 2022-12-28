@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
   ~ Copyright (c) 2022.
   ~ Richard Uzor
   ~ For Afro Connect Technologies
@@ -7,15 +8,14 @@
   -->
 
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/padding_mini"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="@dimen/padding_mini"
+    android:padding="@dimen/padding_mini"
     app:cardElevation="@dimen/padding_mini"
-    tools:context=".features.news.detail.ui.NewsDetail">
-
+    tools:context=".features.news.saved.SavedNewsDetail">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -48,16 +48,16 @@
                     tools:src="@drawable/devstrike_logo" />
             </com.google.android.material.card.MaterialCardView>
 
-                    <TextView
-                        android:id="@+id/news_detail_news_title"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/padding_mini"
-                        android:padding="@dimen/padding_mini"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/text_l"
-                        tools:text="@tools:sample/lorem/random"
-                        tools:lines="3"/>
+            <TextView
+                android:id="@+id/news_detail_news_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_mini"
+                android:padding="@dimen/padding_mini"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_l"
+                tools:text="@tools:sample/lorem/random"
+                tools:lines="3"/>
 
 
             <LinearLayout
@@ -92,11 +92,10 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/padding_mini"
                         android:layout_weight="1"
-                        android:visibility="invisible"
                         tools:visibility="visible"
                         android:contentDescription="@string/news_detail_iv_save_news"
                         android:padding="@dimen/padding_mini"
-                        app:srcCompat="@drawable/ic_unsaved_bookmark" />
+                        app:srcCompat="@drawable/ic_saved_bookmark" />
 
                     <ImageView
                         android:id="@+id/news_detail_iv_share_news"
@@ -106,7 +105,6 @@
                         android:layout_weight="1"
                         android:contentDescription="@string/news_detail_iv_share_news"
                         android:padding="@dimen/padding_mini"
-                        android:visibility="invisible"
                         tools:visibility="visible"
                         app:srcCompat="@drawable/ic_share" />
 
@@ -131,6 +129,5 @@
 
 
     </RelativeLayout>
-
 
 </com.google.android.material.card.MaterialCardView>

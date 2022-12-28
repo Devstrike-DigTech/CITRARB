@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2022.
+  ~ Richard Uzor
+  ~ For Afro Connect Technologies
+  ~ Under the Authority of Devstrike Digital Ltd.
+  ~
+  -->
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/padding_mini"
+    android:padding="@dimen/padding_mini"
+    app:cardElevation="@dimen/padding_mini">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/news_item_date_time_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_mini"
+                android:padding="@dimen/padding_mini"
+                tools:text="@tools:sample/date/ddmmyy" />
+
+            <ImageView
+                android:id="@+id/news_item_image_view"
+                android:layout_width="100dp"
+                android:layout_height="120dp"
+                android:layout_below="@id/news_item_date_time_txt"
+                android:layout_marginStart="@dimen/padding_mini"
+                android:layout_marginTop="@dimen/padding_mini"
+                android:layout_marginEnd="@dimen/padding_mini"
+                android:padding="@dimen/padding_mini"
+                tools:srcCompat="@drawable/citrarb_logo_png" />
+
+            <TextView
+                android:id="@+id/news_item_news_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/news_item_date_time_txt"
+                android:layout_marginStart="@dimen/padding_mini"
+                android:layout_marginTop="@dimen/padding_midi"
+                android:layout_marginEnd="@dimen/padding_mini"
+                android:layout_marginBottom="@dimen/padding_mini"
+                android:layout_toEndOf="@id/news_item_image_view"
+                android:justificationMode="inter_word"
+                android:padding="@dimen/padding_mini"
+                android:textColor="@color/black"
+                tools:text="@tools:sample/lorem" />
+
+
+            <TextView
+                android:id="@+id/news_item_news_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/news_item_image_view"
+                android:layout_marginStart="@dimen/padding_mini"
+                android:layout_marginEnd="@dimen/padding_mini"
+                android:layout_marginBottom="@dimen/padding_mini"
+                android:justificationMode="inter_word"
+                android:lines="2"
+                android:padding="@dimen/padding_mini"
+                tools:text="@tools:sample/lorem/random" />
+
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/news_item_image_view"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            android:weightSum="2">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/news_item_bookmark_card"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding_mini"
+                android:layout_marginTop="@dimen/padding_mini"
+                android:layout_marginEnd="@dimen/padding_mini"
+                android:layout_marginBottom="@dimen/padding_mini"
+                android:layout_weight="1"
+                android:padding="@dimen/padding_mini"
+                app:cardElevation="@dimen/padding_mini">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/save_news"
+                    android:padding="@dimen/padding_mini"
+                    app:srcCompat="@drawable/ic_unsaved_bookmark" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/news_item_share_card"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_mini"
+                android:layout_weight="1"
+                android:padding="@dimen/padding_mini"
+                app:cardElevation="@dimen/padding_mini">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/share_news"
+                    android:padding="@dimen/padding_mini"
+                    app:srcCompat="@drawable/ic_share" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+</com.google.android.material.card.MaterialCardView>
+
+

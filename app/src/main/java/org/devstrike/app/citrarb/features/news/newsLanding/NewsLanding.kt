@@ -13,23 +13,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
 import org.devstrike.app.citrarb.R
 import org.devstrike.app.citrarb.base.BaseFragment
 import org.devstrike.app.citrarb.base.BaseRepo
 import org.devstrike.app.citrarb.databinding.FragmentNewsLandingBinding
-import org.devstrike.app.citrarb.di.AppModule
-import org.devstrike.app.citrarb.features.news.NewsApi
-import org.devstrike.app.citrarb.features.news.NewsDao
-import org.devstrike.app.citrarb.features.news.all.AllNewsViewModel
+import org.devstrike.app.citrarb.features.news.data.NewsApi
+import org.devstrike.app.citrarb.features.news.data.NewsDao
 import org.devstrike.app.citrarb.features.news.repositories.NewsRepoImpl
 import org.devstrike.app.citrarb.utils.snackbar
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
 @AndroidEntryPoint
-class NewsLanding : BaseFragment<AllNewsViewModel, FragmentNewsLandingBinding, BaseRepo>() {
+class NewsLanding : BaseFragment<NewsViewModel, FragmentNewsLandingBinding, BaseRepo>() {
 
     @set:Inject var newsApi: NewsApi by Delegates.notNull<NewsApi>()
     @set:Inject var newsDao: NewsDao by Delegates.notNull<NewsDao>()
@@ -75,7 +74,8 @@ class NewsLanding : BaseFragment<AllNewsViewModel, FragmentNewsLandingBinding, B
             })
 
             ivSavedNews.setOnClickListener {
-                requireView().snackbar("Saved News Coming Soon...")
+                val navToSavedNews = NewsLandingDirections.actionNewsLandingToSavedNewsList()
+                findNavController().navigate(navToSavedNews)
             }
 
         }
@@ -90,7 +90,7 @@ override fun getFragmentBinding(
 ) = FragmentNewsLandingBinding.inflate(inflater, container, false)
 
 
-    override fun getViewModel() = AllNewsViewModel::class.java
+    override fun getViewModel() = NewsViewModel::class.java
     override fun getFragmentRepo() = NewsRepoImpl(newsApi, newsDao)
 
 

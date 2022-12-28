@@ -12,8 +12,6 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
-import org.devstrike.app.citrarb.base.BaseFragment
-import org.devstrike.app.citrarb.network.Resource.Failure
 
 /**
  * Created by Richard Uzor  on 26/12/2022
@@ -23,10 +21,19 @@ import org.devstrike.app.citrarb.network.Resource.Failure
 
 val TAG = "ErrorHandler"
 
-fun View.snackbar(message: String, action: (() -> Unit)? = null) {
+fun View.retrySnackbar(message: String, action: (() -> Unit)? = null) {
     val snackbar = Snackbar.make(this, message, Snackbar.LENGTH_LONG)
     action?.let {
-        snackbar.setAction("Retry") {
+        snackbar.setAction("RETRY") {
+            it()
+        }
+    }
+    snackbar.show()
+}
+fun View.undoSnackbar(message: String, action: (() -> Unit)? = null) {
+    val snackbar = Snackbar.make(this, message, Snackbar.LENGTH_LONG)
+    action?.let {
+        snackbar.setAction("UNDO") {
             it()
         }
     }
@@ -49,7 +56,7 @@ fun Fragment.handleApiError(failure: Throwable?, retry: (() -> Unit)? = null) {
 //        }
 //        else -> {
             val error = failure?.localizedMessage.toString()
-            requireView().snackbar(error, retry)
+            requireView().retrySnackbar(error, retry)
             Log.d(TAG, "handleApiError: $error")
         }
 //    }

@@ -22,11 +22,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.devstrike.app.citrarb.R
 import org.devstrike.app.citrarb.base.BaseFragment
 import org.devstrike.app.citrarb.databinding.FragmentNewsDetailBinding
-import org.devstrike.app.citrarb.features.news.NewsApi
-import org.devstrike.app.citrarb.features.news.NewsDao
-import org.devstrike.app.citrarb.features.news.all.AllNewsViewModel
+import org.devstrike.app.citrarb.features.news.data.NewsApi
+import org.devstrike.app.citrarb.features.news.data.NewsDao
+import org.devstrike.app.citrarb.features.news.newsLanding.NewsViewModel
 import org.devstrike.app.citrarb.features.news.detail.data.NewsArticle
-import org.devstrike.app.citrarb.features.news.newsLanding.data.local.LocalNewsList
+import org.devstrike.app.citrarb.features.news.newsLanding.data.local.SavedNewsListData
 import org.devstrike.app.citrarb.features.news.newsLanding.data.remote.NewsListResponse
 import org.devstrike.app.citrarb.features.news.repositories.NewsRepoImpl
 import org.devstrike.app.citrarb.network.Resource
@@ -38,7 +38,7 @@ import javax.inject.Inject
 import kotlin.properties.Delegates
 
 @AndroidEntryPoint
-class NewsDetail : BaseFragment<AllNewsViewModel, FragmentNewsDetailBinding, NewsRepoImpl>() {
+class NewsDetail : BaseFragment<NewsViewModel, FragmentNewsDetailBinding, NewsRepoImpl>() {
 
     @set:Inject var newsApi: NewsApi by Delegates.notNull<NewsApi>()
     @set:Inject var newsDao: NewsDao by Delegates.notNull<NewsDao>()
@@ -49,7 +49,7 @@ class NewsDetail : BaseFragment<AllNewsViewModel, FragmentNewsDetailBinding, New
     lateinit var newsAuthor: String
     lateinit var newsList: NewsListResponse
 
-    private val  newsDetailViewModel: AllNewsViewModel by activityViewModels()
+    private val  newsDetailViewModel: NewsViewModel by activityViewModels()
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -116,10 +116,15 @@ class NewsDetail : BaseFragment<AllNewsViewModel, FragmentNewsDetailBinding, New
 
     private fun saveToDB(data: NewsArticle) {
         val saveTime = System.currentTimeMillis()
-         val newsForDB = LocalNewsList(
-             newsListInfo = newsList,
-             uid = newsList.id,
-             newsArticle = data,
+         val newsForDB = SavedNewsListData(
+             author = newsList.author,
+             category = newsList.category,
+             date = newsList.date,
+             description = newsList.description,
+             title = newsList.title,
+             article = data.article,
+             coverPhoto = data.coverPhoto,
+             link = newsList.link,
              savedDate = getDate(saveTime, "dd mmmm yyyy| hh:mm"),
              isSaved = true,
              locallyDeleted = 0
@@ -137,7 +142,7 @@ class NewsDetail : BaseFragment<AllNewsViewModel, FragmentNewsDetailBinding, New
 
     override fun getFragmentRepo() = NewsRepoImpl(newsApi, newsDao)
 
-    override fun getViewModel() = AllNewsViewModel::class.java
+    override fun getViewModel() = NewsViewModel::class.java
 
 
 }
