@@ -6,14 +6,13 @@
  *
  */
 
-package org.devstrike.app.citrarb.features.news
+package org.devstrike.app.citrarb.features.news.data
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import org.devstrike.app.citrarb.features.news.newsLanding.data.remote.NewsListResponse
 import org.devstrike.app.citrarb.utils.Common.NETWORK_PAGE_SIZE
 import org.devstrike.app.citrarb.utils.Common.NEWS_LIST_INDEX_PAGE
-import retrofit2.HttpException
 import java.io.IOException
 
 /**

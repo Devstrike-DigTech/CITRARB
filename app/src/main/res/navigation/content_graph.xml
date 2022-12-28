@@ -29,6 +29,9 @@
         <action
             android:id="@+id/action_newsLanding_to_newsDetail"
             app:destination="@id/newsDetail" />
+        <action
+            android:id="@+id/action_newsLanding_to_savedNewsList"
+            app:destination="@id/savedNewsList" />
     </fragment>
     <fragment
         android:id="@+id/newsDetail"
@@ -47,5 +50,26 @@
         <argument
             android:name="newsList"
             app:argType="org.devstrike.app.citrarb.features.news.newsLanding.data.remote.NewsListResponse" />
+    </fragment>
+    <fragment
+        android:id="@+id/savedNewsList"
+        android:name="org.devstrike.app.citrarb.features.news.saved.SavedNewsList"
+        android:label="fragment_saved_news_list"
+        tools:layout="@layout/fragment_saved_news_list" >
+        <action
+            android:id="@+id/action_savedNewsList_to_newsLanding"
+            app:destination="@id/newsLanding" />
+        <action
+            android:id="@+id/action_savedNewsList_to_savedNewsDetail"
+            app:destination="@id/savedNewsDetail" />
+    </fragment>
+    <fragment
+        android:id="@+id/savedNewsDetail"
+        android:name="org.devstrike.app.citrarb.features.news.saved.SavedNewsDetail"
+        android:label="fragment_saved_news_detail"
+        tools:layout="@layout/fragment_saved_news_detail" >
+        <argument
+            android:name="savedNewsDetail"
+            app:argType="org.devstrike.app.citrarb.features.news.newsLanding.data.local.SavedNewsListData" />
     </fragment>
 </navigation>

@@ -11,12 +11,10 @@ package org.devstrike.app.citrarb.features.landing.ui
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import org.devstrike.app.citrarb.R
 import org.devstrike.app.citrarb.base.BaseFragment
-import org.devstrike.app.citrarb.base.BaseRepo
-import org.devstrike.app.citrarb.base.BaseViewModel
 import org.devstrike.app.citrarb.databinding.FragmentLandingScreenBinding
+import org.devstrike.app.citrarb.features.landing.repositories.LandingRepo
 import org.devstrike.app.citrarb.utils.toast
 
 class LandingScreen : BaseFragment<LandingViewModel, FragmentLandingScreenBinding, LandingRepo>() {

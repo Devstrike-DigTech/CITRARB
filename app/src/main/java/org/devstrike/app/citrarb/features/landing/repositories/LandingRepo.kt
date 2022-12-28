@@ -6,7 +6,7 @@
  *
  */
 
-package org.devstrike.app.citrarb.features.landing.ui
+package org.devstrike.app.citrarb.features.landing.repositories
 
 import org.devstrike.app.citrarb.base.BaseRepo
 

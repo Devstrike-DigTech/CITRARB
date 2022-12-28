@@ -18,11 +18,11 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import org.devstrike.app.citrarb.CitrarbDatabase
+import org.devstrike.app.citrarb.base.CitrarbDatabase
 import org.devstrike.app.citrarb.base.BaseRepo
-import org.devstrike.app.citrarb.features.landing.ui.LandingRepo
-import org.devstrike.app.citrarb.features.news.NewsApi
-import org.devstrike.app.citrarb.features.news.NewsDao
+import org.devstrike.app.citrarb.features.landing.repositories.LandingRepo
+import org.devstrike.app.citrarb.features.news.data.NewsApi
+import org.devstrike.app.citrarb.features.news.data.NewsDao
 import org.devstrike.app.citrarb.features.news.repositories.NewsRepo
 import org.devstrike.app.citrarb.features.news.repositories.NewsRepoImpl
 import org.devstrike.app.citrarb.utils.Common.BASE_URL

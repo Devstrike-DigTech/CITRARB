@@ -6,7 +6,7 @@
  *
  */
 
-package org.devstrike.app.citrarb
+package org.devstrike.app.citrarb.base
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

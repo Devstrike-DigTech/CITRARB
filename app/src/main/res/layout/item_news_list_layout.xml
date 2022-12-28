@@ -72,8 +72,8 @@
                     android:layout_marginEnd="@dimen/padding_mini"
                     android:layout_marginBottom="@dimen/padding_mini"
                     android:layout_toEndOf="@id/news_item_image_view"
-                    android:padding="@dimen/padding_mini"
                     android:justificationMode="inter_word"
+                    android:padding="@dimen/padding_mini"
                     android:text="@{newsListItem.title}"
                     android:textColor="@color/black"
                     tools:text="@tools:sample/lorem" />
@@ -87,9 +87,9 @@
                     android:layout_marginStart="@dimen/padding_mini"
                     android:layout_marginEnd="@dimen/padding_mini"
                     android:layout_marginBottom="@dimen/padding_mini"
+                    android:justificationMode="inter_word"
                     android:lines="2"
                     android:padding="@dimen/padding_mini"
-                    android:justificationMode="inter_word"
                     android:text="@{newsListItem.description}"
                     tools:text="@tools:sample/lorem/random" />
 

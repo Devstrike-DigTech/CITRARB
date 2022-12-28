@@ -6,7 +6,7 @@
  *
  */
 
-package org.devstrike.app.citrarb.features.news.all
+package org.devstrike.app.citrarb.features.news.newsLanding
 
 import androidx.lifecycle.*
 
@@ -16,11 +16,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import org.devstrike.app.citrarb.base.BaseViewModel
-import org.devstrike.app.citrarb.features.news.detail.data.NewsArticle
 import org.devstrike.app.citrarb.features.news.detail.data.NewsArticleResponse
-import org.devstrike.app.citrarb.features.news.newsLanding.data.local.LocalNewsList
+import org.devstrike.app.citrarb.features.news.newsLanding.data.local.SavedNewsListData
 import org.devstrike.app.citrarb.features.news.newsLanding.data.remote.NewsListResponse
-import org.devstrike.app.citrarb.features.news.repositories.NewsRepo
 import org.devstrike.app.citrarb.features.news.repositories.NewsRepoImpl
 import org.devstrike.app.citrarb.network.Resource
 import org.devstrike.app.citrarb.network.Resource.Loading
@@ -30,7 +28,7 @@ import javax.inject.Inject
  * Created by Richard Uzor  on 24/12/2022
  */
 @HiltViewModel
-class AllNewsViewModel @Inject constructor(
+class NewsViewModel @Inject constructor(
     private val newsRepo: NewsRepoImpl
 ): BaseViewModel(newsRepo) {
 
@@ -42,9 +40,15 @@ class AllNewsViewModel @Inject constructor(
     val newsArticle: LiveData<Resource<NewsArticleResponse>>
     get() = _newsArticle
 
+    private lateinit var _savedNewsList: Flow<List<SavedNewsListData>>
+    val savedNewsList: Flow<List<SavedNewsListData>>
+    get() = _savedNewsList
+
     init {
         getAllNewsList()
     }
+
+    var savedNewsFromDB = newsRepo.getNewsListItemFromDB()
 
     private fun getAllNewsList() = launchPagingAsync({
         newsRepo.getNewsListFromServer().cachedIn(viewModelScope)
@@ -53,13 +57,24 @@ class AllNewsViewModel @Inject constructor(
     })
     //var newsList = newsRepo.getNewsListFromServer().asLiveData()
 
-    fun saveNewsListItemToDB(newsList: LocalNewsList) = viewModelScope.launch {
+    fun saveNewsListItemToDB(newsList: SavedNewsListData) = viewModelScope.launch {
         newsRepo.saveNewsListItemToDB(newsList)
     }
 
     fun getNewsArticle(link: String) = viewModelScope.launch {
         _newsArticle.value = Loading
         _newsArticle.value = newsRepo.getNewsArticle(link)
+    }
+
+    fun getNewsListItemFromDB() = viewModelScope.launch {
+        newsRepo.getNewsListItemFromDB()
+    }
+
+    fun deleteNews(newsId: String) = viewModelScope.launch {
+        newsRepo.deleteNewsLocally(newsId)
+    }
+    fun undoDeleteNews(news: SavedNewsListData) = viewModelScope.launch {
+        newsRepo.saveNewsListItemToDB(news)
     }
 
 }

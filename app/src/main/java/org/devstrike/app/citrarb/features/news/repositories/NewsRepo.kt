@@ -10,10 +10,8 @@ package org.devstrike.app.citrarb.features.news.repositories
 
 import androidx.paging.PagingData
 import kotlinx.coroutines.flow.Flow
-import org.devstrike.app.citrarb.base.BaseRepo
-import org.devstrike.app.citrarb.features.news.detail.data.NewsArticle
 import org.devstrike.app.citrarb.features.news.detail.data.NewsArticleResponse
-import org.devstrike.app.citrarb.features.news.newsLanding.data.local.LocalNewsList
+import org.devstrike.app.citrarb.features.news.newsLanding.data.local.SavedNewsListData
 import org.devstrike.app.citrarb.features.news.newsLanding.data.remote.NewsListResponse
 import org.devstrike.app.citrarb.network.Resource
 
@@ -23,7 +21,9 @@ import org.devstrike.app.citrarb.network.Resource
 interface NewsRepo {
 
     suspend fun getNewsListFromServer(): Flow<PagingData<NewsListResponse>>
-    suspend fun saveNewsListItemToDB(newsList: LocalNewsList)
     suspend fun getNewsArticle(link: String): Resource<NewsArticleResponse>
+    suspend fun saveNewsListItemToDB(newsList: SavedNewsListData)
+    fun getNewsListItemFromDB(): Flow<List<SavedNewsListData>>
+    suspend fun deleteNewsLocally(newsId: String)
 
 }
