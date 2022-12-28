@@ -8,6 +8,7 @@
 
 package org.devstrike.app.citrarb.features.news.detail.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
 import android.util.Log
@@ -40,16 +41,23 @@ import kotlin.properties.Delegates
 @AndroidEntryPoint
 class NewsDetail : BaseFragment<NewsViewModel, FragmentNewsDetailBinding, NewsRepoImpl>() {
 
-    @set:Inject var newsApi: NewsApi by Delegates.notNull<NewsApi>()
-    @set:Inject var newsDao: NewsDao by Delegates.notNull<NewsDao>()
+    @set:Inject
+    var newsApi: NewsApi by Delegates.notNull<NewsApi>()
+    @set:Inject
+    var newsDao: NewsDao by Delegates.notNull<NewsDao>()
+
+    private var shareIntent: Intent by Delegates.notNull()
+    private var shareMessage: String by Delegates.notNull()
 
     val TAG = "newsDetail"
     private val args by navArgs<NewsDetailArgs>()
-    lateinit var newsLink: String
-    lateinit var newsAuthor: String
-    lateinit var newsList: NewsListResponse
+    private var newsLink: String by Delegates.notNull()
+    private var newsAuthor: String by Delegates.notNull()
+    private var newsList: NewsListResponse by Delegates.notNull()
 
-    private val  newsDetailViewModel: NewsViewModel by activityViewModels()
+    private var savedNews = 0
+
+    private val newsDetailViewModel: NewsViewModel by activityViewModels()
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -59,23 +67,22 @@ class NewsDetail : BaseFragment<NewsViewModel, FragmentNewsDetailBinding, NewsRe
         newsAuthor = args.newsAuthor
         newsList = args.newsList
         fetchNewsArticle(newsLink)
-        with(binding){
-
+        with(binding) {
 
 
         }
     }
 
-    private fun fetchNewsArticle(newsLink: String){
+    private fun fetchNewsArticle(newsLink: String) {
         newsDetailViewModel.getNewsArticle(newsLink)
         Log.d(TAG, "fetchNewsArticle: ${newsDetailViewModel.getNewsArticle(newsLink)}")
         newsDetailViewModel.newsArticle.observe(viewLifecycleOwner, Observer { response ->
             Log.d(TAG, "fetchNewsArticle: ${response.value}")
 
-            when(response){
-                is Resource.Success ->{
+            when (response) {
+                is Resource.Success -> {
                     Log.d(TAG, "fetchNewsArticle: ${response.value}")
-                    with(binding){
+                    with(binding) {
                         newsDetailProgressBar.isVisible = false
 
                         newsDetailNewsAuthor.text = newsAuthor
@@ -89,48 +96,62 @@ class NewsDetail : BaseFragment<NewsViewModel, FragmentNewsDetailBinding, NewsRe
                         newsDetailIvSaveNews.apply {
                             isVisible = true
                             setOnClickListener {
-                                saveToDB(response.value.data)
+                                if (savedNews == 0)
+                                    saveToDB(response.value.data)
+                                else
+                                    requireView().snackbar("Go to saved News to delete")
                             }
 
                         }
                         newsDetailIvShareNews.apply {
                             isVisible = true
                             setOnClickListener {
-                                requireView().snackbar("share news coming soon...")
+                                shareNews(response.value.data)
                             }
                         }
                     }
 
                 }
-                is Resource.Failure ->{
+                is Resource.Failure -> {
                     binding.newsDetailProgressBar.isVisible = false
-                    handleApiError(response.error) {fetchNewsArticle(newsLink)}
+                    handleApiError(response.error) { fetchNewsArticle(newsLink) }
 
                 }
-                is Resource.Loading ->{
+                is Resource.Loading -> {
                     binding.newsDetailProgressBar.isVisible = true
                 }
             }
         })
     }
 
+    private fun shareNews(data: NewsArticle) {
+        shareIntent = Intent(Intent.ACTION_SEND)
+        shareIntent.type = "text/plain"
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT, data.title)
+        shareMessage = "\nCheck out this news \n$newsLink"
+        shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage)
+        requireContext().startActivity(Intent.createChooser(shareIntent, "Share via: "))
+
+    }
+
     private fun saveToDB(data: NewsArticle) {
         val saveTime = System.currentTimeMillis()
-         val newsForDB = SavedNewsListData(
-             author = newsList.author,
-             category = newsList.category,
-             date = newsList.date,
-             description = newsList.description,
-             title = newsList.title,
-             article = data.article,
-             coverPhoto = data.coverPhoto,
-             link = newsList.link,
-             savedDate = getDate(saveTime, "dd mmmm yyyy| hh:mm"),
-             isSaved = true,
-             locallyDeleted = 0
-         )
+        val newsForDB = SavedNewsListData(
+            author = newsList.author,
+            category = newsList.category,
+            date = newsList.date,
+            description = newsList.description,
+            title = newsList.title,
+            article = data.article,
+            coverPhoto = data.coverPhoto,
+            link = newsList.link,
+            savedDate = getDate(saveTime, "dd, MMM yyyy | hh:mm a"),
+            isSaved = true,
+            locallyDeleted = 0
+        )
         newsDetailViewModel.saveNewsListItemToDB(newsForDB)
         requireView().snackbar("Saved to DB")
+        savedNews = 1
         binding.newsDetailIvSaveNews.setImageResource(R.drawable.ic_saved_bookmark)
 
     }

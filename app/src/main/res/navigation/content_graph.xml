@@ -20,6 +20,9 @@
         <action
             android:id="@+id/action_appMenu_to_newsLanding"
             app:destination="@id/newsLanding" />
+        <action
+            android:id="@+id/action_appMenu_to_newsDetail"
+            app:destination="@id/newsDetail" />
     </fragment>
     <fragment
         android:id="@+id/newsLanding"

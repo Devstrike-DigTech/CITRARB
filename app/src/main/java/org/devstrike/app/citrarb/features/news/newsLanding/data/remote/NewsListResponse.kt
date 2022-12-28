@@ -13,13 +13,13 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class NewsListResponse(
-    val author: String,
-    val category: String,
-    val cover_photo_big_size: String,
-    val cover_photo_small_size: String,
-    val date: String,
-    val description: String,
-    val id: String,
-    val link: String,
-    val title: String
+    val author: String = "",
+    val category: String = "",
+    val cover_photo_big_size: String = "",
+    val cover_photo_small_size: String = "",
+    val date: String = "",
+    val description: String = "",
+    val id: String = "",
+    val link: String = "",
+    val title: String = ""
 ): Parcelable

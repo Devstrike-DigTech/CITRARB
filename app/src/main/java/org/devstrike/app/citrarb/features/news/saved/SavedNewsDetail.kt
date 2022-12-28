@@ -8,7 +8,9 @@
 
 package org.devstrike.app.citrarb.features.news.saved
 
+import android.content.Intent
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,6 +27,7 @@ import org.devstrike.app.citrarb.features.news.newsLanding.data.local.SavedNewsL
 import org.devstrike.app.citrarb.features.news.repositories.NewsRepoImpl
 import org.devstrike.app.citrarb.network.retrySnackbar
 import org.devstrike.app.citrarb.network.undoSnackbar
+import org.devstrike.app.citrarb.utils.loadImage
 import org.devstrike.app.citrarb.utils.snackbar
 import javax.inject.Inject
 import kotlin.properties.Delegates
@@ -41,6 +44,9 @@ class SavedNewsDetail : BaseFragment<NewsViewModel, FragmentSavedNewsDetailBindi
     val args by navArgs<SavedNewsDetailArgs>()
     lateinit var savedNewsDetails: SavedNewsListData
 
+    private var shareIntent: Intent by Delegates.notNull()
+    private var shareMessage: String by Delegates.notNull()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -49,8 +55,18 @@ class SavedNewsDetail : BaseFragment<NewsViewModel, FragmentSavedNewsDetailBindi
             newsDetailNewsTitle.text = savedNewsDetails.title
             newsDetailText.text = savedNewsDetails.article
             newsDetailNewsAuthor.text = savedNewsDetails.author
+            newsDetailImage.loadImage(savedNewsDetails.coverPhoto)
+
+            newsDetailText.movementMethod = ScrollingMovementMethod()
+
             newsDetailIvShareNews.setOnClickListener {
-                requireView().snackbar("Share Feature Coming Soon...")
+                shareIntent = Intent(Intent.ACTION_SEND)
+                shareIntent.type = "text/plain"
+                shareIntent.putExtra(Intent.EXTRA_SUBJECT, savedNewsDetails.title)
+                shareMessage = "\nCheck out this news \n${savedNewsDetails.link}"
+                shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage)
+                requireContext().startActivity(Intent.createChooser(shareIntent, "Share via: "))
+                //requireView().snackbar("Share Feature Coming Soon...")
             }
             newsDetailIvSaveNews.setOnClickListener {
                 newsDetailViewModel.deleteNews(savedNewsDetails.uid)

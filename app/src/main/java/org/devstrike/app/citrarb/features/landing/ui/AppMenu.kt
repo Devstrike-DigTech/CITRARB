@@ -12,23 +12,32 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import org.devstrike.app.citrarb.base.BaseFragment
 import org.devstrike.app.citrarb.features.landing.data.LandingMenu
 import org.devstrike.app.citrarb.databinding.FragmentAppMenuBinding
 import org.devstrike.app.citrarb.features.landing.adapter.LandingMenuAdapter
 import org.devstrike.app.citrarb.features.landing.repositories.LandingRepo
+import org.devstrike.app.citrarb.features.news.newsLanding.data.remote.NewsListResponse
 import org.devstrike.app.citrarb.utils.Common
+import org.devstrike.app.citrarb.utils.Common.deepLinkNewsUrl
 
 class AppMenu : BaseFragment<LandingViewModel, FragmentAppMenuBinding, LandingRepo>() {
 
 
     private val landingMenuAdapter = LandingMenuAdapter()
     val landingMenuList = mutableListOf<LandingMenu>()
+    private var emptyNewsList = NewsListResponse()
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        if (deepLinkNewsUrl != ""){
+            val navToNewsDetail = AppMenuDirections.actionAppMenuToNewsDetail(deepLinkNewsUrl, "" , emptyNewsList)
+            findNavController().navigate(navToNewsDetail)
+        }
         setUpRecyclerView()
 
     }

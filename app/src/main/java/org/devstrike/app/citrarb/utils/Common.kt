@@ -21,6 +21,8 @@ object Common {
     const val LOCAL_DB_NAME = "citrarb_db"
     const val TAG = "EQUA"
 
+    var deepLinkNewsUrl = ""
+
     private val newsMenu = LandingMenu(
         itemName = "News",
         itemColor = "#34fce4"

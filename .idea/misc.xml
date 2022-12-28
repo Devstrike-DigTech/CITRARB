@@ -5,6 +5,7 @@
       <map>
         <entry key="app/src/main/res/drawable/app_background.xml" value="0.33" />
         <entry key="app/src/main/res/drawable/citrarb_logo.xml" value="0.117" />
+        <entry key="app/src/main/res/drawable/ic_news.xml" value="0.1275" />
         <entry key="app/src/main/res/drawable/ic_unsaved_bookmark.xml" value="0.142" />
         <entry key="app/src/main/res/drawable/layers_24.xml" value="0.142" />
         <entry key="app/src/main/res/drawable/share_24.xml" value="0.142" />
