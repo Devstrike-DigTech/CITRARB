@@ -23,15 +23,15 @@ import kotlin.random.Random
 @Entity
 @Parcelize
 data class SavedNewsListData(
-    val author: String,
-    val category: String,
-    val date: String,
-    val description: String,
-    val title: String,
-    val article: String,
-    val link: String,
-    val coverPhoto: String,
-    var savedDate: String,
+    val author: String?,
+    val category: String?,
+    val date: String?,
+    val description: String?,
+    val title: String?,
+    val article: String?,
+    val link: String?,
+    val coverPhoto: String?,
+    var savedDate: String?,
     @PrimaryKey (autoGenerate = false)
     var uid: String = UUID.randomUUID().toString(),
     var isSaved: Boolean,

@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">CITRARB</string>
+    <string name="citrarb_news_domain">coalcity.ng</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="devstrike_logo">"Powered By DevStrike "</string>
