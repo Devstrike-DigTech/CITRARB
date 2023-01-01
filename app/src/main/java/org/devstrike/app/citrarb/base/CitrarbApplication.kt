@@ -12,11 +12,9 @@ import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
 
 /**
- * Created by Richard Uzor  on 23/12/2022
- */
-/**
+ * As required by the Dagger Hilt Dependency Injection library, this application class is required with its annotation
  * Created by Richard Uzor  on 23/12/2022
  */
 @HiltAndroidApp
-class CitrarbApplication: Application() {
+class CitrarbApplication : Application() {
 }

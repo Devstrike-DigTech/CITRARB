@@ -32,6 +32,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 /**
+ * As required by Dagger Hilt dependency injection...
+ * we create an app module object to provide all classes or services that we will be injecting into other classes
  * Created by Richard Uzor  on 23/12/2022
  */
 
@@ -44,6 +46,7 @@ object AppModule {
     @Provides
     fun provideGson() = Gson()
 
+    //Initialize, Build and Provide Retrofit Instance
     @Provides
     @Singleton
     fun providesRetrofit(): Retrofit {
@@ -62,14 +65,14 @@ object AppModule {
 
     }
 
-    //Initialize, Build and Provide Retrofit Instance
+    //Provides the News api passing the built retrofit instance
     @Singleton
     @Provides
     fun provideNewsApi(retrofit: Retrofit): NewsApi =
         retrofit.create(NewsApi::class.java)
 
 
-    //Create and Provide Note Database
+    //Create and Provide the app Database
     @Singleton
     @Provides
     fun provideAppDatabase(
@@ -80,14 +83,14 @@ object AppModule {
         LOCAL_DB_NAME
     ).build()
 
-    //Provide Note Database DAO
+    //Provide News Database DAO
     @Singleton
     @Provides
     fun provideLocalNewsListDao(
         appDb: CitrarbDatabase
     ) = appDb.getNewsListDao()
 
-    //provide note repo returning the implementation parameters
+    //provide news repo returning the implementation parameters
     @Singleton
     @Provides
     fun providesNewsRepo(
@@ -104,7 +107,8 @@ object AppModule {
     @Provides
     fun providesLandingRepo() = LandingRepo()
 
-@Singleton
-@Provides
-fun providesBaseRepo() = BaseRepo()
+    //provides the  base repo
+    @Singleton
+    @Provides
+    fun providesBaseRepo() = BaseRepo()
 }

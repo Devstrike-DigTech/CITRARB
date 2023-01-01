@@ -16,8 +16,10 @@ import org.devstrike.app.citrarb.utils.Common.NEWS_LIST_INDEX_PAGE
 import java.io.IOException
 
 /**
+ * class to handle the pagination of the nws list response
  * Created by Richard Uzor  on 23/12/2022
  */
+
 class NewsListPagingSource(
     private val service: NewsApi
 ) : PagingSource<Int, NewsListResponse>() {
@@ -36,9 +38,9 @@ class NewsListPagingSource(
         return try {
             val response = service.getNewsList(pageIndex)
             val newsList = response.results
-            val nextKey = if(newsList.isEmpty()){
+            val nextKey = if (newsList.isEmpty()) {
                 null
-            }else{
+            } else {
                 // By default, initial load size = 3 * NETWORK PAGE SIZE
                 // ensure we're not requesting duplicating items at the 2nd request
                 pageIndex + (params.loadSize / NETWORK_PAGE_SIZE)

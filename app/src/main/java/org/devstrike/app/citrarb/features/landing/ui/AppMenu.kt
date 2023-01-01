@@ -14,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import org.devstrike.app.citrarb.base.BaseFragment
 import org.devstrike.app.citrarb.features.landing.data.LandingMenu
 import org.devstrike.app.citrarb.databinding.FragmentAppMenuBinding
@@ -23,6 +24,11 @@ import org.devstrike.app.citrarb.features.news.newsLanding.data.remote.NewsListR
 import org.devstrike.app.citrarb.utils.Common
 import org.devstrike.app.citrarb.utils.Common.deepLinkNewsUrl
 
+/*
+* UI Fragment to display the app menu on the landing page
+* */
+
+@AndroidEntryPoint
 class AppMenu : BaseFragment<LandingViewModel, FragmentAppMenuBinding, LandingRepo>() {
 
 
@@ -34,8 +40,10 @@ class AppMenu : BaseFragment<LandingViewModel, FragmentAppMenuBinding, LandingRe
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (deepLinkNewsUrl != ""){
-            val navToNewsDetail = AppMenuDirections.actionAppMenuToNewsDetail(deepLinkNewsUrl, "" , emptyNewsList)
+        //when an external link is clicked to open in the app, it gets the link and navigates to the news
+        if (deepLinkNewsUrl != "") {
+            val navToNewsDetail =
+                AppMenuDirections.actionAppMenuToNewsDetail(deepLinkNewsUrl, "", emptyNewsList)
             findNavController().navigate(navToNewsDetail)
         }
         setUpRecyclerView()

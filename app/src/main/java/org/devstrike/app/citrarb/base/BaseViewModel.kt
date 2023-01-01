@@ -18,6 +18,8 @@ import retrofit2.Response
 import javax.inject.Inject
 
 /**
+ * The MVVM architecture requires a viewModel to relay data to every UI class.
+ * This class is a base viewModel class to initialize the viewModel functions and avoid repetition
  * Created by Richard Uzor  on 23/12/2022
  */
 @HiltViewModel
@@ -25,6 +27,7 @@ open class BaseViewModel @Inject constructor(private val repository: BaseRepo) :
     var progressLiveEvent = SingleLiveEvent<Boolean>()
     var errorMessage = SingleLiveEvent<String>()
 
+    //function to provide the api paging result to the UI
     inline fun <T> launchAsync(
         crossinline execute: suspend () -> Response<T>,
         crossinline onSuccess: (T) -> Unit,

@@ -14,13 +14,11 @@ import org.devstrike.app.citrarb.features.landing.repositories.LandingRepo
 import javax.inject.Inject
 
 /**
- * Created by Richard Uzor  on 26/12/2022
- */
-/**
+ * ViewModel class for the Landing page...to fulfill mvvm righteousness
  * Created by Richard Uzor  on 26/12/2022
  */
 @HiltViewModel
 class LandingViewModel @Inject constructor(
     private val repo: LandingRepo
-): BaseViewModel(repo) {
+) : BaseViewModel(repo) {
 }

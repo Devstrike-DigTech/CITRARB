@@ -14,13 +14,14 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 
 /**
+ * this file handles all API errors
  * Created by Richard Uzor  on 26/12/2022
  */
 
-//this file handles all API errors
 
 val TAG = "ErrorHandler"
 
+//function to present an error message in a snack bar with the retry option
 fun View.retrySnackbar(message: String, action: (() -> Unit)? = null) {
     val snackbar = Snackbar.make(this, message, Snackbar.LENGTH_LONG)
     action?.let {
@@ -30,6 +31,8 @@ fun View.retrySnackbar(message: String, action: (() -> Unit)? = null) {
     }
     snackbar.show()
 }
+
+//function to present an error message in a snack bar with the undo option
 fun View.undoSnackbar(message: String, action: (() -> Unit)? = null) {
     val snackbar = Snackbar.make(this, message, Snackbar.LENGTH_LONG)
     action?.let {
@@ -40,6 +43,7 @@ fun View.undoSnackbar(message: String, action: (() -> Unit)? = null) {
     snackbar.show()
 }
 
+//function to define an api error failure state
 fun Fragment.handleApiError(failure: Throwable?, retry: (() -> Unit)? = null) {
 //    when {
 //        failure.isNetworkError == true -> requireView().snackbar(
@@ -55,9 +59,9 @@ fun Fragment.handleApiError(failure: Throwable?, retry: (() -> Unit)? = null) {
 //            }
 //        }
 //        else -> {
-            val error = failure?.localizedMessage.toString()
-            requireView().retrySnackbar(error, retry)
-            Log.d(TAG, "handleApiError: $error")
-        }
+    val error = failure?.localizedMessage.toString()
+    requireView().retrySnackbar(error, retry)
+    Log.d(TAG, "handleApiError: $error")
+}
 //    }
 //}

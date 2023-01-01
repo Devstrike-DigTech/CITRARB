@@ -6,23 +6,21 @@
  *
  */
 
-package org.devstrike.app.citrarb.utils
+package org.devstrike.app.citrarb.network
 
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 
 /**
+ * Util File to check the internet connectivity (state) of the device
  * Created by Richard Uzor  on 23/12/2022
  */
 
-/**
- * Util File to check the internet connectivity (state) of the device
- */
+fun isNetworkConnected(context: Context): Boolean {
 
-fun isNetworkConnected(context: Context): Boolean{
-
-    val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    val connectivityManager =
+        context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     val activeNetwork = connectivityManager.activeNetwork
     val networkCapabilities = connectivityManager.getNetworkCapabilities(activeNetwork)
 

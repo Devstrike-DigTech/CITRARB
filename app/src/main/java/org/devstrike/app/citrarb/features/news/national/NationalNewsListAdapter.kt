@@ -22,20 +22,21 @@ import org.devstrike.app.citrarb.features.news.newsLanding.data.remote.NewsListR
 import javax.inject.Inject
 
 /**
+ * Adapter class for the 'nationalNews' Ui fragment
+ * the class extends paging adapter in order to properly fetch and process paginated lists
  * Created by Richard Uzor  on 25/12/2022
  */
-/**
- * Created by Richard Uzor  on 25/12/2022
- */
-class NationalNewsListAdapter @Inject constructor(): PagingDataAdapter<NewsListResponse, NationalNewsListAdapter.NationalNewsListViewHolder>(
-    NationalNewsListComparator
-) {
+class NationalNewsListAdapter @Inject constructor() :
+    PagingDataAdapter<NewsListResponse, NationalNewsListAdapter.NationalNewsListViewHolder>(
+        NationalNewsListComparator
+    ) {
 
     val TAG = "newsListAdapter"
 
-    inner class NationalNewsListViewHolder(private val binding: ItemNewsListLayoutBinding): RecyclerView.ViewHolder(binding.root) {
+    inner class NationalNewsListViewHolder(private val binding: ItemNewsListLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(listener: View.OnClickListener, item: NewsListResponse) {
-            if (item.category == "National"){
+            if (item.category == "National") {
                 binding.apply {
                     newsListItem = item
                     newsListItemClickListener = listener
@@ -46,7 +47,7 @@ class NationalNewsListAdapter @Inject constructor(): PagingDataAdapter<NewsListR
         }
     }
 
-    object NationalNewsListComparator: DiffUtil.ItemCallback<NewsListResponse>(){
+    object NationalNewsListComparator : DiffUtil.ItemCallback<NewsListResponse>() {
         override fun areItemsTheSame(
             oldItem: NewsListResponse,
             newItem: NewsListResponse
@@ -62,7 +63,7 @@ class NationalNewsListAdapter @Inject constructor(): PagingDataAdapter<NewsListR
     override fun onBindViewHolder(holder: NationalNewsListViewHolder, position: Int) {
         val newsListItem = getItem(position)
 
-        when(newsListItem!!.category){
+        when (newsListItem!!.category) {
             "National" -> {
                 Log.d(TAG, "onBindViewHolder| local: $newsListItem")
 
@@ -81,7 +82,11 @@ class NationalNewsListAdapter @Inject constructor(): PagingDataAdapter<NewsListR
 
     private fun createOnClickListener(newsListItem: NewsListResponse): View.OnClickListener {
         return View.OnClickListener {
-            val navToDetail = NewsLandingDirections.actionNewsLandingToNewsDetail(newsListItem.link, newsListItem.author, newsListItem)
+            val navToDetail = NewsLandingDirections.actionNewsLandingToNewsDetail(
+                newsListItem.link,
+                newsListItem.author,
+                newsListItem
+            )
             it.findNavController().navigate(navToDetail)
         }
     }

@@ -11,15 +11,23 @@ package org.devstrike.app.citrarb.features.landing.ui
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
+import dagger.hilt.android.AndroidEntryPoint
 import org.devstrike.app.citrarb.R
 import org.devstrike.app.citrarb.base.BaseFragment
 import org.devstrike.app.citrarb.databinding.FragmentLandingScreenBinding
 import org.devstrike.app.citrarb.features.landing.repositories.LandingRepo
 import org.devstrike.app.citrarb.utils.toast
 
+/*
+* Class to house the entire content of the application
+* Some views and functions that are to remain static throughout the app are defined here
+* It consists of a toolbar, menu items and also a container to populate the various screens of the app
+* */
+
+@AndroidEntryPoint
 class LandingScreen : BaseFragment<LandingViewModel, FragmentLandingScreenBinding, LandingRepo>() {
 
-//    private lateinit var screenBinding: FragmentLandingScreenBinding
+    //    private lateinit var screenBinding: FragmentLandingScreenBinding
 //    lateinit var mCustomToolBar: Toolbar
 //
 //    fun toolBar(): View{
@@ -55,12 +63,12 @@ class LandingScreen : BaseFragment<LandingViewModel, FragmentLandingScreenBindin
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
+        when (item.itemId) {
             R.id.menu_account -> {
                 requireContext().toast("Account Clicked!")
                 //findNavController().navigate(R.id.action_allNotes_to_userInfo)
             }
-            R.id.menu_settings-> {
+            R.id.menu_settings -> {
                 requireContext().toast("Settings Clicked!")
             }
         }
@@ -70,7 +78,7 @@ class LandingScreen : BaseFragment<LandingViewModel, FragmentLandingScreenBindin
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    )= FragmentLandingScreenBinding.inflate(layoutInflater, container, false)
+    ) = FragmentLandingScreenBinding.inflate(layoutInflater, container, false)
 
     override fun getFragmentRepo() = LandingRepo()
 

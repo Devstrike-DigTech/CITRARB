@@ -38,11 +38,17 @@ import org.devstrike.app.citrarb.utils.snackbar
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
+/*
+* Fragment class to display the content of the fetched news article
+* It also handles the sharing and saving locally functionality
+* */
+
 @AndroidEntryPoint
 class NewsDetail : BaseFragment<NewsViewModel, FragmentNewsDetailBinding, NewsRepoImpl>() {
 
     @set:Inject
     var newsApi: NewsApi by Delegates.notNull<NewsApi>()
+
     @set:Inject
     var newsDao: NewsDao by Delegates.notNull<NewsDao>()
 
@@ -63,6 +69,7 @@ class NewsDetail : BaseFragment<NewsViewModel, FragmentNewsDetailBinding, NewsRe
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //fetch certain data from the navigation argument
         newsLink = args.newsLink
         newsAuthor = args.newsAuthor
         newsList = args.newsList
@@ -73,15 +80,14 @@ class NewsDetail : BaseFragment<NewsViewModel, FragmentNewsDetailBinding, NewsRe
         }
     }
 
+    //function to handle the 'fetch news' network request
     private fun fetchNewsArticle(newsLink: String) {
         newsDetailViewModel.getNewsArticle(newsLink)
-        Log.d(TAG, "fetchNewsArticle: ${newsDetailViewModel.getNewsArticle(newsLink)}")
         newsDetailViewModel.newsArticle.observe(viewLifecycleOwner, Observer { response ->
-            Log.d(TAG, "fetchNewsArticle: ${response.value}")
 
             when (response) {
                 is Resource.Success -> {
-                    Log.d(TAG, "fetchNewsArticle: ${response.value}")
+                    //if the request is successful, populate the details to the screen
                     with(binding) {
                         newsDetailProgressBar.isVisible = false
 
@@ -90,19 +96,23 @@ class NewsDetail : BaseFragment<NewsViewModel, FragmentNewsDetailBinding, NewsRe
                         newsDetailText.text = response.value.data.article
                         newsDetailImage.loadImage(response.value.data.coverPhoto)
 
+                        //to make the news detail text view scrollable
                         newsDetailText.movementMethod = ScrollingMovementMethod()
 
 
+                        //implement functionality to save the news to the local db
                         newsDetailIvSaveNews.apply {
                             isVisible = true
                             setOnClickListener {
-                                if (savedNews == 0)
+                                if (savedNews == 0) //if the news has not been saved
                                     saveToDB(response.value.data)
                                 else
                                     requireView().snackbar("Go to saved News to delete")
                             }
 
                         }
+
+                        //implement functionality to share the news link externally
                         newsDetailIvShareNews.apply {
                             isVisible = true
                             setOnClickListener {
@@ -113,6 +123,8 @@ class NewsDetail : BaseFragment<NewsViewModel, FragmentNewsDetailBinding, NewsRe
 
                 }
                 is Resource.Failure -> {
+                    //handle the error if the response is faulty
+                    //gives the user the option to retry the request
                     binding.newsDetailProgressBar.isVisible = false
                     handleApiError(response.error) { fetchNewsArticle(newsLink) }
 
@@ -124,6 +136,7 @@ class NewsDetail : BaseFragment<NewsViewModel, FragmentNewsDetailBinding, NewsRe
         })
     }
 
+    //function to handle the share news link feature
     private fun shareNews(data: NewsArticle) {
         shareIntent = Intent(Intent.ACTION_SEND)
         shareIntent.type = "text/plain"
@@ -134,6 +147,7 @@ class NewsDetail : BaseFragment<NewsViewModel, FragmentNewsDetailBinding, NewsRe
 
     }
 
+    //function to handle the feature to save a news item to the local db
     private fun saveToDB(data: NewsArticle) {
         val saveTime = System.currentTimeMillis()
         val newsForDB = SavedNewsListData(

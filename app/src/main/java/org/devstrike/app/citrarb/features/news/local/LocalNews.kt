@@ -28,28 +28,36 @@ import org.devstrike.app.citrarb.features.news.repositories.NewsRepoImpl
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
+
+/*
+* UI fragment to display the list of all the news under local category from the cloud
+ */
+
 @AndroidEntryPoint
 class LocalNews : BaseFragment<NewsViewModel, FragmentLocalNewsBinding, NewsRepoImpl>() {
 
-    @set:Inject var newsApi: NewsApi by Delegates.notNull<NewsApi>()
-    @set:Inject var newsDao: NewsDao by Delegates.notNull<NewsDao>()
+    @set:Inject
+    var newsApi: NewsApi by Delegates.notNull<NewsApi>()
+    @set:Inject
+    var newsDao: NewsDao by Delegates.notNull<NewsDao>()
 
     private val TAG = "localNews"
     private lateinit var localNewsListAdapter: LocalNewsListAdapter
-    private val  localNewsViewModel: NewsViewModel by activityViewModels()
+    private val localNewsViewModel: NewsViewModel by activityViewModels()
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        with(binding){
+        with(binding) {
             setUpRecyclerView()
             subscribeToNewsList()
         }
     }
 
+    //function to make the api request and get the paginated response
+    //we then submit the paginated list to the adapter
     private fun subscribeToNewsList() = viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-        localNewsViewModel.newsList.collectLatest{ pagingData ->
-            Log.d(TAG, "subscribeToNewsList: $pagingData")
+        localNewsViewModel.newsList.collectLatest { pagingData ->
             val localNewsList = listOf(pagingData)
             val distinctLocalNewsList = localNewsList.distinct()
             localNewsListAdapter.submitData(pagingData)
@@ -61,18 +69,18 @@ class LocalNews : BaseFragment<NewsViewModel, FragmentLocalNewsBinding, NewsRepo
         localNewsListAdapter = LocalNewsListAdapter()
         Log.d(TAG, "setUpRecyclerView: ${localNewsListAdapter}")
 
-        val localNewsLayoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        val localNewsLayoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
-                    binding.rvLocalNewsList.apply {
-                        adapter = localNewsListAdapter
-                        layoutManager = localNewsLayoutManager
-                        addItemDecoration(
-                            DividerItemDecoration(
-                                requireContext(), localNewsLayoutManager.orientation
-                            )
-                        )
+        binding.rvLocalNewsList.apply {
+            adapter = localNewsListAdapter
+            layoutManager = localNewsLayoutManager
+            addItemDecoration(
+                DividerItemDecoration(
+                    requireContext(), localNewsLayoutManager.orientation
+                )
+            )
         }
-
 
 
     }

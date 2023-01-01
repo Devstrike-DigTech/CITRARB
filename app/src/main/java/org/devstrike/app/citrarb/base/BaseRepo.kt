@@ -14,9 +14,10 @@ import org.devstrike.app.citrarb.network.Resource
 import retrofit2.HttpException
 
 /**
- * Created by Richard Uzor  on 26/12/2022
- */
-/**
+ * As required by the MVVM architecture, every fragment or activity should have a repository class
+ * Thus, there will be need to initialize the repo at every fragment.
+ * Therefore this class is written to avoid repetition
+ * In this class, we write the function to safely make api calls abd handle the errors
  * Created by Richard Uzor  on 26/12/2022
  */
 open class BaseRepo {
@@ -25,19 +26,19 @@ open class BaseRepo {
     suspend fun <T> safeApiCall(
         apiCall: suspend () -> T
     ): Resource<T> {
-        return withContext(Dispatchers.IO){
+        return withContext(Dispatchers.IO) {
             //run api call in IO thread
             try {
                 //if call returns successful response, set its values to the resource sealed class
                 Resource.Success(apiCall.invoke())
-            }catch (throwable: Throwable){
+            } catch (throwable: Throwable) {
                 //if call returns unsuccessful response...
-                when(throwable){
-                    is HttpException ->{
+                when (throwable) {
+                    is HttpException -> {
                         //if the error response is a http error set its response to the corresponding parameters in the resource sealed class
                         Resource.Failure(throwable)
                     }
-                    else ->{
+                    else -> {
                         //if the error response is a network error set its response to the corresponding parameters in the resource sealed class
                         Resource.Failure(throwable)
                     }
@@ -49,7 +50,6 @@ open class BaseRepo {
 //    suspend fun logout(api: AuthApi) = safeApiCall {
 //        api.logout()
 //    }
-
 
 
 }

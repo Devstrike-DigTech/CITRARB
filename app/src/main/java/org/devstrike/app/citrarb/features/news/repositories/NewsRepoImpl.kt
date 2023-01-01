@@ -25,9 +25,9 @@ import org.devstrike.app.citrarb.utils.Common.NETWORK_PAGE_SIZE
 import javax.inject.Inject
 
 /**
- * Created by Richard Uzor  on 23/12/2022
- */
-/**
+ * Implementation of the news repository interface
+ * it defines the functionality of all the operations to be carried out in the news feature
+ * all news fragments share this repository implementation
  * Created by Richard Uzor  on 23/12/2022
  */
 @ActivityRetainedScoped

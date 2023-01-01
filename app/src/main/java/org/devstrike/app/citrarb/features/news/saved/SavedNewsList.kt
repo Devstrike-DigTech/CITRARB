@@ -32,11 +32,16 @@ import org.devstrike.app.citrarb.features.news.repositories.NewsRepoImpl
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
+/*
+* UI fragment to display the list of all locally saved news
+* */
 @AndroidEntryPoint
 class SavedNewsList : BaseFragment<NewsViewModel, FragmentSavedNewsListBinding, NewsRepoImpl>() {
 
-    @set:Inject var newsApi: NewsApi by Delegates.notNull<NewsApi>()
-    @set:Inject var newsDao: NewsDao by Delegates.notNull<NewsDao>()
+    @set:Inject
+    var newsApi: NewsApi by Delegates.notNull<NewsApi>()
+    @set:Inject
+    var newsDao: NewsDao by Delegates.notNull<NewsDao>()
 
     private lateinit var savedNewsAdapter: SavedNewsAdapter
     private val newsViewModel: NewsViewModel by activityViewModels()
@@ -51,11 +56,11 @@ class SavedNewsList : BaseFragment<NewsViewModel, FragmentSavedNewsListBinding, 
     private fun setUpRecyclerView() {
         savedNewsAdapter = SavedNewsAdapter()
         savedNewsAdapter.setOnItemClickListener {
-            Log.d(TAG, "setUpRecyclerView: ${it.title}")
             val navToDetail = SavedNewsListDirections.actionSavedNewsListToSavedNewsDetail(it)
             findNavController().navigate(navToDetail)
         }
-        val savedNewsLayoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        val savedNewsLayoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.rvSavedNewsList.apply {
             adapter = savedNewsAdapter
             layoutManager = savedNewsLayoutManager
@@ -67,21 +72,21 @@ class SavedNewsList : BaseFragment<NewsViewModel, FragmentSavedNewsListBinding, 
         }
     }
 
+    //fetch the news from teh local db
     private fun subscribeToNews() = lifecycleScope.launch {
-        newsViewModel.savedNewsFromDB.collect{
+        newsViewModel.savedNewsFromDB.collect {
             savedNewsAdapter.savedNews = it
-            Log.d(TAG, "subscribeToNews: $it")
         }
 
     }
 
     override fun getFragmentRepo() = NewsRepoImpl(newsApi, newsDao)
 
-    override fun getViewModel() =NewsViewModel::class.java
+    override fun getViewModel() = NewsViewModel::class.java
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ) =FragmentSavedNewsListBinding.inflate(inflater, container, false)
+    ) = FragmentSavedNewsListBinding.inflate(inflater, container, false)
 
 }

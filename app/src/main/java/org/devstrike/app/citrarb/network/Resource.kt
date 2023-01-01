@@ -11,17 +11,19 @@ package org.devstrike.app.citrarb.network
 import okhttp3.ResponseBody
 
 /**
+ * sealed class that defines the states of a network call and how to handle their received data
+ * it is called and utilized everywhere that a network call is made
  * Created by Richard Uzor  on 26/12/2022
  */
 sealed class Resource<out T>(
     val value: T? = null,
     val error: Throwable? = null
-){
-    class Success<out T>(value: T): Resource<T>(value)
+) {
+    class Success<out T>(value: T) : Resource<T>(value)
 
     class Failure<T>(
         throwable: Throwable, value: T? = null
-    ): Resource<T>(value, throwable)
+    ) : Resource<T>(value, throwable)
 
-    object Loading: Resource<Nothing>()
+    object Loading : Resource<Nothing>()
 }

@@ -17,19 +17,19 @@ import org.devstrike.app.citrarb.features.news.local.LocalNews
 import org.devstrike.app.citrarb.features.news.national.NationalNews
 
 /**
+ * adapter class to define the display mode and functionality of the tab layout on the news landing page
  * Created by Richard Uzor  on 20/12/2022
  */
-/**
- * Created by Richard Uzor  on 20/12/2022
- */
-class NewsLandingPagerAdapter(var context: FragmentActivity?,
-                              fm: FragmentManager,
-                              var totalTabs: Int
+class NewsLandingPagerAdapter(
+    var context: FragmentActivity?,
+    fm: FragmentManager,
+    var totalTabs: Int
 ) : FragmentPagerAdapter(fm) {
     override fun getCount(): Int {
         return totalTabs
     }
 
+    //when each tab is selected, define the fragment to be implemented
     override fun getItem(position: Int): Fragment {
         return when (position) {
             0 -> {

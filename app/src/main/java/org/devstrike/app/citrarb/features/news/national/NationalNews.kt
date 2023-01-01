@@ -28,14 +28,20 @@ import org.devstrike.app.citrarb.features.news.repositories.NewsRepoImpl
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
+
+/*
+* UI fragment to display the list of all the news under national category from the cloud
+*/
 @AndroidEntryPoint
 class NationalNews : BaseFragment<NewsViewModel, FragmentNationalNewsBinding, NewsRepoImpl>() {
 
-    @set:Inject var newsApi: NewsApi by Delegates.notNull<NewsApi>()
-    @set:Inject var newsDao: NewsDao by Delegates.notNull<NewsDao>()
+    @set:Inject
+    var newsApi: NewsApi by Delegates.notNull<NewsApi>()
+    @set:Inject
+    var newsDao: NewsDao by Delegates.notNull<NewsDao>()
     private val TAG = "nationalNews"
     private lateinit var nationalNewsListAdapter: NationalNewsListAdapter
-    private val  nationalNewsViewModel: NewsViewModel by activityViewModels()
+    private val nationalNewsViewModel: NewsViewModel by activityViewModels()
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -44,21 +50,13 @@ class NationalNews : BaseFragment<NewsViewModel, FragmentNationalNewsBinding, Ne
         setUpRecyclerView()
     }
 
+    //function to make the api request and get the paginated response
+    //we then submit the paginated list to teh adapter
     private fun subscribeToNewsList() = viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-        nationalNewsViewModel.newsList.collectLatest{ pagingData ->
+        nationalNewsViewModel.newsList.collectLatest { pagingData ->
             val newsList = listOf(pagingData)
             Log.d(TAG, "subscribeToNewsList: $pagingData")
             nationalNewsListAdapter.submitData(pagingData)
-//            nationalNewsListAdapter.loadStateFlow.distinctUntilChangedBy {
-//                it.refresh
-//            }.collect{
-//                val nationalNewsList = nationalNewsListAdapter.snapshot()
-//                Log.d(TAG, "subscribeToNewsList: $newsList")
-//
-//            }
-//            val nationalNewsList1 = nationalNewsListAdapter.snapshot()
-//
-//            Log.d(TAG, "subscribeToNewsList: ${nationalNewsList1}")
         }
     }
 
@@ -68,20 +66,21 @@ class NationalNews : BaseFragment<NewsViewModel, FragmentNationalNewsBinding, Ne
 //        lifecycleScope.launch{
 //
 //        }
-        val nationalNewsLayoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        val nationalNewsLayoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         // TODO: figure how to distinguish the news by category
         val natNewsList = nationalNewsListAdapter
         Log.d(TAG, "setUpRecyclerView: $natNewsList")
 //        for (news in nationalNewsList){
 //            if(news.category == "National"){
-                    binding.rvNationalNewsList.apply {
-                        adapter = nationalNewsListAdapter
-                        layoutManager = nationalNewsLayoutManager
-                        addItemDecoration(
-                            DividerItemDecoration(
-                                requireContext(), nationalNewsLayoutManager.orientation
-                            )
-                        )
+        binding.rvNationalNewsList.apply {
+            adapter = nationalNewsListAdapter
+            layoutManager = nationalNewsLayoutManager
+            addItemDecoration(
+                DividerItemDecoration(
+                    requireContext(), nationalNewsLayoutManager.orientation
+                )
+            )
 //                }
 //            }
         }
@@ -92,7 +91,7 @@ class NationalNews : BaseFragment<NewsViewModel, FragmentNationalNewsBinding, Ne
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    )= FragmentNationalNewsBinding.inflate(inflater, container, false)
+    ) = FragmentNationalNewsBinding.inflate(inflater, container, false)
 
     override fun getFragmentRepo() = NewsRepoImpl(newsApi, newsDao)
 
