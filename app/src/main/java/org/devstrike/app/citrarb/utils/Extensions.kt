@@ -22,6 +22,8 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 /**
+ * this is a file that contains definitions of various ui operations that could be used in multiple places
+ * the functions in here define the operations and allow simplified form passing only the required parameter
  * Created by Richard Uzor  on 15/12/2022
  */
 
@@ -30,6 +32,7 @@ import java.util.*
 fun Context.toast(message: String) =
     Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 
+//snack bar function
 fun View.snackbar(message: String, action: (() -> Unit)? = null) {
     val snackbar = Snackbar.make(this, message, Snackbar.LENGTH_LONG)
     action?.let {

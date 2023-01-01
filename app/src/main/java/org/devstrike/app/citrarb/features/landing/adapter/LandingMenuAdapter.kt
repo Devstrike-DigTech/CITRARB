@@ -26,16 +26,18 @@ import org.devstrike.app.citrarb.utils.Common.TAG
 import org.devstrike.app.citrarb.utils.snackbar
 
 /**
+ * Adapter class to populate the recyclerview for the landing page app menu
  * Created by Richard Uzor  on 15/12/2022
  */
-class LandingMenuAdapter: ListAdapter<LandingMenu, LandingMenuAdapter.LandingMenuViewHolder>(
+class LandingMenuAdapter : ListAdapter<LandingMenu, LandingMenuAdapter.LandingMenuViewHolder>(
     DiffCallback()
 ) {
 
     val landingScreen = LandingScreen()
 
-    class LandingMenuViewHolder(private val binding: ItemLandingGridLayoutBinding): RecyclerView.ViewHolder(binding.root){
-        fun bind(listener: View.OnClickListener, itemData: LandingMenu){
+    class LandingMenuViewHolder(private val binding: ItemLandingGridLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(listener: View.OnClickListener, itemData: LandingMenu) {
             binding.apply {
                 landingMenu = itemData
                 menuClick = listener
@@ -44,7 +46,8 @@ class LandingMenuAdapter: ListAdapter<LandingMenu, LandingMenuAdapter.LandingMen
         }
     }
 
-    private class DiffCallback: DiffUtil.ItemCallback<LandingMenu>(){
+    //internal class to check for duplicate items and objects
+    private class DiffCallback : DiffUtil.ItemCallback<LandingMenu>() {
         override fun areItemsTheSame(oldItem: LandingMenu, newItem: LandingMenu): Boolean {
             return oldItem.itemName == newItem.itemName
         }
@@ -60,7 +63,13 @@ class LandingMenuAdapter: ListAdapter<LandingMenu, LandingMenuAdapter.LandingMen
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LandingMenuViewHolder {
         Log.d(TAG, "onCreateViewHolder: adapter create")
-        return LandingMenuViewHolder(ItemLandingGridLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return LandingMenuViewHolder(
+            ItemLandingGridLayoutBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: LandingMenuViewHolder, position: Int) {
@@ -70,14 +79,16 @@ class LandingMenuAdapter: ListAdapter<LandingMenu, LandingMenuAdapter.LandingMen
             itemView.tag = menuItem
             itemView.setBackgroundColor(Color.parseColor(menuItem.itemColor))
             if (menuItem.itemName == "News")
-            itemView.setBackgroundColor(R.drawable.app_background)
+                itemView.setBackgroundColor(R.drawable.app_background)
         }
     }
+
+    //function to handle the click of the various items
     private fun createOnClickListener(menuItem: LandingMenu): View.OnClickListener {
         return View.OnClickListener {
             //navigate to page to show doctor details using navigation directions
             Log.d(TAG, "createOnClickListener: ${menuItem.itemName}")
-            when (menuItem.itemName){
+            when (menuItem.itemName) {
                 "News" -> {
                     val navToNews = AppMenuDirections.actionAppMenuToNewsLanding()
                     it.findNavController().navigate(navToNews)
@@ -115,7 +126,6 @@ class LandingMenuAdapter: ListAdapter<LandingMenu, LandingMenuAdapter.LandingMen
 
         }
     }
-
 
 
 }

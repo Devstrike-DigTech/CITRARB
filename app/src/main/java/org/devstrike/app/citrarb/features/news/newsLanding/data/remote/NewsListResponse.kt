@@ -11,6 +11,10 @@ package org.devstrike.app.citrarb.features.news.newsLanding.data.remote
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
+/*
+* data class to define the content of the news list response from the api
+* */
+
 @Parcelize
 data class NewsListResponse(
     val author: String = "",
@@ -22,4 +26,4 @@ data class NewsListResponse(
     val id: String = "",
     val link: String = "",
     val title: String = ""
-): Parcelable
+) : Parcelable

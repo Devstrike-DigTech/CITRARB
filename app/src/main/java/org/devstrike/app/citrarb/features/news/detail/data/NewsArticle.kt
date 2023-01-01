@@ -8,6 +8,7 @@
 
 package org.devstrike.app.citrarb.features.news.detail.data
 
+//data class to define the contents of the fetched news article
 data class NewsArticle(
     val article: String,
     val coverPhoto: String,

@@ -11,9 +11,7 @@ package org.devstrike.app.citrarb.utils
 import android.content.Context
 
 /**
- * Created by Richard Uzor  on 23/12/2022
- */
-/**
+ * class to handle session management of the user including things like token management
  * Created by Richard Uzor  on 23/12/2022
  */
 class SessionManager(val context: Context) {

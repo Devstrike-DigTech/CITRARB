@@ -23,6 +23,12 @@ import org.devstrike.app.citrarb.databinding.FragmentSplashScreenBinding
 import org.devstrike.app.citrarb.features.landing.repositories.LandingRepo
 import org.devstrike.app.citrarb.features.landing.ui.LandingViewModel
 
+/*
+* UI fragment to display the splash screen
+* the screen contains the app logo and the company details below.
+* the screen takes a couple of seconds to allow a brief animation on the app logo and then navigates to the landing page
+* */
+
 class SplashScreen : BaseFragment<LandingViewModel, FragmentSplashScreenBinding, LandingRepo>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -40,7 +46,7 @@ class SplashScreen : BaseFragment<LandingViewModel, FragmentSplashScreenBinding,
         }
     }
 
-    // Function to hide NavigationBar
+    // Function to hide NavigationBar and system Ui
     @RequiresApi(Build.VERSION_CODES.R)
     private fun hideSystemUI() {
         WindowCompat.setDecorFitsSystemWindows(requireActivity().window, false)
@@ -65,7 +71,6 @@ class SplashScreen : BaseFragment<LandingViewModel, FragmentSplashScreenBinding,
     ) = FragmentSplashScreenBinding.inflate(layoutInflater, container, false)
 
     override fun getFragmentRepo() = LandingRepo()
-
 
 
     override fun getViewModel() = LandingViewModel::class.java

@@ -18,6 +18,8 @@ import java.util.*
 import kotlin.random.Random
 
 /**
+ * data class to define the columns of the news table in the database
+ * it is a parcelized class because we want to be able to pass it via nav args
  * Created by Richard Uzor  on 23/12/2022
  */
 @Entity
@@ -32,8 +34,8 @@ data class SavedNewsListData(
     val link: String?,
     val coverPhoto: String?,
     var savedDate: String?,
-    @PrimaryKey (autoGenerate = false)
+    @PrimaryKey(autoGenerate = false)
     var uid: String = UUID.randomUUID().toString(),
     var isSaved: Boolean,
     var locallyDeleted: Int
-): Parcelable
+) : Parcelable

@@ -21,21 +21,23 @@ import org.devstrike.app.citrarb.features.news.newsLanding.NewsLandingDirections
 import org.devstrike.app.citrarb.features.news.newsLanding.data.remote.NewsListResponse
 import javax.inject.Inject
 
+
 /**
+ *  * Adapter class for the 'localNews' Ui fragment
+ * the class extends paging adapter in order to properly fetch and process paginated lists
  * Created by Richard Uzor  on 25/12/2022
  */
-/**
- * Created by Richard Uzor  on 25/12/2022
- */
-class LocalNewsListAdapter @Inject constructor(): PagingDataAdapter<NewsListResponse, LocalNewsListAdapter.LocalNewsListViewHolder>(
-    LocalNewsListComparator
-) {
+class LocalNewsListAdapter @Inject constructor() :
+    PagingDataAdapter<NewsListResponse, LocalNewsListAdapter.LocalNewsListViewHolder>(
+        LocalNewsListComparator
+    ) {
 
     val TAG = "newsListAdapter"
 
-    inner class LocalNewsListViewHolder(private val binding: ItemNewsListLayoutBinding): RecyclerView.ViewHolder(binding.root) {
+    inner class LocalNewsListViewHolder(private val binding: ItemNewsListLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(listener: View.OnClickListener, item: NewsListResponse) {
-            if (item.category == "Local News"){
+            if (item.category == "Local News") {
                 binding.apply {
                     newsListItem = item
                     newsListItemClickListener = listener
@@ -46,7 +48,7 @@ class LocalNewsListAdapter @Inject constructor(): PagingDataAdapter<NewsListResp
 
     }
 
-    object LocalNewsListComparator: DiffUtil.ItemCallback<NewsListResponse>(){
+    object LocalNewsListComparator : DiffUtil.ItemCallback<NewsListResponse>() {
         override fun areItemsTheSame(
             oldItem: NewsListResponse,
             newItem: NewsListResponse
@@ -66,11 +68,11 @@ class LocalNewsListAdapter @Inject constructor(): PagingDataAdapter<NewsListResp
 //                "Local News" -> {
 //                    Log.d(TAG, "onBindViewHolder| local: $newsListItem")
 
-                    holder.apply {
-                        bind(createOnClickListener(newsListItem!!), newsListItem)
-                        itemView.tag = newsListItem
+        holder.apply {
+            bind(createOnClickListener(newsListItem!!), newsListItem)
+            itemView.tag = newsListItem
 
-                    }
+        }
 //            }
 //        }
     }
@@ -81,7 +83,11 @@ class LocalNewsListAdapter @Inject constructor(): PagingDataAdapter<NewsListResp
 
     private fun createOnClickListener(newsListItem: NewsListResponse): View.OnClickListener {
         return View.OnClickListener {
-            val navToDetail = NewsLandingDirections.actionNewsLandingToNewsDetail(newsListItem.link, newsListItem.author, newsListItem)
+            val navToDetail = NewsLandingDirections.actionNewsLandingToNewsDetail(
+                newsListItem.link,
+                newsListItem.author,
+                newsListItem
+            )
             it.findNavController().navigate(navToDetail)
         }
     }

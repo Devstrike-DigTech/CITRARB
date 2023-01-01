@@ -18,20 +18,29 @@ import org.devstrike.app.citrarb.databinding.ItemSavedNewsListLayoutBinding
 import org.devstrike.app.citrarb.features.news.newsLanding.data.local.SavedNewsListData
 
 /**
+ * Adapter class for the locally saved news
+ * it defines the recycler view implementation for the locally saved news
  * Created by Richard Uzor  on 27/12/2022
  */
 
-class SavedNewsAdapter: RecyclerView.Adapter<SavedNewsAdapter.SavedNewsViewHolder>() {
+class SavedNewsAdapter : RecyclerView.Adapter<SavedNewsAdapter.SavedNewsViewHolder>() {
 
-    class SavedNewsViewHolder(val binding: ItemSavedNewsListLayoutBinding): RecyclerView.ViewHolder(binding.root)
+    class SavedNewsViewHolder(val binding: ItemSavedNewsListLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
     //implement diff util object to perform list similarity checks and updates
-    val diffUtil = object : DiffUtil.ItemCallback<SavedNewsListData>(){
-        override fun areItemsTheSame(oldItem: SavedNewsListData, newItem: SavedNewsListData): Boolean {
+    val diffUtil = object : DiffUtil.ItemCallback<SavedNewsListData>() {
+        override fun areItemsTheSame(
+            oldItem: SavedNewsListData,
+            newItem: SavedNewsListData
+        ): Boolean {
             return oldItem.uid == newItem.uid
         }
 
-        override fun areContentsTheSame(oldItem: SavedNewsListData, newItem: SavedNewsListData): Boolean {
+        override fun areContentsTheSame(
+            oldItem: SavedNewsListData,
+            newItem: SavedNewsListData
+        ): Boolean {
             return oldItem == newItem
         }
 
@@ -47,7 +56,11 @@ class SavedNewsAdapter: RecyclerView.Adapter<SavedNewsAdapter.SavedNewsViewHolde
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SavedNewsViewHolder {
         return SavedNewsViewHolder(
-            ItemSavedNewsListLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemSavedNewsListLayoutBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
         )
     }
 
@@ -75,7 +88,7 @@ class SavedNewsAdapter: RecyclerView.Adapter<SavedNewsAdapter.SavedNewsViewHolde
 
     //create click listener for the note items to always be passed as a parameter of the event
     private var onItemClickListener: ((SavedNewsListData) -> Unit)? = null
-    fun setOnItemClickListener(listener: (SavedNewsListData) -> Unit){
+    fun setOnItemClickListener(listener: (SavedNewsListData) -> Unit) {
         onItemClickListener = listener
     }
 

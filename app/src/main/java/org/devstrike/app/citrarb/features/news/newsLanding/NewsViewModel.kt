@@ -25,24 +25,26 @@ import org.devstrike.app.citrarb.network.Resource.Loading
 import javax.inject.Inject
 
 /**
+ * viewModel class for the news feature, all the news feature classes share this viewModel
+ * it defines the functionality of fetching the news list, news article, adding to the local db as well as deleting and undoing delete
  * Created by Richard Uzor  on 24/12/2022
  */
 @HiltViewModel
 class NewsViewModel @Inject constructor(
     private val newsRepo: NewsRepoImpl
-): BaseViewModel(newsRepo) {
+) : BaseViewModel(newsRepo) {
 
     private lateinit var _newsListFlow: Flow<PagingData<NewsListResponse>>
     val newsList: Flow<PagingData<NewsListResponse>>
-    get() = _newsListFlow
+        get() = _newsListFlow
 
     private val _newsArticle: MutableLiveData<Resource<NewsArticleResponse>> = MutableLiveData()
     val newsArticle: LiveData<Resource<NewsArticleResponse>>
-    get() = _newsArticle
+        get() = _newsArticle
 
     private lateinit var _savedNewsList: Flow<List<SavedNewsListData>>
     val savedNewsList: Flow<List<SavedNewsListData>>
-    get() = _savedNewsList
+        get() = _savedNewsList
 
     init {
         getAllNewsList()
@@ -73,6 +75,7 @@ class NewsViewModel @Inject constructor(
     fun deleteNews(newsId: String) = viewModelScope.launch {
         newsRepo.deleteNewsLocally(newsId)
     }
+
     fun undoDeleteNews(news: SavedNewsListData) = viewModelScope.launch {
         newsRepo.saveNewsListItemToDB(news)
     }

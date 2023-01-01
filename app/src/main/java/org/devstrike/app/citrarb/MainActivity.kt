@@ -11,6 +11,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.devstrike.app.citrarb.utils.Common
 import org.devstrike.app.citrarb.utils.toast
 
+/*
+* The only activity in this application on which every other screen is built upon.
+* it contains a fragment container and is handled by the nav graph
+* the only other functionality it has is to get the news link of an externally clicked (shared) news link and assign it to a global variable
+* */
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 

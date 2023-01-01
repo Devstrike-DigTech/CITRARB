@@ -16,6 +16,7 @@ import org.devstrike.app.citrarb.features.news.newsLanding.data.remote.NewsListR
 import org.devstrike.app.citrarb.network.Resource
 
 /**
+ * Repository interface to fetch data from the network and relay for the UI
  * Created by Richard Uzor  on 23/12/2022
  */
 interface NewsRepo {

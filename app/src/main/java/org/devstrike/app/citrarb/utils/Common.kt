@@ -11,18 +11,28 @@ package org.devstrike.app.citrarb.utils
 import org.devstrike.app.citrarb.features.landing.data.LandingMenu
 
 /**
+ * This is an object (accessible everywhere in the project) that contains all variables that could be needed anywhere in the project
  * Created by Richard Uzor  on 15/12/2022
  */
 object Common {
 
+    //base url for all api calls
     const val BASE_URL = "https://fair-cyan-crayfish-sock.cyclic.app/"
+
+    //the index request page number for pagination fetching
     const val NEWS_LIST_INDEX_PAGE = 1
+
+    //the size of items for each page of the news list
     const val NETWORK_PAGE_SIZE = 25
+
+    //the name of our app database
     const val LOCAL_DB_NAME = "citrarb_db"
     const val TAG = "EQUA"
 
+    //variable to store a link shared from an outside source to open in the app
     var deepLinkNewsUrl = ""
 
+    //defines the colors and titles for each button in the app menu grid
     private val newsMenu = LandingMenu(
         itemName = "News",
         itemColor = "#34fce4"
@@ -60,6 +70,7 @@ object Common {
         itemColor = "#f1c274"
     )
 
+    //created list of the app menu to be populated into the grid recyclerview
     val landingMenuList = listOf<LandingMenu>(
         newsMenu,
         eyeWitnessMenu,

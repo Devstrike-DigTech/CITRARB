@@ -28,27 +28,34 @@ import org.devstrike.app.citrarb.features.news.repositories.NewsRepoImpl
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
+/*
+* UI fragment to display the list of all the news from the cloud
+* */
+
 @AndroidEntryPoint
 class AllNews : BaseFragment<NewsViewModel, FragmentAllNewsBinding, NewsRepoImpl>() {
 
-    @set:Inject var newsApi: NewsApi by Delegates.notNull<NewsApi>()
-    @set:Inject var newsDao: NewsDao by Delegates.notNull<NewsDao>()
+    @set:Inject
+    var newsApi: NewsApi by Delegates.notNull<NewsApi>()
+    @set:Inject
+    var newsDao: NewsDao by Delegates.notNull<NewsDao>()
 
     private val TAG = "allNews"
     private lateinit var newsListAdapter: NewsListAdapter
-    private val  allNewsViewModel: NewsViewModel by activityViewModels()
+    private val allNewsViewModel: NewsViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        with(binding){
+        with(binding) {
             subscribeToNewsList()
             setUpRecyclerView()
         }
     }
 
+    //function to make the api request and get the paginated response
+    //we then submit the paginated list to the adapter
     private fun subscribeToNewsList() = viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-        allNewsViewModel.newsList.collectLatest{ pagingData ->
-            Log.d(TAG, "subscribeToNewsList: $pagingData")
+        allNewsViewModel.newsList.collectLatest { pagingData ->
             newsListAdapter.submitData(pagingData)
         }
     }
@@ -56,7 +63,8 @@ class AllNews : BaseFragment<NewsViewModel, FragmentAllNewsBinding, NewsRepoImpl
     private fun setUpRecyclerView() {
         newsListAdapter = NewsListAdapter()
 
-        val allNewsLayoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        val allNewsLayoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
         binding.rvAllNewsList.apply {
             adapter = newsListAdapter

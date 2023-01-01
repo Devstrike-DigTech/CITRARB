@@ -27,11 +27,17 @@ import org.devstrike.app.citrarb.utils.snackbar
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
+/*
+* UI fragment class to define and display static UI and functionalities for the news list display
+* It contains a tab layout to display all categories of news to be displayed
+* */
 @AndroidEntryPoint
 class NewsLanding : BaseFragment<NewsViewModel, FragmentNewsLandingBinding, BaseRepo>() {
 
-    @set:Inject var newsApi: NewsApi by Delegates.notNull<NewsApi>()
-    @set:Inject var newsDao: NewsDao by Delegates.notNull<NewsDao>()
+    @set:Inject
+    var newsApi: NewsApi by Delegates.notNull<NewsApi>()
+    @set:Inject
+    var newsDao: NewsDao by Delegates.notNull<NewsDao>()
 
     //    lateinit var customToolbar: Toolbar
 //    val landingScreen = LandingScreen()
@@ -40,6 +46,7 @@ class NewsLanding : BaseFragment<NewsViewModel, FragmentNewsLandingBinding, Base
         super.onViewCreated(view, savedInstanceState)
 
         with(binding) {
+            //set the title to be displayed on each tab
             tabTitle.addTab(tabTitle.newTab().setText("All"))
             tabTitle.addTab(tabTitle.newTab().setText("Local"))
             tabTitle.addTab(tabTitle.newTab().setText("National"))
@@ -57,13 +64,21 @@ class NewsLanding : BaseFragment<NewsViewModel, FragmentNewsLandingBinding, Base
                 )
             }
             newsLandingViewPager.adapter = adapter
-            newsLandingViewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabTitle))
+            newsLandingViewPager.addOnPageChangeListener(
+                TabLayout.TabLayoutOnPageChangeListener(
+                    tabTitle
+                )
+            )
 
+            //define the functionality of the tab layout
             tabTitle.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab) {
                     newsLandingViewPager.currentItem = tab.position
                     tabTitle.setSelectedTabIndicatorColor(resources.getColor(R.color.custom_primary))
-                    tabTitle.setTabTextColors(Color.BLACK, resources.getColor(R.color.custom_primary))
+                    tabTitle.setTabTextColors(
+                        Color.BLACK,
+                        resources.getColor(R.color.custom_primary)
+                    )
                 }
 
                 override fun onTabUnselected(tab: TabLayout.Tab) {
@@ -84,10 +99,10 @@ class NewsLanding : BaseFragment<NewsViewModel, FragmentNewsLandingBinding, Base
     }
 
 
-override fun getFragmentBinding(
-    inflater: LayoutInflater,
-    container: ViewGroup?
-) = FragmentNewsLandingBinding.inflate(inflater, container, false)
+    override fun getFragmentBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ) = FragmentNewsLandingBinding.inflate(inflater, container, false)
 
 
     override fun getViewModel() = NewsViewModel::class.java
