@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2023.
+  ~ Richard Uzor
+  ~ For Afro Connect Technologies
+  ~ Under the Authority of Devstrike Digital Ltd.
+  ~
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".features.account.ui.AccountNotLoggedIn">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/margin_maxi"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_l"
+            android:id="@+id/account_not_logged_in_title"
+            android:text="@string/account_not_logged_in_title" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/account_not_logged_in_title"
+            android:layout_marginTop="@dimen/margin_midi"
+            android:text="@string/account_btn_login"
+            android:padding="@dimen/padding_mini"
+            android:backgroundTint="@color/custom_secondary"
+            android:id="@+id/account_btn_login"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/margin_mini"
+            android:padding="@dimen/padding_mini"
+            android:textSize="@dimen/text_l"
+            android:layout_below="@id/account_btn_login"
+            android:id="@+id/account_not_logged_in_create_account"
+            android:text="@string/account_not_logged_in_create_account" />
+
+</RelativeLayout>

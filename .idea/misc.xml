@@ -11,6 +11,7 @@
         <entry key="app/src/main/res/drawable/share_24.xml" value="0.142" />
         <entry key="app/src/main/res/font/font.xml" value="0.21666666666666667" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.23485784919653893" />
+        <entry key="app/src/main/res/layout/fragment_account_not_logged_in.xml" value="0.2" />
         <entry key="app/src/main/res/layout/fragment_all_news.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_app_menu.xml" value="0.15081521739130435" />
         <entry key="app/src/main/res/layout/fragment_entertainment_news.xml" value="0.15081521739130435" />
@@ -26,6 +27,7 @@
         <entry key="app/src/main/res/layout/fragment_saved_news_list.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_splash_screen.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_sports_news.xml" value="0.15081521739130435" />
+        <entry key="app/src/main/res/layout/fragment_user_account.xml" value="0.1802536231884058" />
         <entry key="app/src/main/res/layout/item_landing_grid_layout.xml" value="0.33" />
         <entry key="app/src/main/res/layout/item_news_list_layout.xml" value="0.33" />
         <entry key="app/src/main/res/layout/item_saved_news_list_layout.xml" value="0.1" />
