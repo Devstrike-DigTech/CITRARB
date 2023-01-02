@@ -19,8 +19,6 @@
     <string name="news_detail_iv_save_news">Save news to Database</string>
     <string name="news_detail_iv_share_news">Share News Detail</string>
     <string name="saved_news_title">Saved News</string>
-<<<<<<< Updated upstream
-=======
     <string name="account_not_logged_in_title">Not Logged In</string>
     <string name="account_btn_login">Log In</string>
     <string name="account_not_logged_in_create_account">Create New Account</string>
@@ -33,5 +31,4 @@
     <string name="sign_up_confirm_password">Confirm Password</string>
     <string name="account_btn_sign_up">Sign Up</string>
     <string name="account_sign_up_log_in">Log In Instead</string>
->>>>>>> Stashed changes
 </resources>
