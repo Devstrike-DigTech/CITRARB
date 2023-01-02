@@ -127,5 +127,7 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     kapt 'com.github.bumptech.glide:compiler:4.11.0'
 
+    //Android YouTube Player
+    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:11.1.0'
 
 }
