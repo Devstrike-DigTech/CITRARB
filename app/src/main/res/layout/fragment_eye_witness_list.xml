@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2023.
+  ~ Richard Uzor
+  ~ For Afro Connect Technologies
+  ~ Under the Authority of Devstrike Digital Ltd.
+  ~
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".features.eyewitness.ui.EyeWitnessList">
+
+    <LinearLayout
+        android:id="@+id/ll_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_mini"
+        android:orientation="horizontal"
+        android:padding="@dimen/padding_mini"
+        android:weightSum="3">
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2.5"
+            android:layout_margin="@dimen/padding_mini"
+            android:padding="@dimen/padding_mini"
+            app:queryHint="@string/search_eye_witness" />
+
+
+        <ImageView
+            android:id="@+id/iv_add_eye_witness_report"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_mini"
+            android:layout_margin="@dimen/padding_mini"
+            android:layout_weight="0.5"
+            android:clickable="true"
+            android:focusable="true"
+            android:contentDescription="@string/add_eye_witness_report"
+            android:layout_gravity="center_vertical"
+            app:srcCompat="@drawable/ic_add"
+            app:tint="@color/custom_secondary" />
+
+    </LinearLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="@dimen/padding_mini"
+        android:layout_margin="@dimen/padding_mini"
+        android:padding="@dimen/padding_mini">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rv_eye_witness_report"
+            android:clipToPadding="false"
+            android:layout_margin="@dimen/padding_mini"
+            android:padding="@dimen/padding_mini"
+            tools:listitem="@layout/item_eye_witness_list_layout"
+            tools:itemCount="3"/>
+
+    </com.google.android.material.card.MaterialCardView>
+</LinearLayout>
