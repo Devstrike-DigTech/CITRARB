@@ -130,6 +130,6 @@ dependencies {
     //Circular Imageview
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
-
-
+    //Android YouTube Player
+    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:11.1.0'
 }
