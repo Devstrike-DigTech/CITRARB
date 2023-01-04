@@ -9,19 +9,19 @@
 package org.devstrike.app.citrarb.features.tv
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import org.devstrike.app.citrarb.databinding.ItemVideoListLayoutBinding
+import org.devstrike.app.citrarb.databinding.ItemTvVideoListLayoutBinding
 
-class VideoListAdapter: RecyclerView.Adapter<VideoListAdapter.ItemViewHolder>() {
 
-    class ItemViewHolder(val binding: ItemVideoListLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
+class TVVideoListAdapter: RecyclerView.Adapter<TVVideoListAdapter.ItemViewHolder>() {
+
+    class ItemViewHolder(val binding: ItemTvVideoListLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        return ItemViewHolder(ItemVideoListLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return ItemViewHolder(ItemTvVideoListLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
