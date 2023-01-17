@@ -23,6 +23,9 @@
         <action
             android:id="@+id/action_appMenu_to_newsDetail"
             app:destination="@id/newsDetail" />
+        <action
+            android:id="@+id/action_appMenu_to_TVVideoList"
+            app:destination="@id/TVVideoList" />
     </fragment>
     <fragment
         android:id="@+id/newsLanding"
@@ -75,4 +78,9 @@
             android:name="savedNewsDetail"
             app:argType="org.devstrike.app.citrarb.features.news.newsLanding.data.local.SavedNewsListData" />
     </fragment>
+    <fragment
+        android:id="@+id/TVVideoList"
+        android:name="org.devstrike.app.citrarb.features.tv.ui.TvVideoList"
+        android:label="fragment_tv_video_list"
+        tools:layout="@layout/fragment_tv_video_list" />
 </navigation>

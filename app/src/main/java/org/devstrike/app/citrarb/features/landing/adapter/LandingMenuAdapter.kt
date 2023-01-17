@@ -97,7 +97,9 @@ class LandingMenuAdapter : ListAdapter<LandingMenu, LandingMenuAdapter.LandingMe
                     it.snackbar("${menuItem.itemName} coming soon...")
                 }
                 "TV" -> {
-                    it.snackbar("${menuItem.itemName} coming soon...")
+                    //it.snackbar("${menuItem.itemName} coming soon...")
+                    val navToTv = AppMenuDirections.actionAppMenuToTVVideoList()
+                    it.findNavController().navigate(navToTv)
                 }
                 "Events" -> {
                     it.snackbar("${menuItem.itemName} coming soon...")
