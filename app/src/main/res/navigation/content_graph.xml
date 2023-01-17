@@ -80,7 +80,7 @@
     </fragment>
     <fragment
         android:id="@+id/TVVideoList"
-        android:name="org.devstrike.app.citrarb.features.tv.TVVideoList"
+        android:name="org.devstrike.app.citrarb.features.tv.ui.TvVideoList"
         android:label="fragment_tv_video_list"
         tools:layout="@layout/fragment_tv_video_list" />
 </navigation>
