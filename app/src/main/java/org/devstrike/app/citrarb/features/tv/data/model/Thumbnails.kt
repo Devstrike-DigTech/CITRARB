@@ -9,7 +9,9 @@
 package org.devstrike.app.citrarb.features.tv.data.model
 
 data class Thumbnails(
-    val default: Default,
-    val high: High,
-    val medium: Medium
+    val default: Default? = Default(),
+    val high: High? = High(),
+    val maxres: Maxres = Maxres(),
+    val medium: Medium = Medium(),
+    val standard: Standard = Standard()
 )

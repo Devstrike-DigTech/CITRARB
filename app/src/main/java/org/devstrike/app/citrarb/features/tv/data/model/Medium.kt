@@ -9,7 +9,7 @@
 package org.devstrike.app.citrarb.features.tv.data.model
 
 data class Medium(
-    val height: Int,
-    val url: String,
-    val width: Int
+    val height: Int = 0,
+    val url: String = "",
+    val width: Int = 0
 )

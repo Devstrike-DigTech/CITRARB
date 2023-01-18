@@ -20,7 +20,7 @@
       android:layout_margin="@dimen/padding_mini"
       android:padding="@dimen/padding_mini"
       android:clipToPadding="false"
-      tools:listitem="@layout/item_tv_video_list_layout"/>
+      tools:listitem="@layout/item_tv_list_layout"/>
 
     <ProgressBar
         android:id="@+id/video_list_progress_bar"

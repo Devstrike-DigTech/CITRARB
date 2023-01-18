@@ -8,8 +8,10 @@
 
 package org.devstrike.app.citrarb.features.tv.data.model
 
-data class High(
-    val height: Int = 0,
-    val url: String = "",
-    val width: Int = 0
+data class TVListItem(
+    val Link: String,
+    val description: String,
+    val publishedAt: String,
+    val thumbnails: Thumbnails, //= Thumbnails().default!!.url,
+    val title: String
 )

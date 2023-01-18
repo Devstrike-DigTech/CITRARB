@@ -8,11 +8,13 @@
 
 package org.devstrike.app.citrarb.features.tv.data.api
 
-import org.devstrike.app.citrarb.features.tv.data.api.TvVideoListResponse
+import org.devstrike.app.citrarb.features.tv.data.model.TVListResponse
 import retrofit2.Response
 import retrofit2.http.GET
 
-interface TvVideoApi {
+interface TVApi {
+
+
     @GET("api/tv/")
-    suspend fun getTvVideos(): Response<TvVideoListResponse>
+    suspend fun getTvVideosList(): TVListResponse
 }
