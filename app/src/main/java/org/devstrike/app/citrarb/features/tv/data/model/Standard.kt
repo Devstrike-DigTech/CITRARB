@@ -8,7 +8,7 @@
 
 package org.devstrike.app.citrarb.features.tv.data.model
 
-data class High(
+data class Standard(
     val height: Int = 0,
     val url: String = "",
     val width: Int = 0

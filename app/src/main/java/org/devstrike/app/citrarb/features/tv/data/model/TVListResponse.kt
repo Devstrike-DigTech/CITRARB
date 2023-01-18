@@ -8,8 +8,7 @@
 
 package org.devstrike.app.citrarb.features.tv.data.model
 
-data class High(
-    val height: Int = 0,
-    val url: String = "",
-    val width: Int = 0
+data class TVListResponse(
+    val `data`: List<TVListItem>,
+    val total: Int
 )

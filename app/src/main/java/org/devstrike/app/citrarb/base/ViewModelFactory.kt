@@ -14,6 +14,8 @@ import org.devstrike.app.citrarb.features.landing.repositories.LandingRepo
 import org.devstrike.app.citrarb.features.landing.ui.LandingViewModel
 import org.devstrike.app.citrarb.features.news.newsLanding.NewsViewModel
 import org.devstrike.app.citrarb.features.news.repositories.NewsRepoImpl
+import org.devstrike.app.citrarb.features.tv.repositories.TVRepoImpl
+import org.devstrike.app.citrarb.features.tv.ui.TVViewModel
 
 /**
  * The viewModel factory class is a base class to create a viewModel and provide it to a fragment only if it is found
@@ -30,6 +32,7 @@ class ViewModelFactory(
 
             modelClass.isAssignableFrom(LandingViewModel::class.java) -> LandingViewModel(repo as LandingRepo) as T
             modelClass.isAssignableFrom(NewsViewModel::class.java) -> NewsViewModel(repo as NewsRepoImpl) as T
+            modelClass.isAssignableFrom(TVViewModel::class.java) -> TVViewModel(repo as TVRepoImpl) as T
             else -> throw IllegalAccessException("ViewModelClass Not Found")
         }
     }

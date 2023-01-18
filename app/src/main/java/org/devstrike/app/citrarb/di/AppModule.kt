@@ -25,6 +25,9 @@ import org.devstrike.app.citrarb.features.news.data.NewsApi
 import org.devstrike.app.citrarb.features.news.data.NewsDao
 import org.devstrike.app.citrarb.features.news.repositories.NewsRepo
 import org.devstrike.app.citrarb.features.news.repositories.NewsRepoImpl
+import org.devstrike.app.citrarb.features.tv.data.api.TVApi
+import org.devstrike.app.citrarb.features.tv.repositories.TVRepo
+import org.devstrike.app.citrarb.features.tv.repositories.TVRepoImpl
 import org.devstrike.app.citrarb.utils.Common.BASE_URL
 import org.devstrike.app.citrarb.utils.Common.LOCAL_DB_NAME
 import retrofit2.Retrofit
@@ -65,13 +68,6 @@ object AppModule {
 
     }
 
-    //Provides the News api passing the built retrofit instance
-    @Singleton
-    @Provides
-    fun provideNewsApi(retrofit: Retrofit): NewsApi =
-        retrofit.create(NewsApi::class.java)
-
-
     //Create and Provide the app Database
     @Singleton
     @Provides
@@ -90,6 +86,34 @@ object AppModule {
         appDb: CitrarbDatabase
     ) = appDb.getNewsListDao()
 
+    // = = = = = = = = = = = = = = = = = = PROVIDE APIS = = = = = = = = = = = = = = = = = = = = = =
+
+    //Provides the News api passing the built retrofit instance
+    @Singleton
+    @Provides
+    fun provideNewsApi(retrofit: Retrofit): NewsApi =
+        retrofit.create(NewsApi::class.java)
+
+    //Provides the TV api passing the built retrofit instance
+    @Singleton
+    @Provides
+    fun provideTVApi(retrofit: Retrofit): TVApi =
+        retrofit.create(TVApi::class.java)
+
+
+    // = = = = = = = = = = = = = = = = = = PROVIDE REPOS = = = = = = = = = = = = = = = = = = = = = =
+
+    //provide landing repo returning the implementation parameters
+    @Singleton
+    @Provides
+    fun providesLandingRepo() = LandingRepo()
+
+    //provides the  base repo
+    @Singleton
+    @Provides
+    fun providesBaseRepo() = BaseRepo()
+
+
     //provide news repo returning the implementation parameters
     @Singleton
     @Provides
@@ -102,13 +126,14 @@ object AppModule {
         )
     }
 
-    //provide landing repo returning the implementation parameters
+    //provide TV repo returning the implementation parameters
     @Singleton
     @Provides
-    fun providesLandingRepo() = LandingRepo()
-
-    //provides the  base repo
-    @Singleton
-    @Provides
-    fun providesBaseRepo() = BaseRepo()
+    fun providesTVRepo(
+        tvApi: TVApi,
+    ): TVRepo {
+        return TVRepoImpl(
+            tvApi
+        )
+    }
 }

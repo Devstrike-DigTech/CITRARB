@@ -8,10 +8,8 @@
 
 package org.devstrike.app.citrarb.features.tv.data.model
 
-data class TvVideo(
-    val Link: String,
-    val description: String,
-    val publishedAt: String,
-    val thumbnails: Thumbnails,
-    val title: String
+data class Maxres(
+    val height: Int = 0,
+    val url: String = "",
+    val width: Int = 0
 )

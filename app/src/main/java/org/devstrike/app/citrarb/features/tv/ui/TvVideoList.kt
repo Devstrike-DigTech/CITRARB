@@ -9,79 +9,96 @@
 package org.devstrike.app.citrarb.features.tv.ui
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
+import org.devstrike.app.citrarb.base.BaseFragment
 import org.devstrike.app.citrarb.databinding.FragmentTvVideoListBinding
-import org.devstrike.app.citrarb.features.tv.data.api.TvVideoRetrofitInstance
-import org.devstrike.app.citrarb.features.tv.repository.TvVideoRepo
-import org.devstrike.app.citrarb.network.TAG
-import retrofit2.HttpException
-import java.io.IOException
+import org.devstrike.app.citrarb.features.news.all.NewsListAdapter
+import org.devstrike.app.citrarb.features.news.newsLanding.NewsViewModel
+import org.devstrike.app.citrarb.features.tv.data.api.TVApi
+import org.devstrike.app.citrarb.features.tv.repositories.TVRepoImpl
+import org.devstrike.app.citrarb.network.Resource
+import org.devstrike.app.citrarb.network.handleApiError
+import javax.inject.Inject
+import kotlin.properties.Delegates
+
+@AndroidEntryPoint
+class TvVideoList : BaseFragment<TVViewModel, FragmentTvVideoListBinding, TVRepoImpl>() {
+
+    @set:Inject
+    var tvApi: TVApi by Delegates.notNull<TVApi>()
+
+    private val TAG = "allNews"
+    private val tvViewModel: TVViewModel by activityViewModels()
+    private lateinit var tvListAdapter: TVListAdapter
 
 
-class TvVideoList : Fragment() {
-    private lateinit var _binding: FragmentTvVideoListBinding
-    private val binding get() = _binding
-    private val tvVideoRepo by lazy{ TvVideoRepo() }
-    private val tvVideoListAdapter by lazy { TvVideoListAdapter(requireContext()) }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        _binding = FragmentTvVideoListBinding.inflate(inflater, container, false)
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val viewModel: TvVideoListViewModel by viewModels { TvVideoListViewModelProviderFactory(tvVideoRepo) }
+        subscribeToTVList()
         setupRecyclerView()
         binding.videoListProgressBar.isVisible = true
 
-        viewModel.tvVideoList.observe(viewLifecycleOwner) {
-            tvVideoListAdapter.submitList(it.data)
-            binding.videoListProgressBar.isVisible = false
-        }
-
-
-
-//        lifecycleScope.launchWhenCreated {
-//            binding.videoListProgressBar.isVisible = true
-//            val response = try{
-//                TvVideoRetrofitInstance.api.getTvVideos()
-//            } catch(e: IOException){
-//                Log.e(TAG, "IO Exception")
-//                return@launchWhenCreated
-//            } catch(e: HttpException){
-//                Log.e(TAG, "HTTP Exception")
-//                return@launchWhenCreated
-//            }
-//
-//            if(response.isSuccessful && response.body() != null){
-//                val body = response.body()!!.data
-//                binding.rvVideoList.adapter = TvVideoListAdapter(requireContext(), body)
-//            }
+//        tvViewModel.tvVideoList.observe(viewLifecycleOwner) {
+//            tvListAdapter.submitList(it.data)
 //            binding.videoListProgressBar.isVisible = false
-//
-//        }
+        //}
 
+    }
+
+    private fun subscribeToTVList(){
+        tvViewModel.getTvVideos()
+        tvViewModel.tvVideos.observe(viewLifecycleOwner, Observer { response ->
+            when (response){
+                is Resource.Success ->{
+                    binding.videoListProgressBar.isVisible = false
+                    tvListAdapter.submitList(response.value!!.data)
+                }
+                is Resource.Failure ->{
+                    binding.videoListProgressBar.isVisible = false
+                    // TODO: handle no internet issue here
+                    handleApiError(response.error) {subscribeToTVList()}
+                }
+                is Resource.Loading ->{
+                    binding.videoListProgressBar.isVisible = true
+                }
+            }
+        })
     }
 
     private fun setupRecyclerView() {
+        tvListAdapter = TVListAdapter(requireContext())
+        val tvListLayoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+
         binding.rvVideoList.apply{
-            adapter = tvVideoListAdapter
-            layoutManager = LinearLayoutManager(context)
+            adapter = tvListAdapter
+            layoutManager = tvListLayoutManager
+            addItemDecoration(
+                DividerItemDecoration(
+                    requireContext(), tvListLayoutManager.orientation
+                )
+            )
         }
 
     }
+
+    override fun getFragmentRepo() = TVRepoImpl(tvApi)
+
+    override fun getViewModel() = TVViewModel::class.java
+
+    override fun getFragmentBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ) = FragmentTvVideoListBinding.inflate(inflater, container, false)
 }
