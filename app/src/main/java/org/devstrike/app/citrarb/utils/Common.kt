@@ -9,6 +9,7 @@
 package org.devstrike.app.citrarb.utils
 
 import org.devstrike.app.citrarb.features.landing.data.LandingMenu
+import org.devstrike.app.citrarb.features.tv.data.TVVideos
 
 /**
  * This is an object (accessible everywhere in the project) that contains all variables that could be needed anywhere in the project
@@ -82,4 +83,7 @@ object Common {
         membersMenu,
         uploadsMenu
     )
+
+    //list to store and pass the tv videos
+    var tvVideos = mutableListOf<TVVideos>()
 }

@@ -6,18 +6,23 @@
  *
  */
 
-package org.devstrike.app.citrarb.features.tv.ui
+package org.devstrike.app.citrarb.features.tv.ui.tvlist
 
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.net.toUri
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import org.devstrike.app.citrarb.databinding.ItemTvListLayoutBinding
+import org.devstrike.app.citrarb.features.tv.data.TVVideos
 import org.devstrike.app.citrarb.features.tv.data.model.TVListItem
+import org.devstrike.app.citrarb.features.tv.ui.tvdetail.TVDetailArgs
+import org.devstrike.app.citrarb.utils.Common
 import org.devstrike.app.citrarb.utils.Common.TAG
 import org.devstrike.app.citrarb.utils.loadImage
 import javax.inject.Inject
@@ -43,9 +48,7 @@ class TVListAdapter @Inject constructor(val context: Context) :
             bind(createOnClickListener(tvVideo), tvVideo)
         }.also {
             holder.binding.videoThumbnail.loadImage(tvVideo.thumbnails.default!!.url)
-            tvVideo.publishedAt
-                .replace("T", " | ")
-                .removeSuffix("Z")
+
         }
     }
 
@@ -65,6 +68,37 @@ class TVListAdapter @Inject constructor(val context: Context) :
         return View.OnClickListener {
             Log.d(TAG, "createOnClickListener: ${tvListItem.title} clicked ")
             Log.d(TAG, "createOnClickListener: ${tvListItem.publishedAt} clicked ")
+            val videoLink = tvListItem.Link.toUri().encodedQuery!!.drop(2)
+
+            val tvVideo = TVVideos(
+                videoTitle = tvListItem.title,
+                videoDescription = tvListItem.description,
+                videoLink = videoLink,
+                videoPublishedDate = tvListItem.publishedAt
+                    .replace("T", " | ")
+                    .removeSuffix("Z")
+            )
+//
+//            for (video in Common.tvVideos){
+//                if (video.videoLink == videoLink){
+//                    Common.tvVideos.remove(video)
+//                }
+//            }
+            //Common.tvVideos.add(0, tvVideo)
+            Common.tvVideos.add(tvVideo)
+
+            val currentVideoIndex = Common.tvVideos.indexOf(tvVideo)
+
+            Log.d(TAG, "createOnClickListener new: ${Common.tvVideos}")
+
+            val navToTVDetail = TvVideoListDirections.actionTVVideoListToTVDetail(tvVideo)
+            it.findNavController().navigate(navToTVDetail)
+
+            Log.d(
+                TAG,
+                "createOnClickListener: $videoLink "
+            )
+
 //            val navToDetail = NewsLandingDirections.actionNewsLandingToNewsDetail(
 //                newsListItem.link,
 //                newsListItem.author,
