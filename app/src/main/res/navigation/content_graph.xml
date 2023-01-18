@@ -80,7 +80,20 @@
     </fragment>
     <fragment
         android:id="@+id/TVVideoList"
-        android:name="org.devstrike.app.citrarb.features.tv.ui.TvVideoList"
+        android:name="org.devstrike.app.citrarb.features.tv.ui.tvlist.TvVideoList"
         android:label="fragment_tv_video_list"
-        tools:layout="@layout/fragment_tv_video_list" />
+        tools:layout="@layout/fragment_tv_video_list" >
+        <action
+            android:id="@+id/action_TVVideoList_to_TVDetail"
+            app:destination="@id/TVDetail" />
+    </fragment>
+    <fragment
+        android:id="@+id/TVDetail"
+        android:name="org.devstrike.app.citrarb.features.tv.ui.tvdetail.TVDetail"
+        android:label="fragment_t_v_detail"
+        tools:layout="@layout/fragment_t_v_detail" >
+        <argument
+            android:name="videoDetail"
+            app:argType="org.devstrike.app.citrarb.features.tv.data.TVVideos" />
+    </fragment>
 </navigation>
