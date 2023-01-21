@@ -25,6 +25,7 @@ import org.devstrike.app.citrarb.features.news.data.NewsApi
 import org.devstrike.app.citrarb.features.news.data.NewsDao
 import org.devstrike.app.citrarb.features.news.newsLanding.NewsViewModel
 import org.devstrike.app.citrarb.features.news.repositories.NewsRepoImpl
+import org.devstrike.app.citrarb.utils.visible
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
@@ -47,6 +48,7 @@ class AllNews : BaseFragment<NewsViewModel, FragmentAllNewsBinding, NewsRepoImpl
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
+            shimmerLayout.startShimmer()
             subscribeToNewsList()
             setUpRecyclerView()
         }
@@ -56,11 +58,17 @@ class AllNews : BaseFragment<NewsViewModel, FragmentAllNewsBinding, NewsRepoImpl
     //we then submit the paginated list to the adapter
     private fun subscribeToNewsList() = viewLifecycleOwner.lifecycleScope.launchWhenCreated {
         allNewsViewModel.newsList.collectLatest { pagingData ->
+            binding.shimmerLayout.apply {
+                stopShimmer()
+                visible(false)
+            }
             newsListAdapter.submitData(pagingData)
         }
     }
 
     private fun setUpRecyclerView() {
+        binding.rvAllNewsList.visible(true)
+
         newsListAdapter = NewsListAdapter()
 
         val allNewsLayoutManager =

@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView
 import org.devstrike.app.citrarb.R
 import org.devstrike.app.citrarb.features.landing.data.LandingMenu
 import org.devstrike.app.citrarb.databinding.ItemLandingGridLayoutBinding
+import org.devstrike.app.citrarb.features.landing.ui.AppMenu
 import org.devstrike.app.citrarb.features.landing.ui.AppMenuDirections
 import org.devstrike.app.citrarb.features.landing.ui.LandingScreen
 import org.devstrike.app.citrarb.utils.Common.TAG
@@ -33,7 +34,6 @@ class LandingMenuAdapter : ListAdapter<LandingMenu, LandingMenuAdapter.LandingMe
     DiffCallback()
 ) {
 
-    val landingScreen = LandingScreen()
 
     class LandingMenuViewHolder(private val binding: ItemLandingGridLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -88,8 +88,12 @@ class LandingMenuAdapter : ListAdapter<LandingMenu, LandingMenuAdapter.LandingMe
         return View.OnClickListener {
             //navigate to page to show doctor details using navigation directions
             Log.d(TAG, "createOnClickListener: ${menuItem.itemName}")
+            val fragment = LandingScreen()
+            //val toolBar = fragment.toolBar()
+
             when (menuItem.itemName) {
                 "News" -> {
+              //      toolBar.title = "News"
                     val navToNews = AppMenuDirections.actionAppMenuToNewsLanding()
                     it.findNavController().navigate(navToNews)
                 }

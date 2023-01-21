@@ -42,9 +42,7 @@
                 android:layout_height="wrap_content"
                 android:elevation="4dp"
                 app:menu="@menu/tool_bar_menu"
-                android:padding="@dimen/padding_mini"
-                app:subtitle="@string/tool_bar_sub_title"
-                app:title="@string/tool_bar_title">
+                android:padding="@dimen/padding_mini">
 
             </androidx.appcompat.widget.Toolbar>
 

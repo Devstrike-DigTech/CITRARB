@@ -26,6 +26,12 @@
         <action
             android:id="@+id/action_appMenu_to_TVVideoList"
             app:destination="@id/TVVideoList" />
+        <action
+            android:id="@+id/action_appMenu_to_accountNotLoggedIn"
+            app:destination="@id/accountNotLoggedIn" />
+        <action
+            android:id="@+id/action_appMenu_to_accountProfile"
+            app:destination="@id/accountProfile" />
     </fragment>
     <fragment
         android:id="@+id/newsLanding"
@@ -96,4 +102,32 @@
             android:name="videoDetail"
             app:argType="org.devstrike.app.citrarb.features.tv.data.TVVideos" />
     </fragment>
+    <fragment
+        android:id="@+id/accountNotLoggedIn"
+        android:name="org.devstrike.app.citrarb.features.account.ui.AccountNotLoggedIn"
+        android:label="fragment_account_not_logged_in"
+        tools:layout="@layout/fragment_account_not_logged_in" >
+        <action
+            android:id="@+id/action_accountNotLoggedIn_to_accountLogIn"
+            app:destination="@id/accountLogIn" />
+    </fragment>
+    <fragment
+        android:id="@+id/accountProfile"
+        android:name="org.devstrike.app.citrarb.features.account.ui.AccountProfile"
+        android:label="fragment_account_profile"
+        tools:layout="@layout/fragment_account_profile" >
+        <argument
+            android:name="userToken"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/accountLogIn"
+        android:name="org.devstrike.app.citrarb.features.account.ui.AccountLogIn"
+        android:label="fragment_account_log_in"
+        tools:layout="@layout/fragment_account_log_in" />
+    <fragment
+        android:id="@+id/userAccount"
+        android:name="org.devstrike.app.citrarb.features.account.ui.UserAccount"
+        android:label="fragment_user_account"
+        tools:layout="@layout/fragment_user_account" />
 </navigation>

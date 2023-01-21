@@ -13,56 +13,36 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import dagger.hilt.android.AndroidEntryPoint
 import org.devstrike.app.citrarb.R
+import org.devstrike.app.citrarb.base.BaseFragment
+import org.devstrike.app.citrarb.databinding.FragmentAccountLogInBinding
+import org.devstrike.app.citrarb.features.account.data.UserApi
+import org.devstrike.app.citrarb.features.account.repositories.UserRepoImpl
+import org.devstrike.app.citrarb.utils.SessionManager
+import javax.inject.Inject
+import kotlin.properties.Delegates
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+@AndroidEntryPoint
+class AccountLogIn : BaseFragment<UserViewModel, FragmentAccountLogInBinding, UserRepoImpl>() {
 
-/**
- * A simple [Fragment] subclass.
- * Use the [AccountLogIn.newInstance] factory method to
- * create an instance of this fragment.
- */
-class AccountLogIn : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    @set:Inject
+    var userApi: UserApi by Delegates.notNull<UserApi>()
+    @set:Inject
+    var sessionManager: SessionManager by Delegates.notNull<SessionManager>()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_account_log_in, container, false)
-    }
+    override fun getFragmentRepo() = UserRepoImpl(userApi, sessionManager)
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment AccountLogIn.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            AccountLogIn().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
+    override fun getViewModel() = UserViewModel::class.java
+
+    override fun getFragmentBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ) = FragmentAccountLogInBinding.inflate(inflater, container, false)
+
 }

@@ -11,6 +11,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".features.news.all.AllNews">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -21,14 +22,46 @@
         tools:listitem="@layout/item_news_list_layout"
         tools:itemCount="4"
         android:padding="@dimen/padding_mini"
+        android:visibility="gone"
         android:id="@+id/rv_all_news_list"/>
 
-    <ProgressBar
-        android:layout_width="wrap_content"
+    <!--below is the view for our shimmer-->
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmerLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:visibility="gone"
-        android:id="@+id/all_news_progress_bar"
-        tools:visibility="visible"/>
+        android:animateLayoutChanges="true"
+        android:animationCache="true"
+        app:shimmer_repeat_mode="restart"
+        app:shimmer_shape="radial">
+
+        <!--For shimmer we are creating a same
+            layout but setting its background
+            as a gray colour and not providing
+            any view inside it-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!--below we are displaying multiple
+                shimmer layouts using include
+                to show them in list format-->
+            <include layout="@layout/item_news_list_shimmer_layout" />
+            <include layout="@layout/item_news_list_shimmer_layout" />
+            <include layout="@layout/item_news_list_shimmer_layout" />
+            <include layout="@layout/item_news_list_shimmer_layout" />
+            <include layout="@layout/item_news_list_shimmer_layout" />
+
+        </LinearLayout>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+<!--    <ProgressBar-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_centerInParent="true"-->
+<!--        android:visibility="gone"-->
+<!--        android:id="@+id/all_news_progress_bar"-->
+<!--        tools:visibility="visible"/>-->
 
 </RelativeLayout>
