@@ -28,7 +28,9 @@
             app:destination="@id/TVVideoList" />
         <action
             android:id="@+id/action_appMenu_to_accountNotLoggedIn"
-            app:destination="@id/accountNotLoggedIn" />
+            app:destination="@id/accountNotLoggedIn"
+            app:popUpTo="@id/appMenu"
+            app:popUpToInclusive="true"/>
         <action
             android:id="@+id/action_appMenu_to_accountProfile"
             app:destination="@id/accountProfile" />
@@ -124,10 +126,18 @@
         android:id="@+id/accountLogIn"
         android:name="org.devstrike.app.citrarb.features.account.ui.AccountLogIn"
         android:label="fragment_account_log_in"
-        tools:layout="@layout/fragment_account_log_in" />
+        tools:layout="@layout/fragment_account_log_in" >
+        <action
+            android:id="@+id/action_accountLogIn_to_accountCreate"
+            app:destination="@id/accountCreate" />
+    </fragment>
     <fragment
-        android:id="@+id/userAccount"
-        android:name="org.devstrike.app.citrarb.features.account.ui.UserAccount"
-        android:label="fragment_user_account"
-        tools:layout="@layout/fragment_user_account" />
+        android:id="@+id/accountCreate"
+        android:name="org.devstrike.app.citrarb.features.account.ui.AccountCreate"
+        android:label="fragment_account_create"
+        tools:layout="@layout/fragment_account_create" >
+        <action
+            android:id="@+id/action_accountCreate_to_accountLogIn"
+            app:destination="@id/accountLogIn" />
+    </fragment>
 </navigation>

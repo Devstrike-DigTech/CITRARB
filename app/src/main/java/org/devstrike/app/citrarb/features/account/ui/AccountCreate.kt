@@ -21,6 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.devstrike.app.citrarb.R
 import org.devstrike.app.citrarb.base.BaseFragment
+import org.devstrike.app.citrarb.databinding.FragmentAccountCreateBinding
 import org.devstrike.app.citrarb.databinding.FragmentAccountLogInBinding
 import org.devstrike.app.citrarb.features.account.data.UserApi
 import org.devstrike.app.citrarb.features.account.repositories.UserRepoImpl
@@ -32,46 +33,49 @@ import javax.inject.Inject
 import kotlin.properties.Delegates
 
 @AndroidEntryPoint
-class AccountLogIn : BaseFragment<UserViewModel, FragmentAccountLogInBinding, UserRepoImpl>() {
+class AccountCreate : BaseFragment<UserViewModel, FragmentAccountCreateBinding, UserRepoImpl>() {
 
     @set:Inject
-    var userApi: UserApi by Delegates.notNull<UserApi>()
+    var userApi: UserApi by Delegates.notNull()
     @set:Inject
-    var sessionManager: SessionManager by Delegates.notNull<SessionManager>()
+    var sessionManager: SessionManager by Delegates.notNull()
 
     private val userViewModel: UserViewModel by activityViewModels()
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         subscribeToRegisterEvents()
 
-        //get the values from the UI
-        binding.accountLogInBtnLogin.setOnClickListener {
-            val email = binding.signInEmail.text.toString()
-            val password = binding.signInPassword.text.toString()
+        with(binding){
+            //get the values from the UI
+            accountCreateBtn.setOnClickListener {
+                val name = createAccountUsername.text.toString()
+                val email = createAccountEmail.text.toString()
+                val password = createAccountPassword.text.toString()
+                val confirmPassword = accountCreateConfirmPassword.text.toString()
 
-            //call the login user function from the  user view model and pass the fetched UI values
-            userViewModel.login(
-                email.trim(),
-                password.trim()
-            )
-        }
-
-        binding.accountLogInCreateAccount.setOnClickListener {
-            val navToCreateAccount = AccountLogInDirections.actionAccountLogInToAccountCreate()
-            findNavController().navigate(navToCreateAccount)
+                //call the create user function from the  user view model and pass the fetched UI values
+                userViewModel.createUser(
+                    name.trim(),
+                    email.trim(),
+                    password.trim(),
+                    confirmPassword.trim()
+                )
+            }
         }
 
     }
 
+
+    //function to handle the responses from the network call using the register state in view model
     private fun subscribeToRegisterEvents() = lifecycleScope.launch {
-        userViewModel.loginState.collect { result ->
+        userViewModel.registerState.collect { result ->
             when(result){
                 is Resource.Success -> {
                     Toast.makeText(
                         requireContext(),
-                        "Login Successful",
+                        "Account Successfully Created",
                         Toast.LENGTH_SHORT
                     ).show()
                     findNavController().popBackStack()
@@ -79,7 +83,6 @@ class AccountLogIn : BaseFragment<UserViewModel, FragmentAccountLogInBinding, Us
                 is Resource.Failure -> {
                     hideProgressBar()
                     requireContext().toast(result.value!!)
-                    //Toast.makeText(requireContext(), result.value, Toast.LENGTH_SHORT).show()
                 }
                 is Resource.Loading -> {
                     showProgressBar()
@@ -90,11 +93,13 @@ class AccountLogIn : BaseFragment<UserViewModel, FragmentAccountLogInBinding, Us
 
 
     private fun showProgressBar(){
-        binding.loginProgressBar.visible(true)
+        binding.createAccountProgressBar.visible(true)
     }
 
+
     private fun hideProgressBar(){
-        binding.loginProgressBar.visible(false)
+
+        binding.createAccountProgressBar.visible(false)
     }
 
 
@@ -106,6 +111,6 @@ class AccountLogIn : BaseFragment<UserViewModel, FragmentAccountLogInBinding, Us
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ) = FragmentAccountLogInBinding.inflate(inflater, container, false)
+    ) = FragmentAccountCreateBinding.inflate(inflater, container, false)
 
 }

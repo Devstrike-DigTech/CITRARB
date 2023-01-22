@@ -19,7 +19,7 @@ object Common {
 
     //base url for all api calls
     const val BASE_URL = "https://fair-cyan-crayfish-sock.cyclic.app/"
-    const val USER_BASE_URL = "https://citrab.onrender.com/"
+    const val USER_BASE_URL = "https://citrab.onrender.com"
 
 
     const val JWT_TOKEN_KEY = "jwt_token_key"

@@ -13,6 +13,10 @@ import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.NavOptions
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -46,6 +50,8 @@ class LandingScreen : BaseFragment<LandingViewModel, FragmentLandingScreenBindin
     val landingScreenBinding: FragmentLandingScreenBinding?
         get() = _binding
 
+//    private var navController: NavController by Delegates.notNull()
+
     @set:Inject
     var sessionManager: SessionManager by Delegates.notNull<SessionManager>()
 
@@ -57,17 +63,18 @@ class LandingScreen : BaseFragment<LandingViewModel, FragmentLandingScreenBindin
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        (activity as AppCompatActivity).setSupportActionBar(binding.customToolBar)
-        binding.customToolBar.title = Common.toolBarTitle
-        binding.customToolBar.subtitle = Common.toolBarSubTitle
+        (activity as AppCompatActivity).setSupportActionBar(landingScreenBinding!!.customToolBar)
+        landingScreenBinding!!.customToolBar.title = Common.toolBarTitle
+        landingScreenBinding!!.customToolBar.subtitle = Common.toolBarSubTitle
 
 //        mCustomToolBar = view.findViewById(R.id.customToolBar)
-        mCustomToolBar = binding.customToolBar
+        mCustomToolBar = landingScreenBinding!!.customToolBar
 
         //toolBar()
 //        _binding = FragmentLandingScreenBinding.bind(view)
 //        mCustomToolBar = _binding!!.customToolBar
 
+        //val navHostFragment = binding.mainContainerLanding as NavHostFragment
 
     }
 
@@ -77,10 +84,11 @@ class LandingScreen : BaseFragment<LandingViewModel, FragmentLandingScreenBindin
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
+        _binding = FragmentLandingScreenBinding.inflate(inflater, container, false)
 
         setHasOptionsMenu(true)
-        return super.onCreateView(inflater, container, savedInstanceState)
+        return landingScreenBinding!!.root
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -95,30 +103,47 @@ class LandingScreen : BaseFragment<LandingViewModel, FragmentLandingScreenBindin
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val navController = landingScreenBinding!!.mainContainerLanding.findNavController()
+        val graph = navController.navInflater.inflate(R.navigation.content_graph)
+        navController.graph = graph
+        //navController.navigate(R.id.appMenu)
+
         when (item.itemId) {
             R.id.menu_account -> {
                 val accountNotLoggedIn = AccountNotLoggedIn()
                 val accountProfile = AccountProfile()
+
+//                val navHostFragment = landingScreenBinding!!.mainContainerLanding as NavHostFragment//binding.mainContainerLanding as NavHostFragment
+//                    //(requireFragmentManager().findFragmentById(R.id.main_container_landing) as NavHostFragment)
+//                val inflater = navHostFragment.navController.navInflater
+//                //val graph = inflater.inflate(R.navigation.content_graph)
                 CoroutineScope(Dispatchers.IO).launch {
                     if (sessionManager.getJwtToken().isNullOrEmpty()) {
                         withContext(Dispatchers.Main) {
-                            replaceFragment(accountNotLoggedIn, "Account")
-//                            val navToNoAccount =
-//                                AppMenuDirections.actionAppMenuToAccountNotLoggedIn()
-//                            findNavController().navigate(navToNoAccount)
+                            navController.navigate(R.id.accountNotLoggedIn)
+
                         }
+//                            graph.setStartDestination(R.id.accountNotLoggedIn)
+//
+//                            navHostFragment.navController.graph = graph
+                        //}
                     } else {
                         withContext(Dispatchers.Main) {
                             val token = sessionManager.getJwtToken()
                             requireContext().toast(token!!)
-                            val bundle = Bundle()
-                            bundle.putString("token", token)
-                            accountProfile.arguments = bundle
-                            replaceFragment(accountProfile, "Account")
+                            navController.navigate(R.id.accountProfile)
 
-//                            val navToProfile =
-//                                AppMenuDirections.actionAppMenuToAccountProfile(token)
-//                            findNavController().navigate(navToProfile)
+//                            graph.setStartDestination(R.id.accountProfile)
+//                            navHostFragment.navController.graph = graph
+//
+////                            val bundle = Bundle()
+////                            bundle.putString("token", token)
+////                            accountProfile.arguments = bundle
+////                            replaceFragment(accountProfile, "Account")
+//
+////                            val navToProfile =
+////                                AppMenuDirections.actionAppMenuToAccountProfile(token)
+////                            findNavController().navigate(navToProfile)
                         }
                     }
                 }
@@ -136,11 +161,11 @@ class LandingScreen : BaseFragment<LandingViewModel, FragmentLandingScreenBindin
         return super.onOptionsItemSelected(item)
     }
 
-    private fun replaceFragment(fragment: Fragment, title: String){
+    private fun replaceFragment(fragment: Fragment, title: String) {
 
         val fragmentManager = requireFragmentManager()
         val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.main_container,fragment)
+        fragmentTransaction.replace(R.id.main_container_landing, fragment)
         fragmentTransaction.commit()
         binding.customToolBar.title = title
         binding.customToolBar.subtitle = "Know Thyself"

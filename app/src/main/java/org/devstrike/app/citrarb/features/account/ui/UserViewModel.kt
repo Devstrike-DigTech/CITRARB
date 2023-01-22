@@ -80,10 +80,10 @@ class UserViewModel @Inject constructor(
 
         //new user
         val newUser = CreateAccountRequest(
-            username,
-            email,
-            password,
-            confirmPassword
+            username = username,
+            email = email,
+            password = password,
+            confirmPassword = confirmPassword
         )
 
         //use the state to call the create user api
@@ -96,11 +96,10 @@ class UserViewModel @Inject constructor(
         email: String,
         password: String
     ) = viewModelScope.launch {
-        _loginState.emit(Resource.Loading) //set the state to loading
 
         //input validations
         if (email.isEmpty() || password.isEmpty()){
-            _registerState.emit(Resource.Failure(value = "Some Fields are Empty"))
+            _loginState.emit(Resource.Failure(value = "Some Fields are Empty"))
             return@launch
         }
 
@@ -109,6 +108,8 @@ class UserViewModel @Inject constructor(
             _loginState.emit(Resource.Failure(value = "Email is not Valid"))
             return@launch
         }
+
+        _loginState.emit(Resource.Loading) //set the state to loading
 
         //logged user
         val newUser = CreateAccountRequest(

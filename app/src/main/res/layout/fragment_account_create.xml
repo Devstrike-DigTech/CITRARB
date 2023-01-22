@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2023.
+  ~ Richard Uzor
+  ~ For Afro Connect Technologies
+  ~ Under the Authority of Devstrike Digital Ltd.
+  ~
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".features.account.ui.AccountCreate">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_mini"
+        android:layout_marginStart="@dimen/padding_mini"
+        android:layout_marginTop="@dimen/padding_mini"
+        android:layout_marginEnd="@dimen/padding_mini"
+        android:layout_marginBottom="@dimen/padding_mini"
+        android:orientation="vertical"
+        android:padding="@dimen/padding_mini">
+
+        <TextView
+            android:id="@+id/account_not_log_in"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="@dimen/margin_maxi"
+            android:layout_marginTop="@dimen/margin_maxi"
+            android:layout_marginEnd="@dimen/margin_maxi"
+            android:layout_marginBottom="@dimen/margin_maxi"
+            android:fontFamily="cursive"
+            android:padding="@dimen/padding_mini"
+            android:text="@string/account_sign_up"
+            android:textColor="@color/custom_primary"
+            android:textSize="@dimen/text_xxl"
+            android:textStyle="bold" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout_create_account_username"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_mini"
+            android:hint="@string/sign_up_username"
+
+            android:paddingTop="@dimen/padding_midi">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/create_account_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/sign_up_username"
+                android:importantForAutofill="no"
+                app:endIconDrawable="@drawable/ic_user"
+                android:inputType="textPersonName"
+                android:labelFor="@id/create_account_username" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout_create_account_email"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:endIconDrawable="@drawable/ic_email"
+            android:layout_margin="@dimen/margin_mini"
+            android:hint="@string/sign_in_email"
+            android:paddingTop="@dimen/padding_midi">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/create_account_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:endIconDrawable="@drawable/ic_email"
+                android:contentDescription="@string/sign_in_email"
+                android:importantForAutofill="no"
+                android:inputType="textEmailAddress"
+                android:labelFor="@id/create_account_email" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout_sign_up_password"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_mini"
+            android:hint="@string/sign_in_password"
+            android:paddingTop="8dp"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/custom_secondary">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/create_account_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/sign_in_password"
+                android:importantForAutofill="no"
+                android:inputType="textPassword"
+                android:labelFor="@id/create_account_password" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout_account_create_confirm_password"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_mini"
+            android:hint="@string/sign_up_confirm_password"
+            android:paddingTop="8dp"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/custom_secondary">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/account_create_confirm_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/sign_up_confirm_password"
+                android:importantForAutofill="no"
+                android:inputType="textPassword"
+                android:labelFor="@id/sign_in_password" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <Button
+            android:id="@+id/account_create_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_midi"
+            android:backgroundTint="@color/custom_secondary"
+            android:padding="@dimen/padding_mini"
+            android:text="@string/account_sign_up" />
+
+        <TextView
+            android:id="@+id/account_create_account_log_in"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/margin_mini"
+            android:padding="@dimen/padding_mini"
+            android:text="@string/account_create_account_log_in"
+            android:textColor="@color/custom_secondary"
+            android:textSize="@dimen/text_s" />
+
+
+    </LinearLayout>
+
+
+    <ProgressBar
+        android:id="@+id/createAccountProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+
+</RelativeLayout>
