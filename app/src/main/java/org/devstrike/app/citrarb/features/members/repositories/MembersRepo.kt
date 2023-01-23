@@ -8,7 +8,9 @@
 
 package org.devstrike.app.citrarb.features.members.repositories
 
+import org.devstrike.app.citrarb.features.members.data.models.requests.SendFriendRequest
 import org.devstrike.app.citrarb.features.members.data.models.responses.AllUsersResponse
+import org.devstrike.app.citrarb.features.members.data.models.responses.SendFriendRequestResponse
 import org.devstrike.app.citrarb.network.Resource
 
 /**
@@ -17,5 +19,6 @@ import org.devstrike.app.citrarb.network.Resource
 interface MembersRepo {
 
     suspend fun getAllUsers(): Resource<AllUsersResponse>
+    suspend fun sendFriendRequest(userId: SendFriendRequest): Resource<SendFriendRequestResponse>
 
 }

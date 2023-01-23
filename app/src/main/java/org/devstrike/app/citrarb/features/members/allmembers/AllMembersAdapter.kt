@@ -9,21 +9,13 @@
 package org.devstrike.app.citrarb.features.members.allmembers
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.core.net.toUri
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import org.devstrike.app.citrarb.databinding.ItemAllMembersLayoutBinding
 import org.devstrike.app.citrarb.features.members.data.models.responses.Member
-import org.devstrike.app.citrarb.features.tv.data.TVVideos
-import org.devstrike.app.citrarb.features.tv.data.model.TVListItem
-import org.devstrike.app.citrarb.features.tv.ui.tvlist.TvVideoListDirections
-import org.devstrike.app.citrarb.utils.Common
 import javax.inject.Inject
 
 /**
@@ -37,21 +29,16 @@ class AllMembersAdapter @Inject constructor(
 
     class AllMemberListViewHolder(val binding: ItemAllMembersLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(listener: View.OnClickListener, itemData: Member) {
+        fun bind(itemData: Member) {
             binding.apply {
                 allMembersItem = itemData
-                itemSendRequestClickListener = listener
+                //itemSendRequestClickListener = listener
                 executePendingBindings()
             }
         }
     }
 
 
-    private fun createOnClickListener(member: Member): View.OnClickListener {
-        return View.OnClickListener {
-            //implement send request
-        }
-    }
 
     private class DiffCallback : DiffUtil.ItemCallback<Member>() {
         override fun areItemsTheSame(oldItem: Member, newItem: Member): Boolean {
@@ -76,7 +63,13 @@ class AllMembersAdapter @Inject constructor(
     override fun onBindViewHolder(holder: AllMemberListViewHolder, position: Int) {
         val member = getItem(position)
         holder.apply {
-            bind(createOnClickListener(member), member)
+            bind(member)
+        }.binding.btnSendFriendRequest.setOnClickListener {
+            onItemClickListener?.invoke(member)
         }
+    }
+    private var onItemClickListener: ((Member) -> Unit)? = null
+    fun createOnClickListener(listener: (Member) -> Unit){
+        onItemClickListener = listener
     }
 }

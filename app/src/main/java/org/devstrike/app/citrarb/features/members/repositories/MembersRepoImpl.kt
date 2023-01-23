@@ -11,7 +11,9 @@ package org.devstrike.app.citrarb.features.members.repositories
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import org.devstrike.app.citrarb.base.BaseRepo
 import org.devstrike.app.citrarb.features.members.data.MembersApi
+import org.devstrike.app.citrarb.features.members.data.models.requests.SendFriendRequest
 import org.devstrike.app.citrarb.features.members.data.models.responses.AllUsersResponse
+import org.devstrike.app.citrarb.features.members.data.models.responses.SendFriendRequestResponse
 import org.devstrike.app.citrarb.network.Resource
 import org.devstrike.app.citrarb.network.isNetworkConnected
 import org.devstrike.app.citrarb.utils.SessionManager
@@ -25,7 +27,7 @@ import javax.inject.Inject
 class MembersRepoImpl @Inject constructor(
     val membersApi: MembersApi,
     val sessionManager: SessionManager
-): MembersRepo, BaseRepo() {
+) : MembersRepo, BaseRepo() {
 
     override suspend fun getAllUsers(): Resource<AllUsersResponse> {
 
@@ -38,5 +40,16 @@ class MembersRepoImpl @Inject constructor(
             membersApi.getAllUsers("Bearer ".plus(token!!))
         }
 
+    }
+
+    override suspend fun sendFriendRequest(userId: SendFriendRequest): Resource<SendFriendRequestResponse> {
+        val token = sessionManager.getJwtToken()
+        return safeApiCall {
+            //check if there is internet connection
+            if (!isNetworkConnected(sessionManager.context)) {
+                Resource.Failure(value = "No Internet Connection!")
+            }
+            membersApi.sendFriendRequest("Bearer ".plus(token!!), userId)
+        }
     }
 }

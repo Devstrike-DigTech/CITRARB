@@ -67,13 +67,12 @@
                 android:id="@+id/txt_member_gender"/>
 
             <Button
+                android:id="@+id/btn_send_friend_request"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/txt_member_gender"
-                android:text="@string/send_friend_request_text"
-                android:onClick="@{itemSendRequestClickListener}"
                 android:backgroundTint="@color/custom_secondary"
-                android:id="@+id/btn_send_friend_request"/>
+                android:text="@string/send_friend_request_text" />
 
         </RelativeLayout>
 

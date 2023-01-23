@@ -17,6 +17,10 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.devstrike.app.citrarb.R
 import org.devstrike.app.citrarb.base.BaseFragment
 import org.devstrike.app.citrarb.base.BaseRepo
@@ -40,8 +44,18 @@ class MembersLanding : BaseFragment<MembersViewModel, FragmentMembersLandingBind
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
+//        var token: String by Delegates.notNull()
+//
+//        CoroutineScope(Dispatchers.IO).launch {
+//            val jwt = sessionManager.getJwtToken().toString()
+//            withContext(Dispatchers.Main){
+//               val token = jwt
+//            }
+//        }
+//        if (token.isEmpty()){
+//            val navToNotLoggedIn = MembersLandingDirections.actionMembersLandingToAccountNotLoggedIn()
+//            findNavController().navigate(navToNotLoggedIn)
+//        }
         with(binding) {
             //set the title to be displayed on each tab
             membersTabTitle.addTab(membersTabTitle.newTab().setText("All Members"))

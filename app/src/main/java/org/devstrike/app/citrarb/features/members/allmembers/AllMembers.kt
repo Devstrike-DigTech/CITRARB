@@ -9,7 +9,7 @@
 package org.devstrike.app.citrarb.features.members.allmembers
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,18 +21,17 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import org.devstrike.app.citrarb.R
 import org.devstrike.app.citrarb.base.BaseFragment
-import org.devstrike.app.citrarb.base.BaseViewModel
 import org.devstrike.app.citrarb.databinding.FragmentAllMembersBinding
 import org.devstrike.app.citrarb.features.members.data.MembersApi
+import org.devstrike.app.citrarb.features.members.data.models.requests.SendFriendRequest
 import org.devstrike.app.citrarb.features.members.data.models.responses.Member
 import org.devstrike.app.citrarb.features.members.repositories.MembersRepoImpl
 import org.devstrike.app.citrarb.features.members.ui.MembersViewModel
-import org.devstrike.app.citrarb.features.tv.ui.tvlist.TVListAdapter
 import org.devstrike.app.citrarb.network.Resource
 import org.devstrike.app.citrarb.network.handleApiError
 import org.devstrike.app.citrarb.utils.SessionManager
+import org.devstrike.app.citrarb.utils.toast
 import org.devstrike.app.citrarb.utils.visible
 import javax.inject.Inject
 import kotlin.properties.Delegates
@@ -48,6 +47,8 @@ class AllMembers : BaseFragment<MembersViewModel, FragmentAllMembersBinding, Mem
     val membersViewModel: MembersViewModel by activityViewModels()
 
     private lateinit var allMembersAdapter: AllMembersAdapter
+
+    val TAG = "AllMembers"
 
     var token: String by Delegates.notNull()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -105,7 +106,47 @@ class AllMembers : BaseFragment<MembersViewModel, FragmentAllMembersBinding, Mem
                 )
             )
         }
+
+        allMembersAdapter.createOnClickListener{
+            val friendRequestID = SendFriendRequest(it._id)
+            sendFriendRequest(friendRequestID)
+        }
     }
+
+    private fun sendFriendRequest(user: SendFriendRequest) {
+        membersViewModel.sendFriendRequest(user)
+        Log.d(TAG, "sendFriendRequest: $user")
+        lifecycleScope.launch{
+            membersViewModel.sendFriendRequestState.collect{ result->
+                when(result){
+                    is Resource.Success ->{
+                        hideProgressBar()
+                        requireContext().toast("Friend request sent!")
+                        //navigate to friends
+                    }
+                    is Resource.Failure ->{
+                        hideProgressBar()
+                        handleApiError(result.error){sendFriendRequest(user)}
+                    }
+                    is Resource.Loading ->{
+                        showProgressBar()
+                    }
+                }
+            }
+        }
+
+    }
+
+
+    private fun showProgressBar(){
+        binding.sendRequestProgressBar.visible(true)
+    }
+
+    private fun hideProgressBar(){
+        binding.sendRequestProgressBar.visible(false)
+    }
+
+
 
     override fun getFragmentRepo() = MembersRepoImpl(membersApi, sessionManager)
 
