@@ -6,7 +6,7 @@
  *
  */
 
-package org.devstrike.app.citrarb.features.news.saved
+package org.devstrike.app.citrarb.features.news.savednews
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

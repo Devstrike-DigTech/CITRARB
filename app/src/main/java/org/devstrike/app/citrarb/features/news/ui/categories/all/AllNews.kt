@@ -6,10 +6,9 @@
  *
  */
 
-package org.devstrike.app.citrarb.features.news.national
+package org.devstrike.app.citrarb.features.news.ui.categories.all
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,82 +19,79 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import org.devstrike.app.citrarb.base.BaseFragment
-import org.devstrike.app.citrarb.databinding.FragmentNationalNewsBinding
+import org.devstrike.app.citrarb.databinding.FragmentAllNewsBinding
 import org.devstrike.app.citrarb.features.news.data.NewsApi
 import org.devstrike.app.citrarb.features.news.data.NewsDao
 import org.devstrike.app.citrarb.features.news.newsLanding.NewsViewModel
 import org.devstrike.app.citrarb.features.news.repositories.NewsRepoImpl
+import org.devstrike.app.citrarb.utils.visible
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
-
 /*
-* UI fragment to display the list of all the news under national category from the cloud
-*/
+* UI fragment to display the list of all the news from the cloud
+* */
+
 @AndroidEntryPoint
-class NationalNews : BaseFragment<NewsViewModel, FragmentNationalNewsBinding, NewsRepoImpl>() {
+class AllNews : BaseFragment<NewsViewModel, FragmentAllNewsBinding, NewsRepoImpl>() {
 
     @set:Inject
     var newsApi: NewsApi by Delegates.notNull<NewsApi>()
     @set:Inject
     var newsDao: NewsDao by Delegates.notNull<NewsDao>()
-    private val TAG = "nationalNews"
-    private lateinit var nationalNewsListAdapter: NationalNewsListAdapter
-    private val nationalNewsViewModel: NewsViewModel by activityViewModels()
 
+    private val TAG = "allNews"
+    private lateinit var newsListAdapter: NewsListAdapter
+    private val allNewsViewModel: NewsViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        subscribeToNewsList()
-        setUpRecyclerView()
+        with(binding) {
+            shimmerLayout.startShimmer()
+            subscribeToNewsList()
+            setUpRecyclerView()
+        }
     }
 
     //function to make the api request and get the paginated response
-    //we then submit the paginated list to teh adapter
+    //we then submit the paginated list to the adapter
     private fun subscribeToNewsList() = viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-        nationalNewsViewModel.newsList.collectLatest { pagingData ->
-            val newsList = listOf(pagingData)
-            Log.d(TAG, "subscribeToNewsList: $pagingData")
-            nationalNewsListAdapter.submitData(pagingData)
+        allNewsViewModel.newsList.collectLatest { pagingData ->
+            binding.shimmerLayout.apply {
+                stopShimmer()
+                visible(false)
+            }
+            newsListAdapter.submitData(pagingData)
         }
     }
 
     private fun setUpRecyclerView() {
-        nationalNewsListAdapter = NationalNewsListAdapter()
+        binding.rvAllNewsList.visible(true)
 
-//        lifecycleScope.launch{
-//
-//        }
-        val nationalNewsLayoutManager =
+        newsListAdapter = NewsListAdapter()
+
+        val allNewsLayoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        // TODO: figure how to distinguish the news by category
-        val natNewsList = nationalNewsListAdapter
-        Log.d(TAG, "setUpRecyclerView: $natNewsList")
-//        for (news in nationalNewsList){
-//            if(news.category == "National"){
-        binding.rvNationalNewsList.apply {
-            adapter = nationalNewsListAdapter
-            layoutManager = nationalNewsLayoutManager
+
+        binding.rvAllNewsList.apply {
+            adapter = newsListAdapter
+            layoutManager = allNewsLayoutManager
             addItemDecoration(
                 DividerItemDecoration(
-                    requireContext(), nationalNewsLayoutManager.orientation
+                    requireContext(), allNewsLayoutManager.orientation
                 )
             )
-//                }
-//            }
         }
 
     }
 
-
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ) = FragmentNationalNewsBinding.inflate(inflater, container, false)
+    ) = FragmentAllNewsBinding.inflate(inflater, container, false)
 
     override fun getFragmentRepo() = NewsRepoImpl(newsApi, newsDao)
 
     override fun getViewModel() = NewsViewModel::class.java
-
 
 }

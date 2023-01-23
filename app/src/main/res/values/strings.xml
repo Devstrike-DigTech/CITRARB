@@ -41,4 +41,5 @@
     <string name="search_eye_witness">Search Title</string>
     <string name="add_eye_witness_report">Add Eye Witness Report</string>
     <string name="iv_eye_witness_star">Eye Witness Rating</string>
+    <string name="menu_logout">Log out</string>
 </resources>

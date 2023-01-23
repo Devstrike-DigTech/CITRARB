@@ -49,7 +49,7 @@
     </fragment>
     <fragment
         android:id="@+id/newsDetail"
-        android:name="org.devstrike.app.citrarb.features.news.detail.ui.NewsDetail"
+        android:name="org.devstrike.app.citrarb.features.news.newsdetail.ui.NewsDetail"
         android:label="fragment_news_detail"
         tools:layout="@layout/fragment_news_detail" >
         <action
@@ -67,7 +67,7 @@
     </fragment>
     <fragment
         android:id="@+id/savedNewsList"
-        android:name="org.devstrike.app.citrarb.features.news.saved.SavedNewsList"
+        android:name="org.devstrike.app.citrarb.features.news.savednews.SavedNewsList"
         android:label="fragment_saved_news_list"
         tools:layout="@layout/fragment_saved_news_list" >
         <action
@@ -79,7 +79,7 @@
     </fragment>
     <fragment
         android:id="@+id/savedNewsDetail"
-        android:name="org.devstrike.app.citrarb.features.news.saved.SavedNewsDetail"
+        android:name="org.devstrike.app.citrarb.features.news.savednews.SavedNewsDetail"
         android:label="fragment_saved_news_detail"
         tools:layout="@layout/fragment_saved_news_detail" >
         <argument

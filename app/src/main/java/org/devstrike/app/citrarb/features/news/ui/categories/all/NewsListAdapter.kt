@@ -6,7 +6,7 @@
  *
  */
 
-package org.devstrike.app.citrarb.features.news.all
+package org.devstrike.app.citrarb.features.news.ui.categories.all
 
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,12 +17,10 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import org.devstrike.app.citrarb.databinding.ItemNewsListLayoutBinding
-import org.devstrike.app.citrarb.features.landing.data.LandingMenu
 import org.devstrike.app.citrarb.features.news.newsLanding.NewsLandingDirections
 import org.devstrike.app.citrarb.features.news.newsLanding.data.remote.NewsListResponse
 import org.devstrike.app.citrarb.utils.visible
 import javax.inject.Inject
-import kotlin.math.log
 
 /**
  * Adapter class for the 'allNews' Ui fragment

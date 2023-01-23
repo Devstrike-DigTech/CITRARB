@@ -10,7 +10,7 @@ package org.devstrike.app.citrarb.features.news.repositories
 
 import androidx.paging.PagingData
 import kotlinx.coroutines.flow.Flow
-import org.devstrike.app.citrarb.features.news.detail.data.NewsArticleResponse
+import org.devstrike.app.citrarb.features.news.newsdetail.data.NewsArticleResponse
 import org.devstrike.app.citrarb.features.news.newsLanding.data.local.SavedNewsListData
 import org.devstrike.app.citrarb.features.news.newsLanding.data.remote.NewsListResponse
 import org.devstrike.app.citrarb.network.Resource

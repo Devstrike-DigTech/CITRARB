@@ -17,7 +17,7 @@ import org.devstrike.app.citrarb.base.BaseRepo
 import org.devstrike.app.citrarb.features.news.data.NewsApi
 import org.devstrike.app.citrarb.features.news.data.NewsDao
 import org.devstrike.app.citrarb.features.news.data.NewsListPagingSource
-import org.devstrike.app.citrarb.features.news.detail.data.NewsArticleResponse
+import org.devstrike.app.citrarb.features.news.newsdetail.data.NewsArticleResponse
 import org.devstrike.app.citrarb.features.news.newsLanding.data.local.SavedNewsListData
 import org.devstrike.app.citrarb.features.news.newsLanding.data.remote.NewsListResponse
 import org.devstrike.app.citrarb.network.Resource

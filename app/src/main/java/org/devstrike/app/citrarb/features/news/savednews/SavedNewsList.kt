@@ -6,11 +6,9 @@
  *
  */
 
-package org.devstrike.app.citrarb.features.news.saved
+package org.devstrike.app.citrarb.features.news.savednews
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,12 +19,10 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import org.devstrike.app.citrarb.R
 import org.devstrike.app.citrarb.base.BaseFragment
 import org.devstrike.app.citrarb.databinding.FragmentSavedNewsListBinding
 import org.devstrike.app.citrarb.features.news.data.NewsApi
 import org.devstrike.app.citrarb.features.news.data.NewsDao
-import org.devstrike.app.citrarb.features.news.local.LocalNewsListAdapter
 import org.devstrike.app.citrarb.features.news.newsLanding.NewsViewModel
 import org.devstrike.app.citrarb.features.news.repositories.NewsRepoImpl
 import javax.inject.Inject

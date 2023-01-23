@@ -19,3 +19,4 @@ data class User(
     val updatedAt: String,
     val username: String
 )
+

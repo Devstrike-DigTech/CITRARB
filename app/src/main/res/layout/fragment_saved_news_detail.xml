@@ -15,7 +15,7 @@
     android:layout_margin="@dimen/padding_mini"
     android:padding="@dimen/padding_mini"
     app:cardElevation="@dimen/padding_mini"
-    tools:context=".features.news.saved.SavedNewsDetail">
+    tools:context=".features.news.savednews.SavedNewsDetail">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

@@ -6,7 +6,7 @@
  *
  */
 
-package org.devstrike.app.citrarb.features.news.national
+package org.devstrike.app.citrarb.features.news.ui.categories.national
 
 import android.util.Log
 import android.view.LayoutInflater

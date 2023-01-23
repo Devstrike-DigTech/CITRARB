@@ -12,11 +12,11 @@ import dagger.hilt.android.scopes.ActivityRetainedScoped
 import org.devstrike.app.citrarb.base.BaseRepo
 import org.devstrike.app.citrarb.features.account.data.UserApi
 import org.devstrike.app.citrarb.features.account.data.models.requests.CreateAccountRequest
-import org.devstrike.app.citrarb.features.account.data.models.responses.CreateAccountResponse
+import org.devstrike.app.citrarb.features.account.data.models.responses.AccountResponse
+import org.devstrike.app.citrarb.features.account.data.models.responses.GetSelfResponse
 import org.devstrike.app.citrarb.network.Resource
 import org.devstrike.app.citrarb.network.isNetworkConnected
 import org.devstrike.app.citrarb.utils.SessionManager
-import retrofit2.Response
 import javax.inject.Inject
 
 /**
@@ -41,7 +41,7 @@ class UserRepoImpl @Inject constructor(
             val result = userApi.createAccount(user)
             if (result.status == "success") {
                 //save the details in data store
-                sessionManager.updateSession(result.token, result.user.username ?: "", result.user.email)
+                sessionManager.updateSession(result.token!!, result.user.username ?: "", result.user.email)
                 Resource.Success("User Created Successfully!")
             } else {
                 Resource.Failure(value = result.status)
@@ -64,7 +64,7 @@ class UserRepoImpl @Inject constructor(
             val result = userApi.login(user)
             if (result.status == "success") {
                 //save details in the data store
-                sessionManager.updateSession(result.token, result.user.username ?: "", result.user.email)
+                sessionManager.updateSession(result.token!!, result.user.username ?: "", result.user.email)
                 //getUserInfo //get details from server for specific user once user logs in
                 Resource.Success(value = "Logged In Successfully!")
             } else {
@@ -76,8 +76,27 @@ class UserRepoImpl @Inject constructor(
             Resource.Failure(value = e.message ?: "Some Problem Occurred!")
         }    }
 
-    override suspend fun getUser(): Resource<CreateAccountResponse> {
-        TODO("Not yet implemented")
+    override suspend fun getUserInfo(): Resource<GetSelfResponse> {
+        val token = sessionManager.getJwtToken()
+        return safeApiCall {
+        //check if there is internet connection
+        if (!isNetworkConnected(sessionManager.context)) {
+            Resource.Failure(value = "No Internet Connection!")
+        }
+           //try {
+               userApi.getUserInfo("Bearer ".plus(token!!))
+//               if (result.status == "success"){
+//                   Resource.Success(value = result)
+//               }else{
+//                   Resource.Failure(value = result.status)
+//               }
+
+//           }catch (e: Exception){
+//               e.printStackTrace()
+//               Resource.Failure(value = e.message ?: "Some Problem Occurred!")
+//           }
+       }
+
     }
 
     override suspend fun logout(): Resource<String> {

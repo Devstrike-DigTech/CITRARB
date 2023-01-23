@@ -6,12 +6,11 @@
  *
  */
 
-package org.devstrike.app.citrarb.features.news.detail.ui
+package org.devstrike.app.citrarb.features.news.newsdetail.ui
 
 import android.content.Intent
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,7 +25,7 @@ import org.devstrike.app.citrarb.databinding.FragmentNewsDetailBinding
 import org.devstrike.app.citrarb.features.news.data.NewsApi
 import org.devstrike.app.citrarb.features.news.data.NewsDao
 import org.devstrike.app.citrarb.features.news.newsLanding.NewsViewModel
-import org.devstrike.app.citrarb.features.news.detail.data.NewsArticle
+import org.devstrike.app.citrarb.features.news.newsdetail.data.NewsArticle
 import org.devstrike.app.citrarb.features.news.newsLanding.data.local.SavedNewsListData
 import org.devstrike.app.citrarb.features.news.newsLanding.data.remote.NewsListResponse
 import org.devstrike.app.citrarb.features.news.repositories.NewsRepoImpl

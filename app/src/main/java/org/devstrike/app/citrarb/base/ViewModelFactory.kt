@@ -11,7 +11,7 @@ package org.devstrike.app.citrarb.base
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import org.devstrike.app.citrarb.features.account.repositories.UserRepoImpl
-import org.devstrike.app.citrarb.features.account.ui.UserViewModel
+import org.devstrike.app.citrarb.features.account.ui.AccountViewModel
 import org.devstrike.app.citrarb.features.landing.repositories.LandingRepo
 import org.devstrike.app.citrarb.features.landing.ui.LandingViewModel
 import org.devstrike.app.citrarb.features.news.newsLanding.NewsViewModel
@@ -35,7 +35,7 @@ class ViewModelFactory(
             modelClass.isAssignableFrom(LandingViewModel::class.java) -> LandingViewModel(repo as LandingRepo) as T
             modelClass.isAssignableFrom(NewsViewModel::class.java) -> NewsViewModel(repo as NewsRepoImpl) as T
             modelClass.isAssignableFrom(TVViewModel::class.java) -> TVViewModel(repo as TVRepoImpl) as T
-            modelClass.isAssignableFrom(UserViewModel::class.java) -> UserViewModel(repo as UserRepoImpl) as T
+            modelClass.isAssignableFrom(AccountViewModel::class.java) -> AccountViewModel(repo as UserRepoImpl) as T
             else -> throw IllegalAccessException("ViewModelClass Not Found")
         }
     }

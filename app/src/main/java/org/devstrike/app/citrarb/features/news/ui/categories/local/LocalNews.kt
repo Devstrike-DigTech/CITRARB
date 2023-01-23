@@ -6,7 +6,7 @@
  *
  */
 
-package org.devstrike.app.citrarb.features.news.local
+package org.devstrike.app.citrarb.features.news.ui.categories.local
 
 import android.os.Bundle
 import android.util.Log

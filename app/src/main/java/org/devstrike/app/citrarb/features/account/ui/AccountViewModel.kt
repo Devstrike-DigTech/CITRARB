@@ -17,6 +17,8 @@ import kotlinx.coroutines.launch
 import org.devstrike.app.citrarb.base.BaseViewModel
 import org.devstrike.app.citrarb.features.account.data.UserApi
 import org.devstrike.app.citrarb.features.account.data.models.requests.CreateAccountRequest
+import org.devstrike.app.citrarb.features.account.data.models.responses.AccountResponse
+import org.devstrike.app.citrarb.features.account.data.models.responses.GetSelfResponse
 import org.devstrike.app.citrarb.features.account.data.models.responses.User
 import org.devstrike.app.citrarb.features.account.repositories.UserRepo
 import org.devstrike.app.citrarb.features.account.repositories.UserRepoImpl
@@ -33,7 +35,7 @@ import javax.inject.Inject
  * Created by Richard Uzor  on 20/01/2023
  */
 @HiltViewModel
-class UserViewModel @Inject constructor(
+class AccountViewModel @Inject constructor(
     val userRepo: UserRepoImpl,
 ): BaseViewModel(userRepo) {
 
@@ -44,6 +46,10 @@ class UserViewModel @Inject constructor(
     //state for login user
     private val _loginState = MutableSharedFlow<Resource<String>>()
     val loginState: SharedFlow<Resource<String>> = _loginState
+
+    //state for user info fetch
+    private val _userInfoState = MutableSharedFlow<Resource<GetSelfResponse>>()
+    val userInfoState: SharedFlow<Resource<GetSelfResponse>> = _userInfoState
 
 
     //function to create a user
@@ -120,6 +126,11 @@ class UserViewModel @Inject constructor(
         //use the state to call the login user api
         _loginState.emit(userRepo.login(newUser))
 
+    }
+
+    fun getUserInfo() = viewModelScope.launch {
+        _userInfoState.emit(Resource.Loading)
+        _userInfoState.emit(userRepo.getUserInfo())
     }
 
 

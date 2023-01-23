@@ -9,13 +9,11 @@
 package org.devstrike.app.citrarb.features.account.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
-import org.devstrike.app.citrarb.R
 import org.devstrike.app.citrarb.base.BaseFragment
 import org.devstrike.app.citrarb.databinding.FragmentAccountNotLoggedInBinding
 import org.devstrike.app.citrarb.features.account.data.UserApi
@@ -25,7 +23,7 @@ import javax.inject.Inject
 import kotlin.properties.Delegates
 
 @AndroidEntryPoint
-class AccountNotLoggedIn : BaseFragment<UserViewModel, FragmentAccountNotLoggedInBinding, UserRepoImpl> () {
+class AccountNotLoggedIn : BaseFragment<AccountViewModel, FragmentAccountNotLoggedInBinding, UserRepoImpl> () {
 
     @set:Inject
     var userApi: UserApi by Delegates.notNull()
@@ -42,7 +40,7 @@ class AccountNotLoggedIn : BaseFragment<UserViewModel, FragmentAccountNotLoggedI
 
     override fun getFragmentRepo() = UserRepoImpl(userApi, sessionManager)
 
-    override fun getViewModel() = UserViewModel::class.java
+    override fun getViewModel() = AccountViewModel::class.java
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,

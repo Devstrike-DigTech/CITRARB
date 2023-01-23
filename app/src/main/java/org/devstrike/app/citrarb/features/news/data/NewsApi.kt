@@ -8,11 +8,9 @@
 
 package org.devstrike.app.citrarb.features.news.data
 
-import org.devstrike.app.citrarb.features.news.detail.data.NewsArticle
-import org.devstrike.app.citrarb.features.news.detail.data.NewsArticleResponse
+import org.devstrike.app.citrarb.features.news.newsdetail.data.NewsArticleResponse
 import org.devstrike.app.citrarb.features.news.newsLanding.data.remote.NewsListResponse
 import org.devstrike.app.citrarb.features.news.newsLanding.data.remote.NewsListResponseItem
-import org.devstrike.app.citrarb.network.Resource
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
