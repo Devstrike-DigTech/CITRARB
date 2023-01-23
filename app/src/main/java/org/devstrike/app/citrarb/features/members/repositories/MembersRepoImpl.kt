@@ -13,10 +13,7 @@ import org.devstrike.app.citrarb.base.BaseRepo
 import org.devstrike.app.citrarb.features.members.data.MembersApi
 import org.devstrike.app.citrarb.features.members.data.models.requests.FriendRequestResponseStatus
 import org.devstrike.app.citrarb.features.members.data.models.requests.SendFriendRequest
-import org.devstrike.app.citrarb.features.members.data.models.responses.AllUsersResponse
-import org.devstrike.app.citrarb.features.members.data.models.responses.FriendRequestAcceptedResponse
-import org.devstrike.app.citrarb.features.members.data.models.responses.GetPendingFriendRequestsResponse
-import org.devstrike.app.citrarb.features.members.data.models.responses.SendFriendRequestResponse
+import org.devstrike.app.citrarb.features.members.data.models.responses.*
 import org.devstrike.app.citrarb.network.Resource
 import org.devstrike.app.citrarb.network.isNetworkConnected
 import org.devstrike.app.citrarb.utils.SessionManager
@@ -79,5 +76,18 @@ class MembersRepoImpl @Inject constructor(
             }
             membersApi.acceptFriendRequest("Bearer ".plus(token!!), id, friendRequestResponseStatus)
         }
+    }
+
+    override suspend fun getMyFriends(): Resource<MyFriendsResponse> {
+
+        val token = sessionManager.getJwtToken()
+        return safeApiCall {
+            //check if there is internet connection
+            if (!isNetworkConnected(sessionManager.context)) {
+                Resource.Failure(value = "No Internet Connection!")
+            }
+            membersApi.getMyFriends("Bearer ".plus(token!!))
+        }
+
     }
 }

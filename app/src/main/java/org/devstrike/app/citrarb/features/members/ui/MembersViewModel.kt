@@ -17,10 +17,7 @@ import org.devstrike.app.citrarb.base.BaseViewModel
 import org.devstrike.app.citrarb.features.account.data.models.responses.GetSelfResponse
 import org.devstrike.app.citrarb.features.members.data.models.requests.FriendRequestResponseStatus
 import org.devstrike.app.citrarb.features.members.data.models.requests.SendFriendRequest
-import org.devstrike.app.citrarb.features.members.data.models.responses.AllUsersResponse
-import org.devstrike.app.citrarb.features.members.data.models.responses.FriendRequestAcceptedResponse
-import org.devstrike.app.citrarb.features.members.data.models.responses.GetPendingFriendRequestsResponse
-import org.devstrike.app.citrarb.features.members.data.models.responses.SendFriendRequestResponse
+import org.devstrike.app.citrarb.features.members.data.models.responses.*
 import org.devstrike.app.citrarb.features.members.repositories.MembersRepo
 import org.devstrike.app.citrarb.features.members.repositories.MembersRepoImpl
 import org.devstrike.app.citrarb.network.Resource
@@ -58,6 +55,12 @@ class MembersViewModel @Inject constructor(
     val acceptFriendRequestState: SharedFlow<Resource<FriendRequestAcceptedResponse>> =
         _acceptFriendRequestState
 
+    //state for getting all friends
+    private val _getFriendsState =
+        MutableSharedFlow<Resource<MyFriendsResponse>>()
+    val getFriendsState: SharedFlow<Resource<MyFriendsResponse>> =
+        _getFriendsState
+
     fun getAllUsers() = viewModelScope.launch {
         _allUsersState.emit(Resource.Loading)
         _allUsersState.emit(membersRepo.getAllUsers())
@@ -79,6 +82,11 @@ class MembersViewModel @Inject constructor(
     ) = viewModelScope.launch {
         _acceptFriendRequestState.emit(Resource.Loading)
         _acceptFriendRequestState.emit(membersRepo.acceptFriendRequest(requestId, friendRequestResponseStatus))
+    }
+
+    fun getMyFriends() = viewModelScope.launch {
+        _getFriendsState.emit(Resource.Loading)
+        _getFriendsState.emit(membersRepo.getMyFriends())
     }
 
 }

@@ -10,10 +10,7 @@ package org.devstrike.app.citrarb.features.members.data
 
 import org.devstrike.app.citrarb.features.members.data.models.requests.FriendRequestResponseStatus
 import org.devstrike.app.citrarb.features.members.data.models.requests.SendFriendRequest
-import org.devstrike.app.citrarb.features.members.data.models.responses.AllUsersResponse
-import org.devstrike.app.citrarb.features.members.data.models.responses.FriendRequestAcceptedResponse
-import org.devstrike.app.citrarb.features.members.data.models.responses.GetPendingFriendRequestsResponse
-import org.devstrike.app.citrarb.features.members.data.models.responses.SendFriendRequestResponse
+import org.devstrike.app.citrarb.features.members.data.models.responses.*
 import org.devstrike.app.citrarb.utils.Common.USER_BASE_URL
 import retrofit2.http.*
 
@@ -52,5 +49,13 @@ interface MembersApi {
         @Path("id") requestId: String,
         @Body friendRequestResponseStatus: FriendRequestResponseStatus
     ): FriendRequestAcceptedResponse
+
+    //GET MY FRIENDS
+    @Headers("Content-Type: application/json")
+    @GET("$USER_BASE_URL/api/friends")
+    suspend fun getMyFriends(
+        @Header("Authorization") token: String
+        ): MyFriendsResponse
+
 
 }

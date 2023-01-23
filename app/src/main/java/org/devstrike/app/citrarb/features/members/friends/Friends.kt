@@ -8,6 +8,8 @@
 
 package org.devstrike.app.citrarb.features.members.friends
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -23,8 +25,8 @@ import org.devstrike.app.citrarb.base.BaseFragment
 import org.devstrike.app.citrarb.databinding.FragmentFriendsBinding
 import org.devstrike.app.citrarb.features.members.data.MembersApi
 import org.devstrike.app.citrarb.features.members.data.models.requests.FriendRequestResponseStatus
+import org.devstrike.app.citrarb.features.members.data.models.responses.FriendInfo
 import org.devstrike.app.citrarb.features.members.data.models.responses.FriendRequest
-import org.devstrike.app.citrarb.features.members.data.models.responses.Requester
 import org.devstrike.app.citrarb.features.members.repositories.MembersRepoImpl
 import org.devstrike.app.citrarb.features.members.ui.MembersLandingDirections
 import org.devstrike.app.citrarb.features.members.ui.MembersViewModel
@@ -47,17 +49,54 @@ class Friends : BaseFragment<MembersViewModel, FragmentFriendsBinding, MembersRe
 
     val membersViewModel: MembersViewModel by activityViewModels()
     private lateinit var friendRequestsAdapter: FriendRequestsAdapter
+    private lateinit var friendsAdapter: FriendAdapter
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         friendRequestsAdapter = FriendRequestsAdapter(requireContext())
-
+        friendsAdapter = FriendAdapter(requireContext())
 
         subscribeToFriendRequestsEvent()
+        subscribeToFriendListEvent()
 
 
+    }
+
+    private fun subscribeToFriendListEvent() {
+        membersViewModel.getMyFriends()
+        lifecycleScope.launch{
+            membersViewModel.getFriendsState.collect{ result->
+                when(result){
+                    is Resource.Success ->{
+                        binding.friendsShimmerLayout.apply {
+                            stopShimmer()
+                            visible(false)
+                        }
+                        if (result.value!!.friends.isEmpty()){
+                            requireContext().toast("No Friends!")
+                        }else{
+                            val friends = mutableListOf<FriendInfo>()
+                            for (friend in result.value.friends){
+                                friends.add(friend)
+                            }
+                            friendsAdapter.submitList(friends)
+                            subscribeToFriendUi()
+
+                        }
+                    }
+                    is Resource.Failure ->{
+                        binding.friendsShimmerLayout.stopShimmer()
+                        binding.friendsShimmerLayout.visible(false)
+                        handleApiError(result.error){subscribeToFriendListEvent()}
+                    }
+                    is Resource.Loading ->{
+                        binding.friendsShimmerLayout.startShimmer()
+                    }
+                }
+            }
+        }
     }
 
     private fun subscribeToFriendRequestsEvent() {
@@ -87,6 +126,7 @@ class Friends : BaseFragment<MembersViewModel, FragmentFriendsBinding, MembersRe
                     is Resource.Failure -> {
                         binding.friendRequestsShimmerLayout.stopShimmer()
                         binding.friendRequestsShimmerLayout.visible(false)
+                        handleApiError(result.error){subscribeToFriendRequestsEvent()}
                     }
                     is Resource.Loading -> {
                         binding.friendRequestsShimmerLayout.startShimmer()
@@ -122,6 +162,40 @@ class Friends : BaseFragment<MembersViewModel, FragmentFriendsBinding, MembersRe
         friendRequestsAdapter.createOnRejectClickListener { request ->
             val status = "declined"
             acceptFriendRequest(request, status)
+        }
+    }
+    private fun subscribeToFriendUi() {
+        binding.rvFriendList.visible(true)
+        val friendListLayoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+
+        binding.rvFriendList.apply {
+            adapter = friendsAdapter
+            layoutManager = friendListLayoutManager
+            addItemDecoration(
+                DividerItemDecoration(
+                    requireContext(), friendListLayoutManager.orientation
+                )
+            )
+        }
+
+        friendsAdapter.createOnCallClickListener { request ->
+            val dialIntent = Intent(Intent.ACTION_DIAL)
+            //dialIntent.data = Uri.fromParts("tel",phoneNumber,null)
+            dialIntent.data = Uri.fromParts("tel","08038088776",null)
+            startActivity(dialIntent)
+        }
+        friendsAdapter.createOnMessageClickListener { request ->
+            val pm = requireContext().packageManager
+            val waIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=" + "08038088776"))
+            val info = pm.queryIntentActivities(waIntent, 0)
+            if (!info.isEmpty()) {
+                startActivity(waIntent)
+            } else {
+                requireContext().toast("WhatsApp not Installed")
+            }
+
+
         }
     }
 

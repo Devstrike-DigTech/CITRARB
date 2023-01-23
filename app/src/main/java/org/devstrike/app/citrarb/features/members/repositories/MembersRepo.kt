@@ -10,10 +10,7 @@ package org.devstrike.app.citrarb.features.members.repositories
 
 import org.devstrike.app.citrarb.features.members.data.models.requests.FriendRequestResponseStatus
 import org.devstrike.app.citrarb.features.members.data.models.requests.SendFriendRequest
-import org.devstrike.app.citrarb.features.members.data.models.responses.AllUsersResponse
-import org.devstrike.app.citrarb.features.members.data.models.responses.FriendRequestAcceptedResponse
-import org.devstrike.app.citrarb.features.members.data.models.responses.GetPendingFriendRequestsResponse
-import org.devstrike.app.citrarb.features.members.data.models.responses.SendFriendRequestResponse
+import org.devstrike.app.citrarb.features.members.data.models.responses.*
 import org.devstrike.app.citrarb.network.Resource
 
 /**
@@ -25,5 +22,6 @@ interface MembersRepo {
     suspend fun sendFriendRequest(userId: SendFriendRequest): Resource<SendFriendRequestResponse>
     suspend fun fetchPendingFriendRequests(): Resource<GetPendingFriendRequestsResponse>
     suspend fun acceptFriendRequest(id: String, friendRequestResponseStatus: FriendRequestResponseStatus): Resource<FriendRequestAcceptedResponse>
+    suspend fun getMyFriends(): Resource<MyFriendsResponse>
 
 }

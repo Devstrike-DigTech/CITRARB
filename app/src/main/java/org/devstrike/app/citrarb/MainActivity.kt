@@ -1,15 +1,14 @@
 package org.devstrike.app.citrarb
 
+import android.content.Intent
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.view.Window
-import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint
 import org.devstrike.app.citrarb.utils.Common
 import org.devstrike.app.citrarb.utils.toast
+
 
 /*
 * The only activity in this application on which every other screen is built upon.
@@ -23,6 +22,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+//
+//        val intent: Intent =
+//            Intent(Intent.ACTION_VIEW)
+//        intent.setDataAndType
+//        Uri.parse("file://" + appFilelocation.toString()), "application/vnd.android.package-archive")
+//        startActivity(intent)
+//
 
         val uri: Uri? = intent.data
         if (uri != null) {
