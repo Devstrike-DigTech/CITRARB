@@ -34,6 +34,9 @@
         <action
             android:id="@+id/action_appMenu_to_accountProfile"
             app:destination="@id/accountProfile" />
+        <action
+            android:id="@+id/action_appMenu_to_membersLanding"
+            app:destination="@id/membersLanding" />
     </fragment>
     <fragment
         android:id="@+id/newsLanding"
@@ -112,6 +115,9 @@
         <action
             android:id="@+id/action_accountNotLoggedIn_to_accountLogIn"
             app:destination="@id/accountLogIn" />
+        <action
+            android:id="@+id/action_accountNotLoggedIn_to_accountCreate"
+            app:destination="@id/accountCreate" />
     </fragment>
     <fragment
         android:id="@+id/accountProfile"
@@ -130,6 +136,12 @@
         <action
             android:id="@+id/action_accountLogIn_to_accountCreate"
             app:destination="@id/accountCreate" />
+        <action
+            android:id="@+id/action_accountLogIn_to_accountProfile"
+            app:destination="@id/accountProfile" />
+        <action
+            android:id="@+id/action_accountLogIn_to_appMenu"
+            app:destination="@id/appMenu" />
     </fragment>
     <fragment
         android:id="@+id/accountCreate"
@@ -139,5 +151,17 @@
         <action
             android:id="@+id/action_accountCreate_to_accountLogIn"
             app:destination="@id/accountLogIn" />
+    </fragment>
+    <fragment
+        android:id="@+id/membersLanding"
+        android:name="org.devstrike.app.citrarb.features.members.ui.MembersLanding"
+        android:label="fragment_members_landing"
+        tools:layout="@layout/fragment_members_landing" >
+        <action
+            android:id="@+id/action_membersLanding_to_accountNotLoggedIn"
+            app:destination="@id/accountNotLoggedIn" />
+        <action
+            android:id="@+id/action_membersLanding_to_appMenu"
+            app:destination="@id/appMenu" />
     </fragment>
 </navigation>

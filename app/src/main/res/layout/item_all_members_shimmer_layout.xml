@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2023.
+  ~ Richard Uzor
+  ~ For Afro Connect Technologies
+  ~ Under the Authority of Devstrike Digital Ltd.
+  ~
+  -->
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/padding_mini"
+    android:padding="@dimen/padding_mini"
+    app:cardElevation="@dimen/padding_mini">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_mini">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="@dimen/padding_mini"
+            android:padding="@dimen/padding_mini"
+            app:civ_border_width="0.5dp"
+            android:background="@color/shimmer_color"
+            android:id="@+id/iv_member_photo"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_l"
+            android:layout_toEndOf="@id/iv_member_photo"
+            android:padding="@dimen/padding_mini"
+            android:background="@color/shimmer_color"
+            android:layout_margin="@dimen/padding_mini"
+            android:id="@+id/txt_member_name"/>
+
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:background="@color/shimmer_color"
+            android:layout_toEndOf="@id/iv_member_photo"
+            android:layout_below="@id/txt_member_name"
+            android:layout_marginStart="@dimen/padding_mini"
+            android:padding="@dimen/padding_mini"
+            android:id="@+id/txt_member_gender"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_member_gender"
+            android:backgroundTint="@color/shimmer_color"
+            android:id="@+id/btn_send_friend_request"/>
+
+    </RelativeLayout>
+
+
+</com.google.android.material.card.MaterialCardView>

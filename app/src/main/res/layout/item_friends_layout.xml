@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2023.
+  ~ Richard Uzor
+  ~ For Afro Connect Technologies
+  ~ Under the Authority of Devstrike Digital Ltd.
+  ~
+  -->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="friendItem"
+            type="org.devstrike.app.citrarb.features.members.data.models.responses.FriendInfo" />
+    </data>
+    <com.google.android.material.card.MaterialCardView
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_mini"
+        android:padding="@dimen/padding_mini"
+        app:cardElevation="@dimen/padding_mini">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_mini">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_margin="@dimen/padding_mini"
+                android:padding="@dimen/padding_mini"
+                app:civ_border_width="0.5dp"
+                tools:src="@drawable/devstrike_logo"
+                android:id="@+id/iv_member_photo"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="@tools:sample/full_names"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_l"
+                android:text="@{friendItem.friend.username}"
+                android:layout_toEndOf="@id/iv_member_photo"
+                android:padding="@dimen/padding_mini"
+                android:layout_margin="@dimen/padding_mini"
+                android:id="@+id/txt_member_name"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Male"
+                android:layout_toEndOf="@id/iv_member_photo"
+                android:layout_below="@id/txt_member_name"
+                android:layout_marginStart="@dimen/padding_mini"
+                android:padding="@dimen/padding_mini"
+                android:id="@+id/txt_member_gender"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@id/txt_member_gender"
+                android:weightSum="2"
+                android:layout_margin="@dimen/padding_mini"
+                android:padding="@dimen/padding_mini">
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_margin="@dimen/padding_mini"
+                    android:padding="@dimen/padding_mini"
+                    android:text="@string/call_friend_text"
+                    android:backgroundTint="@color/custom_secondary"
+                    android:id="@+id/btn_call_friend"/>
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_margin="@dimen/padding_mini"
+                    android:padding="@dimen/padding_mini"
+                    android:text="@string/message_friend_text"
+                    android:backgroundTint="@color/custom_secondary"
+                    android:id="@+id/btn_message_friend"/>
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

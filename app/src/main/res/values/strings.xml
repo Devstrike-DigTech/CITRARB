@@ -42,4 +42,14 @@
     <string name="add_eye_witness_report">Add Eye Witness Report</string>
     <string name="iv_eye_witness_star">Eye Witness Rating</string>
     <string name="menu_logout">Log out</string>
+    <string name="sort_all_members">Sort all members in alphabetical order</string>
+    <string name="search_all_members">Search for a member by name</string>
+    <string name="send_friend_request_text">Send Request</string>
+    <string name="friends_request_title">Requests</string>
+    <string name="friends_request_see_all">See all</string>
+    <string name="friends_title">Friends</string>
+    <string name="confirm_friend_request">Confirm friend request</string>
+    <string name="reject_friend_request">Reject friend request</string>
+    <string name="call_friend_text">Call</string>
+    <string name="message_friend_text">Message</string>
 </resources>

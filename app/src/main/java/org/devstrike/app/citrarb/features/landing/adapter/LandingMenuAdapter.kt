@@ -8,6 +8,7 @@
 
 package org.devstrike.app.citrarb.features.landing.adapter
 
+import android.content.Context
 import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,6 +18,10 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.devstrike.app.citrarb.R
 import org.devstrike.app.citrarb.features.landing.data.LandingMenu
 import org.devstrike.app.citrarb.databinding.ItemLandingGridLayoutBinding
@@ -24,16 +29,19 @@ import org.devstrike.app.citrarb.features.landing.ui.AppMenu
 import org.devstrike.app.citrarb.features.landing.ui.AppMenuDirections
 import org.devstrike.app.citrarb.features.landing.ui.LandingScreen
 import org.devstrike.app.citrarb.utils.Common.TAG
+import org.devstrike.app.citrarb.utils.SessionManager
+import org.devstrike.app.citrarb.utils.enable
 import org.devstrike.app.citrarb.utils.snackbar
 
 /**
  * Adapter class to populate the recyclerview for the landing page app menu
  * Created by Richard Uzor  on 15/12/2022
  */
-class LandingMenuAdapter : ListAdapter<LandingMenu, LandingMenuAdapter.LandingMenuViewHolder>(
+class LandingMenuAdapter() : ListAdapter<LandingMenu, LandingMenuAdapter.LandingMenuViewHolder>(
     DiffCallback()
 ) {
 
+    //val sessionManager = SessionManager(context)
 
     class LandingMenuViewHolder(private val binding: ItemLandingGridLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -81,6 +89,22 @@ class LandingMenuAdapter : ListAdapter<LandingMenu, LandingMenuAdapter.LandingMe
             if (menuItem.itemName == "News")
                 itemView.setBackgroundColor(R.drawable.app_background)
         }
+//            .also {
+//            if (menuItem.isLoginRequired){
+//                CoroutineScope(Dispatchers.IO).launch {
+//                    if (sessionManager.getJwtToken().isNullOrEmpty()){
+//                        withContext(Dispatchers.Main){
+//                            holder.itemView.enable(false)
+//                        }
+//                    }else{
+//                        withContext(Dispatchers.Main){
+//                            holder.itemView.enable(true)
+//                        }
+//                    }
+//                }
+//
+//            }
+//        }
     }
 
     //function to handle the click of the various items
@@ -119,6 +143,8 @@ class LandingMenuAdapter : ListAdapter<LandingMenu, LandingMenuAdapter.LandingMe
                 }
                 "Members" -> {
                     it.snackbar("${menuItem.itemName} coming soon...")
+                    val navToMembers = AppMenuDirections.actionAppMenuToMembersLanding()
+                    it.findNavController().navigate(navToMembers)
                 }
                 "Uploads" -> {
                     it.snackbar("${menuItem.itemName} coming soon...")

@@ -36,6 +36,10 @@ class AccountNotLoggedIn : BaseFragment<AccountViewModel, FragmentAccountNotLogg
         val navToLogIn = AccountNotLoggedInDirections.actionAccountNotLoggedInToAccountLogIn()
             findNavController().navigate(navToLogIn)
         }
+        binding.accountNotLoggedInCreateAccount.setOnClickListener {
+            val navToCreate = AccountNotLoggedInDirections.actionAccountNotLoggedInToAccountCreate()
+            findNavController().navigate(navToCreate)
+        }
     }
 
     override fun getFragmentRepo() = UserRepoImpl(userApi, sessionManager)

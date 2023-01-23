@@ -72,7 +72,8 @@ class AccountLogIn : BaseFragment<AccountViewModel, FragmentAccountLogInBinding,
                         "Login Successful",
                         Toast.LENGTH_SHORT
                     ).show()
-                    findNavController().popBackStack()
+                    val navToHome = AccountLogInDirections.actionAccountLogInToAppMenu()
+                    findNavController().navigate(navToHome)
                 }
                 is Resource.Failure -> {
                     hideProgressBar()
