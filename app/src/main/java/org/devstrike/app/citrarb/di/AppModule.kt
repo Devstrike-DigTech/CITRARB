@@ -20,6 +20,9 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.devstrike.app.citrarb.base.CitrarbDatabase
 import org.devstrike.app.citrarb.base.BaseRepo
+import org.devstrike.app.citrarb.features.account.data.UserApi
+import org.devstrike.app.citrarb.features.account.repositories.UserRepo
+import org.devstrike.app.citrarb.features.account.repositories.UserRepoImpl
 import org.devstrike.app.citrarb.features.landing.repositories.LandingRepo
 import org.devstrike.app.citrarb.features.news.data.NewsApi
 import org.devstrike.app.citrarb.features.news.data.NewsDao
@@ -30,6 +33,7 @@ import org.devstrike.app.citrarb.features.tv.repositories.TVRepo
 import org.devstrike.app.citrarb.features.tv.repositories.TVRepoImpl
 import org.devstrike.app.citrarb.utils.Common.BASE_URL
 import org.devstrike.app.citrarb.utils.Common.LOCAL_DB_NAME
+import org.devstrike.app.citrarb.utils.SessionManager
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -68,6 +72,14 @@ object AppModule {
 
     }
 
+    //Provide Session Manager
+    @Singleton
+    @Provides
+    fun provideSessionManager(
+        @ApplicationContext context: Context
+    ) = SessionManager(context)
+
+
     //Create and Provide the app Database
     @Singleton
     @Provides
@@ -99,6 +111,12 @@ object AppModule {
     @Provides
     fun provideTVApi(retrofit: Retrofit): TVApi =
         retrofit.create(TVApi::class.java)
+
+    //Provides the User Management api passing the built retrofit instance
+    @Singleton
+    @Provides
+    fun providesUserApi(retrofit: Retrofit): UserApi =
+        retrofit.create(UserApi::class.java)
 
 
     // = = = = = = = = = = = = = = = = = = PROVIDE REPOS = = = = = = = = = = = = = = = = = = = = = =
@@ -134,6 +152,18 @@ object AppModule {
     ): TVRepo {
         return TVRepoImpl(
             tvApi
+        )
+    }
+    //provide User repo returning the implementation parameters
+    @Singleton
+    @Provides
+    fun providesUserRepo(
+        userApi: UserApi,
+        sessionManager: SessionManager
+    ): UserRepo {
+        return UserRepoImpl(
+            userApi,
+            sessionManager
         )
     }
 }

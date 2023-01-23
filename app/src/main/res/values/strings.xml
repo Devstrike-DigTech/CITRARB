@@ -23,6 +23,7 @@
     <string name="account_btn_login">Log In</string>
     <string name="account_not_logged_in_create_account">Create New Account</string>
     <string name="account_not_log_in">Log In</string>
+    <string name="account_create_account_log_in">Log in instead</string>
     <string name="sign_in_email">Email</string>
     <string name="sign_in_password">Password</string>
     <string name="account_log_in_forgot_password_prompt">Forgot Password</string>
@@ -40,4 +41,5 @@
     <string name="search_eye_witness">Search Title</string>
     <string name="add_eye_witness_report">Add Eye Witness Report</string>
     <string name="iv_eye_witness_star">Eye Witness Rating</string>
+    <string name="menu_logout">Log out</string>
 </resources>

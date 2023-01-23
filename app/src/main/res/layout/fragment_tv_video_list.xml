@@ -11,6 +11,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".features.tv.ui.tvlist.TvVideoList">
 
   <androidx.recyclerview.widget.RecyclerView
@@ -19,14 +20,49 @@
       android:layout_height="wrap_content"
       android:layout_margin="@dimen/padding_mini"
       android:padding="@dimen/padding_mini"
+      android:visibility="gone"
       android:clipToPadding="false"
       tools:listitem="@layout/item_tv_list_layout"/>
 
-    <ProgressBar
-        android:id="@+id/video_list_progress_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:visibility="gone"/>
+  <!--below is the view for our shimmer-->
+  <com.facebook.shimmer.ShimmerFrameLayout
+      android:id="@+id/tv_shimmer_layout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:animateLayoutChanges="true"
+      android:animationCache="true"
+      app:shimmer_repeat_mode="restart"
+      app:shimmer_shape="radial">
+
+    <!--For shimmer we are creating a same
+        layout but setting its background
+        as a gray colour and not providing
+        any view inside it-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+      <!--below we are displaying multiple
+          shimmer layouts using include
+          to show them in list format-->
+      <include layout="@layout/item_tv_list_shimmer_layout" />
+      <include layout="@layout/item_tv_list_shimmer_layout" />
+      <include layout="@layout/item_tv_list_shimmer_layout" />
+      <include layout="@layout/item_tv_list_shimmer_layout" />
+      <include layout="@layout/item_tv_list_shimmer_layout" />
+      <include layout="@layout/item_tv_list_shimmer_layout" />
+      <include layout="@layout/item_tv_list_shimmer_layout" />
+
+    </LinearLayout>
+
+  </com.facebook.shimmer.ShimmerFrameLayout>
+
+<!--    <ProgressBar-->
+<!--        android:id="@+id/video_list_progress_bar"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:visibility="gone"/>-->
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

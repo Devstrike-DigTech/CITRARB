@@ -6,10 +6,9 @@
  *
  */
 
-package org.devstrike.app.citrarb.features.news.local
+package org.devstrike.app.citrarb.features.news.ui.categories.all
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,76 +19,76 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import org.devstrike.app.citrarb.base.BaseFragment
-import org.devstrike.app.citrarb.databinding.FragmentLocalNewsBinding
+import org.devstrike.app.citrarb.databinding.FragmentAllNewsBinding
 import org.devstrike.app.citrarb.features.news.data.NewsApi
 import org.devstrike.app.citrarb.features.news.data.NewsDao
 import org.devstrike.app.citrarb.features.news.newsLanding.NewsViewModel
 import org.devstrike.app.citrarb.features.news.repositories.NewsRepoImpl
+import org.devstrike.app.citrarb.utils.visible
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
-
 /*
-* UI fragment to display the list of all the news under local category from the cloud
- */
+* UI fragment to display the list of all the news from the cloud
+* */
 
 @AndroidEntryPoint
-class LocalNews : BaseFragment<NewsViewModel, FragmentLocalNewsBinding, NewsRepoImpl>() {
+class AllNews : BaseFragment<NewsViewModel, FragmentAllNewsBinding, NewsRepoImpl>() {
 
     @set:Inject
     var newsApi: NewsApi by Delegates.notNull<NewsApi>()
     @set:Inject
     var newsDao: NewsDao by Delegates.notNull<NewsDao>()
 
-    private val TAG = "localNews"
-    private lateinit var localNewsListAdapter: LocalNewsListAdapter
-    private val localNewsViewModel: NewsViewModel by activityViewModels()
-
+    private val TAG = "allNews"
+    private lateinit var newsListAdapter: NewsListAdapter
+    private val allNewsViewModel: NewsViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
-            setUpRecyclerView()
+            shimmerLayout.startShimmer()
             subscribeToNewsList()
+            setUpRecyclerView()
         }
     }
 
     //function to make the api request and get the paginated response
     //we then submit the paginated list to the adapter
     private fun subscribeToNewsList() = viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-        localNewsViewModel.newsList.collectLatest { pagingData ->
-            val localNewsList = listOf(pagingData)
-            val distinctLocalNewsList = localNewsList.distinct()
-            localNewsListAdapter.submitData(pagingData)
-
+        allNewsViewModel.newsList.collectLatest { pagingData ->
+            binding.shimmerLayout.apply {
+                stopShimmer()
+                visible(false)
+            }
+            newsListAdapter.submitData(pagingData)
         }
     }
 
     private fun setUpRecyclerView() {
-        localNewsListAdapter = LocalNewsListAdapter()
-        Log.d(TAG, "setUpRecyclerView: ${localNewsListAdapter}")
+        binding.rvAllNewsList.visible(true)
 
-        val localNewsLayoutManager =
+        newsListAdapter = NewsListAdapter()
+
+        val allNewsLayoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
-        binding.rvLocalNewsList.apply {
-            adapter = localNewsListAdapter
-            layoutManager = localNewsLayoutManager
+        binding.rvAllNewsList.apply {
+            adapter = newsListAdapter
+            layoutManager = allNewsLayoutManager
             addItemDecoration(
                 DividerItemDecoration(
-                    requireContext(), localNewsLayoutManager.orientation
+                    requireContext(), allNewsLayoutManager.orientation
                 )
             )
         }
 
-
     }
-
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ) = FragmentLocalNewsBinding.inflate(inflater, container, false)
+    ) = FragmentAllNewsBinding.inflate(inflater, container, false)
 
     override fun getFragmentRepo() = NewsRepoImpl(newsApi, newsDao)
 

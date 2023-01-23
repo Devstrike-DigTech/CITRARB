@@ -12,10 +12,7 @@ import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
-import org.devstrike.app.citrarb.features.news.detail.data.NewsArticle
-import org.devstrike.app.citrarb.features.news.newsLanding.data.remote.NewsListResponse
 import java.util.*
-import kotlin.random.Random
 
 /**
  * data class to define the columns of the news table in the database

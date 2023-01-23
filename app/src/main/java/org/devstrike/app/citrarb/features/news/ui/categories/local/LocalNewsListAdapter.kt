@@ -6,9 +6,8 @@
  *
  */
 
-package org.devstrike.app.citrarb.features.news.local
+package org.devstrike.app.citrarb.features.news.ui.categories.local
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

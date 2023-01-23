@@ -6,7 +6,7 @@
  *
  */
 
-package org.devstrike.app.citrarb.features.news.saved
+package org.devstrike.app.citrarb.features.news.savednews
 
 import android.content.Intent
 import android.os.Bundle
@@ -25,10 +25,8 @@ import org.devstrike.app.citrarb.features.news.data.NewsDao
 import org.devstrike.app.citrarb.features.news.newsLanding.NewsViewModel
 import org.devstrike.app.citrarb.features.news.newsLanding.data.local.SavedNewsListData
 import org.devstrike.app.citrarb.features.news.repositories.NewsRepoImpl
-import org.devstrike.app.citrarb.network.retrySnackbar
 import org.devstrike.app.citrarb.network.undoSnackbar
 import org.devstrike.app.citrarb.utils.loadImage
-import org.devstrike.app.citrarb.utils.snackbar
 import javax.inject.Inject
 import kotlin.properties.Delegates
 

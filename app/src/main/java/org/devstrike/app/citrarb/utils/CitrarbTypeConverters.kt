@@ -11,8 +11,7 @@ package org.devstrike.app.citrarb.utils
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import org.devstrike.app.citrarb.features.news.detail.data.NewsArticle
-import org.devstrike.app.citrarb.features.news.detail.data.NewsArticleResponse
+import org.devstrike.app.citrarb.features.news.newsdetail.data.NewsArticle
 import org.devstrike.app.citrarb.features.news.newsLanding.data.remote.NewsListResponse
 
 /**

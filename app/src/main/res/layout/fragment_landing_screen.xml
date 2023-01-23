@@ -42,9 +42,7 @@
                 android:layout_height="wrap_content"
                 android:elevation="4dp"
                 app:menu="@menu/tool_bar_menu"
-                android:padding="@dimen/padding_mini"
-                app:subtitle="@string/tool_bar_sub_title"
-                app:title="@string/tool_bar_title">
+                android:padding="@dimen/padding_mini">
 
             </androidx.appcompat.widget.Toolbar>
 
@@ -55,7 +53,7 @@
     <androidx.fragment.app.FragmentContainerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/main_container"
+        android:id="@+id/main_container_landing"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

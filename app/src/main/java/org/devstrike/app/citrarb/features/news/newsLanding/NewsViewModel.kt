@@ -16,7 +16,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import org.devstrike.app.citrarb.base.BaseViewModel
-import org.devstrike.app.citrarb.features.news.detail.data.NewsArticleResponse
+import org.devstrike.app.citrarb.features.news.newsdetail.data.NewsArticleResponse
 import org.devstrike.app.citrarb.features.news.newsLanding.data.local.SavedNewsListData
 import org.devstrike.app.citrarb.features.news.newsLanding.data.remote.NewsListResponse
 import org.devstrike.app.citrarb.features.news.repositories.NewsRepoImpl

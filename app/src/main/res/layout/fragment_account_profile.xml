@@ -7,7 +7,7 @@
   ~
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -15,11 +15,16 @@
     android:orientation="vertical"
     tools:context=".features.account.ui.AccountProfile">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="150dp"
         android:layout_height="150dp"
         app:civ_border_width="0.2dp"
-        android:src="@drawable/ic_camera"
+        android:src="@drawable/ic_user"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/margin_maxi"
         android:id="@+id/iv_user_dp"/>
@@ -31,6 +36,8 @@
         android:layout_gravity="center_horizontal"
         android:layout_margin="@dimen/padding_mini"
         android:padding="@dimen/padding_mini"
+        android:textSize="@dimen/text_l"
+        android:textColor="@color/black"
         android:id="@+id/txt_user_name"/>
 
     <TextView
@@ -40,6 +47,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_margin="@dimen/padding_mini"
         android:padding="@dimen/padding_mini"
+        android:textSize="@dimen/text_s"
         android:id="@+id/txt_user_date_joined"/>
 
     <com.google.android.material.card.MaterialCardView
@@ -60,7 +68,8 @@
                 tools:text="london.health@email.com"
                 android:layout_margin="@dimen/padding_mini"
                 android:padding="@dimen/padding_mini"
-                android:id="@+id/txt_user_email"/>
+                android:id="@+id/txt_user_email"
+                android:textSize="@dimen/text_s"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -77,6 +86,7 @@
                     android:layout_margin="@dimen/padding_mini"
                     tools:textColor="@color/custom_secondary"
                     android:padding="@dimen/padding_mini"
+                    android:textSize="@dimen/text_s"
                     android:id="@+id/txt_user_phone_number"/>
 
                 <ImageView
@@ -100,6 +110,7 @@
                 android:layout_margin="@dimen/padding_mini"
                 tools:textColor="@color/custom_secondary"
                 android:padding="@dimen/padding_mini"
+                android:textSize="@dimen/text_s"
                 android:id="@+id/txt_user_gender"/>
 
             <LinearLayout
@@ -118,6 +129,7 @@
                     android:layout_margin="@dimen/padding_mini"
                     tools:textColor="@color/custom_secondary"
                     android:padding="@dimen/padding_mini"
+                    android:textSize="@dimen/text_s"
                     android:id="@+id/txt_user_occupation_one"/>
 
                 <ImageView
@@ -145,6 +157,7 @@
                     android:layout_weight="2"
                     android:layout_margin="@dimen/padding_mini"
                     android:padding="@dimen/padding_mini"
+                    android:textSize="@dimen/text_s"
                     android:text="@string/add_occupation"
                     tools:text="Singer"
                     tools:textColor="@color/custom_secondary"
@@ -175,6 +188,7 @@
                     android:layout_margin="@dimen/padding_mini"
                     android:padding="@dimen/padding_mini"
                     android:text="@string/add_location"
+                    android:textSize="@dimen/text_s"
                     tools:text="@tools:sample/cities"
                     tools:textColor="@color/custom_secondary"
                     />
@@ -198,4 +212,14 @@
 
     </com.google.android.material.card.MaterialCardView>
 
-</LinearLayout>
+    </LinearLayout>
+    <ProgressBar
+        android:id="@+id/accountProfileProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+
+</RelativeLayout>

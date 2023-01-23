@@ -13,6 +13,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.Toolbar
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,9 +21,11 @@ import org.devstrike.app.citrarb.R
 import org.devstrike.app.citrarb.base.BaseFragment
 import org.devstrike.app.citrarb.base.BaseRepo
 import org.devstrike.app.citrarb.databinding.FragmentNewsLandingBinding
+import org.devstrike.app.citrarb.features.landing.ui.LandingScreen
 import org.devstrike.app.citrarb.features.news.data.NewsApi
 import org.devstrike.app.citrarb.features.news.data.NewsDao
 import org.devstrike.app.citrarb.features.news.repositories.NewsRepoImpl
+import org.devstrike.app.citrarb.utils.Common
 import org.devstrike.app.citrarb.utils.snackbar
 import javax.inject.Inject
 import kotlin.properties.Delegates
@@ -34,6 +37,8 @@ import kotlin.properties.Delegates
 @AndroidEntryPoint
 class NewsLanding : BaseFragment<NewsViewModel, FragmentNewsLandingBinding, BaseRepo>() {
 
+    private lateinit var toolBar: Toolbar
+
     @set:Inject
     var newsApi: NewsApi by Delegates.notNull<NewsApi>()
     @set:Inject
@@ -44,6 +49,13 @@ class NewsLanding : BaseFragment<NewsViewModel, FragmentNewsLandingBinding, Base
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+//        val landingScreen = LandingScreen()
+//        toolBar = landingScreen.mCustomToolBar
+//        toolBar.title = "News"
+//        toolBar.subtitle = "Get updated on the country events"
+        Common.toolBarTitle = "News"
+        Common.toolBarSubTitle = "Get updated on the country events"
 
         with(binding) {
             //set the title to be displayed on each tab

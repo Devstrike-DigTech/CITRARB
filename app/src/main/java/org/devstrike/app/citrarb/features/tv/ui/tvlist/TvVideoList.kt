@@ -29,6 +29,7 @@ import org.devstrike.app.citrarb.features.tv.ui.TVViewModel
 import org.devstrike.app.citrarb.network.Resource
 import org.devstrike.app.citrarb.network.handleApiError
 import org.devstrike.app.citrarb.utils.Common
+import org.devstrike.app.citrarb.utils.visible
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
@@ -45,9 +46,13 @@ class TvVideoList : BaseFragment<TVViewModel, FragmentTvVideoListBinding, TVRepo
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        Common.toolBarTitle = "TV"
+        Common.toolBarSubTitle = "Feast your eyes with engaging content"
+
         subscribeToTVList()
         setupRecyclerView()
-        binding.videoListProgressBar.isVisible = true
+        //binding.videoListProgressBar.isVisible = true
 
 //        tvViewModel.tvVideoList.observe(viewLifecycleOwner) {
 //            tvListAdapter.submitList(it.data)
@@ -61,18 +66,22 @@ class TvVideoList : BaseFragment<TVViewModel, FragmentTvVideoListBinding, TVRepo
         tvViewModel.tvVideos.observe(viewLifecycleOwner, Observer { response ->
             when (response) {
                 is Resource.Success -> {
-                    binding.videoListProgressBar.isVisible = false
+                    //binding.videoListProgressBar.isVisible = false
+                    binding.tvShimmerLayout.stopShimmer()
+                    binding.tvShimmerLayout.visible(false)
                     tvListAdapter.submitList(response.value!!.data)
                     addToList(response.value!!.data)
 
                 }
                 is Resource.Failure -> {
-                    binding.videoListProgressBar.isVisible = false
+                    //binding.videoListProgressBar.isVisible = false
+                    binding.tvShimmerLayout.stopShimmer()
                     // TODO: handle no internet issue here
                     handleApiError(response.error) { subscribeToTVList() }
                 }
                 is Resource.Loading -> {
-                    binding.videoListProgressBar.isVisible = true
+                    //binding.videoListProgressBar.isVisible = true
+                    binding.tvShimmerLayout.startShimmer()
                 }
             }
         })
@@ -95,6 +104,7 @@ class TvVideoList : BaseFragment<TVViewModel, FragmentTvVideoListBinding, TVRepo
     }
 
     private fun setupRecyclerView() {
+        binding.rvVideoList.visible(true)
         tvListAdapter = TVListAdapter(requireContext())
         val tvListLayoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)

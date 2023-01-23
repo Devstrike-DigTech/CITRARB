@@ -6,7 +6,7 @@
  *
  */
 
-package org.devstrike.app.citrarb.features.news.detail.data
+package org.devstrike.app.citrarb.features.news.newsdetail.data
 
 /**
  * data class to define the format of the news article fetch response

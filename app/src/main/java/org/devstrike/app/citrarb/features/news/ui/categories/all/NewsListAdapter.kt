@@ -6,7 +6,7 @@
  *
  */
 
-package org.devstrike.app.citrarb.features.news.all
+package org.devstrike.app.citrarb.features.news.ui.categories.all
 
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,9 +17,9 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import org.devstrike.app.citrarb.databinding.ItemNewsListLayoutBinding
-import org.devstrike.app.citrarb.features.landing.data.LandingMenu
 import org.devstrike.app.citrarb.features.news.newsLanding.NewsLandingDirections
 import org.devstrike.app.citrarb.features.news.newsLanding.data.remote.NewsListResponse
+import org.devstrike.app.citrarb.utils.visible
 import javax.inject.Inject
 
 /**
@@ -33,9 +33,12 @@ class NewsListAdapter @Inject constructor() :
     ) {
 
     val TAG = "newsListAdapter"
+    var showShimmer = false
 
     inner class NewsListViewHolder(private val binding: ItemNewsListLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        val shimmerLayout = binding.shimmerLayout
+        val mainCard = binding.loadedAllNewsItemContent
         fun bind(listener: View.OnClickListener, item: NewsListResponse) = binding.apply {
             newsListItem = item
             newsListItemClickListener = listener
@@ -58,11 +61,37 @@ class NewsListAdapter @Inject constructor() :
 
     override fun onBindViewHolder(holder: NewsListViewHolder, position: Int) {
         val newsListItem = getItem(position)
+        Log.d(TAG, "onBindViewHolder: newsID = ${newsListItem?.id}")
+
+        if (newsListItem != null){
+            if (newsListItem.id < 1){
+                holder.apply {
+                    shimmerLayout.startShimmer()
+                    shimmerLayout.visible(true)
+                    mainCard.visible(false)
+                    Log.d(TAG, "onBindViewHolder: news -1")
+                }
+            }else{
+                holder.apply {
+                    shimmerLayout.stopShimmer()
+                    shimmerLayout.visible(false)
+                    mainCard.visible(true)
+                    bind(createOnClickListener(newsListItem!!), newsListItem)
+                    itemView.tag = newsListItem
+                    Log.d(TAG, "onBindViewHolder: news loaded")
+                }
+            }
+        }else{
+            holder.apply {
+                shimmerLayout.startShimmer()
+                shimmerLayout.visible(true)
+                mainCard.visible(false)
+                Log.d(TAG, "onBindViewHolder: news null")
+            }
+        }
 
 
         holder.apply {
-            bind(createOnClickListener(newsListItem!!), newsListItem)
-            itemView.tag = newsListItem
 
         }.also {
             when (newsListItem!!.category) {

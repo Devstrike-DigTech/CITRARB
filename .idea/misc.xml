@@ -7,13 +7,18 @@
         <entry key="app/src/main/res/drawable/app_background.xml" value="0.33" />
         <entry key="app/src/main/res/drawable/citrarb_logo.xml" value="0.117" />
         <entry key="app/src/main/res/drawable/ic_news.xml" value="0.1275" />
+        <entry key="app/src/main/res/drawable/ic_no_user.xml" value="0.1215" />
         <entry key="app/src/main/res/drawable/ic_unsaved_bookmark.xml" value="0.142" />
         <entry key="app/src/main/res/drawable/layers_24.xml" value="0.142" />
         <entry key="app/src/main/res/drawable/share_24.xml" value="0.142" />
+        <entry key="app/src/main/res/drawable/user_24.xml" value="0.1215" />
         <entry key="app/src/main/res/font/font.xml" value="0.21666666666666667" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.23485784919653893" />
         <entry key="app/src/main/res/layout/custom_tv_view_pager_item.xml" value="0.1099290780141844" />
+        <entry key="app/src/main/res/layout/fragment_account_create.xml" value="0.2682052833446558" />
+        <entry key="app/src/main/res/layout/fragment_account_log_in.xml" value="0.18" />
         <entry key="app/src/main/res/layout/fragment_account_not_logged_in.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/fragment_account_profile.xml" value="0.2674731182795699" />
         <entry key="app/src/main/res/layout/fragment_all_news.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_app_menu.xml" value="0.15081521739130435" />
         <entry key="app/src/main/res/layout/fragment_entertainment_news.xml" value="0.15081521739130435" />
@@ -35,7 +40,10 @@
         <entry key="app/src/main/res/layout/fragment_user_account.xml" value="0.1802536231884058" />
         <entry key="app/src/main/res/layout/item_landing_grid_layout.xml" value="0.33" />
         <entry key="app/src/main/res/layout/item_news_list_layout.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/item_news_list_shimmer_layout.xml" value="0.11803444782168186" />
         <entry key="app/src/main/res/layout/item_saved_news_list_layout.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/item_tv_list_layout.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/item_tv_list_shimmer_layout.xml" value="0.10597826086956522" />
         <entry key="app/src/main/res/layout/item_tv_video_list_layout.xml" value="0.27208251953124996" />
         <entry key="app/src/main/res/menu/tool_bar_menu.xml" value="0.22604166666666667" />
       </map>

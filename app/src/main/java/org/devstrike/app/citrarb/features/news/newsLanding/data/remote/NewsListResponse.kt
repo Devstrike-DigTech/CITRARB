@@ -23,7 +23,7 @@ data class NewsListResponse(
     val cover_photo_small_size: String = "",
     val date: String = "",
     val description: String = "",
-    val id: String = "",
+    val id: Int = 0,
     val link: String = "",
     val title: String = ""
 ) : Parcelable

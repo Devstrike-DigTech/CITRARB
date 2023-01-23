@@ -12,6 +12,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.Toolbar
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,6 +32,8 @@ import org.devstrike.app.citrarb.utils.Common.deepLinkNewsUrl
 @AndroidEntryPoint
 class AppMenu : BaseFragment<LandingViewModel, FragmentAppMenuBinding, LandingRepo>() {
 
+    lateinit var toolBar: Toolbar
+
 
     private val landingMenuAdapter = LandingMenuAdapter()
     val landingMenuList = mutableListOf<LandingMenu>()
@@ -40,6 +43,9 @@ class AppMenu : BaseFragment<LandingViewModel, FragmentAppMenuBinding, LandingRe
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+//        val landingScreen = LandingScreen()
+//        toolBar = landingScreen.mCustomToolBar
+        //toolBar.title = "News"
         //when an external link is clicked to open in the app, it gets the link and navigates to the news
         if (deepLinkNewsUrl != "") {
             val navToNewsDetail =

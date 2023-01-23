@@ -19,10 +19,10 @@ sealed class Resource<out T>(
     val value: T? = null,
     val error: Throwable? = null
 ) {
-    class Success<out T>(value: T) : Resource<T>(value)
+    class Success<out T>(value: T, errorMessage: Throwable? = null) : Resource<T>(value, errorMessage)
 
     class Failure<T>(
-        throwable: Throwable, value: T? = null
+        throwable: Throwable? = null, value: T? = null
     ) : Resource<T>(value, throwable)
 
     object Loading : Resource<Nothing>()

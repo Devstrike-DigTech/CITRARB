@@ -9,60 +9,103 @@
 package org.devstrike.app.citrarb.features.account.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import org.devstrike.app.citrarb.R
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import org.devstrike.app.citrarb.base.BaseFragment
+import org.devstrike.app.citrarb.databinding.FragmentAccountProfileBinding
+import org.devstrike.app.citrarb.features.account.data.UserApi
+import org.devstrike.app.citrarb.features.account.data.models.responses.User
+import org.devstrike.app.citrarb.features.account.data.models.responses.UserX
+import org.devstrike.app.citrarb.features.account.repositories.UserRepoImpl
+import org.devstrike.app.citrarb.network.Resource
+import org.devstrike.app.citrarb.network.handleApiError
+import org.devstrike.app.citrarb.utils.SessionManager
+import org.devstrike.app.citrarb.utils.visible
+import javax.inject.Inject
+import kotlin.properties.Delegates
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+@AndroidEntryPoint
+class AccountProfile : BaseFragment<AccountViewModel, FragmentAccountProfileBinding, UserRepoImpl>() {
 
-/**
- * A simple [Fragment] subclass.
- * Use the [AccountProfile.newInstance] factory method to
- * create an instance of this fragment.
- */
-class AccountProfile : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    @set:Inject
+    var userApi: UserApi by Delegates.notNull()
+    @set:Inject
+    var sessionManager: SessionManager by Delegates.notNull()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+    private val userViewModel: AccountViewModel by activityViewModels()
+
+
+    //val args: AccountProfileArgs by navArgs()
+    var token: String by Delegates.notNull()
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        //token = args.userToken
+        token = arguments?.getString("token")!!
+        userViewModel.getUserInfo()
+        subscribeToAccountProfileEvents()
+
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_account_profile, container, false)
-    }
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment AccountProfile.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            AccountProfile().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    private fun subscribeToAccountProfileEvents() = //{
+        lifecycleScope.launch{
+            userViewModel.userInfoState.collect{ result ->
+                when(result){
+                    is Resource.Success ->{
+                        hideProgressBar()
+                        subscribeToUi(result.value!!.user)
+                    }
+                    is Resource.Failure ->{
+                        hideProgressBar()
+                        handleApiError(result.error) //{
+                            //userViewModel.getUserInfo()
+                            //subscribeToAccountProfileEvents()
+                        //}
+                    }
+                    is Resource.Loading ->{
+                        showProgressBar()
+                    }
                 }
             }
+      //  }
+
     }
+
+    private fun subscribeToUi(user: UserX) {
+
+        with(binding){
+            txtUserName.text = user.username
+            val dateJoined = user.createdAt .replace("T", " | ")
+                .removeSuffix("Z")
+            txtUserDateJoined.text = "Joined $dateJoined"
+            txtUserEmail.text = user.email
+
+        }
+
+    }
+
+    private fun showProgressBar(){
+        binding.accountProfileProgressBar.visible(true)
+    }
+
+    private fun hideProgressBar(){
+        binding.accountProfileProgressBar.visible(false)
+    }
+
+
+    override fun getFragmentRepo() = UserRepoImpl(userApi, sessionManager)
+
+    override fun getViewModel() = AccountViewModel::class.java
+
+    override fun getFragmentBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ) = FragmentAccountProfileBinding.inflate(inflater, container, false)
+
 }

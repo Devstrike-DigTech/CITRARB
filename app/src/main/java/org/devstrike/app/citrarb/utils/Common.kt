@@ -19,6 +19,15 @@ object Common {
 
     //base url for all api calls
     const val BASE_URL = "https://fair-cyan-crayfish-sock.cyclic.app/"
+    const val USER_BASE_URL = "https://citrab.onrender.com"
+
+
+    const val JWT_TOKEN_KEY = "jwt_token_key"
+    const val USER_NAME_KEY = "user_name"
+    const val USER_EMAIL_KEY = "user_email"
+    const val MINIMUM_PASSWORD_LENGTH = 4
+    const val MAXIMUM_PASSWORD_LENGTH = 8
+
 
     //the index request page number for pagination fetching
     const val NEWS_LIST_INDEX_PAGE = 1
@@ -86,4 +95,7 @@ object Common {
 
     //list to store and pass the tv videos
     var tvVideos = mutableListOf<TVVideos>()
+
+    var toolBarTitle = "Coal City Connect"
+    var toolBarSubTitle = "Connecting People"
 }

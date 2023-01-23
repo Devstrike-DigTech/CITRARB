@@ -11,12 +11,29 @@ package org.devstrike.app.citrarb.features.landing.ui
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.NavOptions
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.devstrike.app.citrarb.R
 import org.devstrike.app.citrarb.base.BaseFragment
 import org.devstrike.app.citrarb.databinding.FragmentLandingScreenBinding
+import org.devstrike.app.citrarb.features.account.ui.AccountNotLoggedIn
+import org.devstrike.app.citrarb.features.account.ui.AccountProfile
 import org.devstrike.app.citrarb.features.landing.repositories.LandingRepo
+import org.devstrike.app.citrarb.utils.Common
+import org.devstrike.app.citrarb.utils.SessionManager
 import org.devstrike.app.citrarb.utils.toast
+import javax.inject.Inject
+import kotlin.properties.Delegates
 
 /*
 * Class to house the entire content of the application
@@ -28,27 +45,53 @@ import org.devstrike.app.citrarb.utils.toast
 class LandingScreen : BaseFragment<LandingViewModel, FragmentLandingScreenBinding, LandingRepo>() {
 
     //    private lateinit var screenBinding: FragmentLandingScreenBinding
-//    lateinit var mCustomToolBar: Toolbar
-//
+    lateinit var mCustomToolBar: Toolbar
+    private var _binding: FragmentLandingScreenBinding? = null
+    val landingScreenBinding: FragmentLandingScreenBinding?
+        get() = _binding
+
+//    private var navController: NavController by Delegates.notNull()
+
+    @set:Inject
+    var sessionManager: SessionManager by Delegates.notNull<SessionManager>()
+    var token: String by Delegates.notNull()
+
+
+
+    //
 //    fun toolBar(): View{
 //        return mCustomToolBar
 //    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        mCustomToolBar = screenBinding.customToolBar
-        (activity as AppCompatActivity).setSupportActionBar(binding.customToolBar)
+        (activity as AppCompatActivity).setSupportActionBar(landingScreenBinding!!.customToolBar)
+        landingScreenBinding!!.customToolBar.title = Common.toolBarTitle
+        landingScreenBinding!!.customToolBar.subtitle = Common.toolBarSubTitle
+
+//        mCustomToolBar = view.findViewById(R.id.customToolBar)
+        mCustomToolBar = landingScreenBinding!!.customToolBar
+
+        CoroutineScope(Dispatchers.IO).launch {  token = sessionManager.getJwtToken()!!}
+        //toolBar()
+//        _binding = FragmentLandingScreenBinding.bind(view)
+//        mCustomToolBar = _binding!!.customToolBar
+
+        //val navHostFragment = binding.mainContainerLanding as NavHostFragment
 
     }
+
+    fun toolBar() = mCustomToolBar
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
+        _binding = FragmentLandingScreenBinding.inflate(inflater, container, false)
 
         setHasOptionsMenu(true)
-        return super.onCreateView(inflater, container, savedInstanceState)
+        return landingScreenBinding!!.root
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -63,16 +106,87 @@ class LandingScreen : BaseFragment<LandingViewModel, FragmentLandingScreenBindin
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val navController = landingScreenBinding!!.mainContainerLanding.findNavController()
+        val graph = navController.navInflater.inflate(R.navigation.content_graph)
+        navController.graph = graph
+        //navController.navigate(R.id.appMenu)
+
         when (item.itemId) {
             R.id.menu_account -> {
-                requireContext().toast("Account Clicked!")
-                //findNavController().navigate(R.id.action_allNotes_to_userInfo)
+                val accountNotLoggedIn = AccountNotLoggedIn()
+                val accountProfile = AccountProfile()
+
+//                val navHostFragment = landingScreenBinding!!.mainContainerLanding as NavHostFragment//binding.mainContainerLanding as NavHostFragment
+//                    //(requireFragmentManager().findFragmentById(R.id.main_container_landing) as NavHostFragment)
+//                val inflater = navHostFragment.navController.navInflater
+//                //val graph = inflater.inflate(R.navigation.content_graph)
+                CoroutineScope(Dispatchers.IO).launch {
+                    if (sessionManager.getJwtToken().isNullOrEmpty()) {
+                        withContext(Dispatchers.Main) {
+                            navController.navigate(R.id.accountNotLoggedIn)
+
+                        }
+//                            graph.setStartDestination(R.id.accountNotLoggedIn)
+//
+//                            navHostFragment.navController.graph = graph
+                        //}
+                    } else {
+                        withContext(Dispatchers.Main) {
+                            requireContext().toast(token!!)
+                            val bundle = Bundle()
+                            bundle.putString("token", token)
+                            navController.navigate(R.id.accountProfile, bundle)
+
+//                            graph.setStartDestination(R.id.accountProfile)
+//                            navHostFragment.navController.graph = graph
+//
+////                            val bundle = Bundle()
+////                            bundle.putString("token", token)
+////                            accountProfile.arguments = bundle
+////                            replaceFragment(accountProfile, "Account")
+//
+////                            val navToProfile =
+////                                AppMenuDirections.actionAppMenuToAccountProfile(token)
+////                            findNavController().navigate(navToProfile)
+                        }
+                    }
+                }
             }
             R.id.menu_settings -> {
                 requireContext().toast("Settings Clicked!")
+
+            }
+            R.id.menu_logout ->{
+                if (token.isEmpty()){
+                    requireContext().toast("Not Logged In")
+                }else{
+                    CoroutineScope(Dispatchers.IO).launch {
+                        sessionManager.logout()
+                        withContext(Dispatchers.Main){
+                            navController.navigate(R.id.accountNotLoggedIn)
+
+                        }
+                    }
+
+                }
             }
         }
+
+//            requireContext().toast("Account Clicked!")
+//            //findNavController().navigate(R.id.action_allNotes_to_userInfo)
+//        }
+
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun replaceFragment(fragment: Fragment, title: String) {
+
+        val fragmentManager = requireFragmentManager()
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.main_container_landing, fragment)
+        fragmentTransaction.commit()
+        binding.customToolBar.title = title
+        binding.customToolBar.subtitle = "Know Thyself"
     }
 
     override fun getFragmentBinding(

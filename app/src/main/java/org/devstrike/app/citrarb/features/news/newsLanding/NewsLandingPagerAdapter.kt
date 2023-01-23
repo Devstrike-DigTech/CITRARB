@@ -12,9 +12,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import org.devstrike.app.citrarb.features.news.all.AllNews
-import org.devstrike.app.citrarb.features.news.local.LocalNews
-import org.devstrike.app.citrarb.features.news.national.NationalNews
+import org.devstrike.app.citrarb.features.news.ui.categories.all.AllNews
+import org.devstrike.app.citrarb.features.news.ui.categories.local.LocalNews
+import org.devstrike.app.citrarb.features.news.ui.categories.national.NationalNews
 
 /**
  * adapter class to define the display mode and functionality of the tab layout on the news landing page
