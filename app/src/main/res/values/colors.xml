@@ -13,6 +13,8 @@
     <color name="custom_secondary_variant">#2BA4D8</color>
     <color name="custom_item_option_color">#CDDDE4</color>
     <color name="shimmer_color">#B3B3B3</color>
+    <color name="accept_color">#00A631</color>
+    <color name="reject_color">#D50000</color>
 
     <color name="news_color">#34f</color>
     <color name="eye_witness_color">#63bb7a</color>

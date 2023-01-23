@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2023.
+  ~ Richard Uzor
+  ~ For Afro Connect Technologies
+  ~ Under the Authority of Devstrike Digital Ltd.
+  ~
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".features.members.friends.Friends">
+
+
+    <ImageView
+        android:id="@+id/iv_sort_friends"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_mini"
+        android:contentDescription="@string/sort_all_members"
+        android:padding="@dimen/padding_mini"
+        app:srcCompat="@drawable/ic_sort" />
+
+    <ImageView
+        android:id="@+id/iv_search_friends"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="@dimen/padding_mini"
+        android:contentDescription="@string/search_all_members"
+        android:padding="@dimen/padding_mini"
+        app:srcCompat="@drawable/ic_search" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="@dimen/padding_mini"
+        android:padding="@dimen/padding_mini"
+        android:layout_below="@id/iv_search_friends">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="@dimen/padding_mini"
+        android:layout_margin="@dimen/padding_mini"
+        android:padding="@dimen/padding_mini"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/layout_friend_request_title"
+                android:weightSum="100">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="99"
+                    android:text="@string/friends_request_title"
+                    android:padding="@dimen/padding_mini"
+                    android:layout_margin="@dimen/padding_mini"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/friends_request_see_all"
+                    android:padding="@dimen/padding_mini"
+                    android:textColor="@color/custom_secondary"
+                    android:layout_margin="@dimen/padding_mini"/>
+
+
+            </LinearLayout>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_mini"
+                android:padding="@dimen/padding_mini"
+                android:layout_below="@id/layout_friend_request_title"
+                android:clipToPadding="false"
+                tools:listitem="@layout/item_friend_request_layout"
+                tools:itemCount="3"
+                android:id="@+id/rv_friend_requests"/>
+            
+            <!--below is the view for our shimmer-->
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/friend_requests_shimmer_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:animateLayoutChanges="true"
+                android:animationCache="true"
+                android:layout_below="@id/layout_friend_request_title"
+
+                app:shimmer_repeat_mode="restart"
+                app:shimmer_shape="radial">
+
+                <!--For shimmer we are creating a same
+                    layout but setting its background
+                    as a gray colour and not providing
+                    any view inside it-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <!--below we are displaying multiple
+                        shimmer layouts using include
+                        to show them in list format-->
+                    <include layout="@layout/item_friend_request_layout" />
+                    <include layout="@layout/item_friend_request_layout" />
+                    <include layout="@layout/item_friend_request_layout" />
+
+                </LinearLayout>
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+        </RelativeLayout>
+
+
+
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="@dimen/padding_mini"
+        android:layout_margin="@dimen/padding_mini"
+        android:padding="@dimen/padding_mini"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txt_friends_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/friends_title"
+                    android:padding="@dimen/padding_mini"
+                    android:layout_margin="@dimen/padding_mini"/>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_mini"
+                android:padding="@dimen/padding_mini"
+                android:layout_below="@id/txt_friends_title"
+                android:clipToPadding="false"
+                android:id="@+id/rv_friend_list"
+                tools:listitem="@layout/item_friends_layout"
+                tools:itemCount="2"/>
+
+            <!--below is the view for our shimmer-->
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/friends_shimmer_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:animateLayoutChanges="true"
+                android:animationCache="true"
+                android:layout_below="@id/txt_friends_title"
+                app:shimmer_repeat_mode="restart"
+                app:shimmer_shape="radial">
+
+                <!--For shimmer we are creating a same
+                    layout but setting its background
+                    as a gray colour and not providing
+                    any view inside it-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <!--below we are displaying multiple
+                        shimmer layouts using include
+                        to show them in list format-->
+                    <include layout="@layout/item_friends_shimmer_layout" />
+                    <include layout="@layout/item_friends_shimmer_layout" />
+                    <include layout="@layout/item_friends_shimmer_layout" />
+                    <include layout="@layout/item_friends_shimmer_layout" />
+
+                </LinearLayout>
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+
+
+        </RelativeLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+
+    </LinearLayout>
+
+</RelativeLayout>

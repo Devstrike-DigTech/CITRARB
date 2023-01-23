@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2023.
+  ~ Richard Uzor
+  ~ For Afro Connect Technologies
+  ~ Under the Authority of Devstrike Digital Ltd.
+  ~
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".features.members.ui.MembersLanding">
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/members_tab_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="6dp"
+        android:minHeight="?attr/actionBarSize"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:tabTextAppearance="@style/TabTextAppearance" />
+
+<com.google.android.material.card.MaterialCardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardElevation="@dimen/padding_mini"
+    android:layout_margin="@dimen/padding_mini"
+    android:padding="@dimen/padding_mini">
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/members_landing_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent" />
+
+</com.google.android.material.card.MaterialCardView>
+
+
+</LinearLayout>

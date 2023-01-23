@@ -1,0 +1,18 @@
+<!--
+  ~ Copyright (c) 2023.
+  ~ Richard Uzor
+  ~ For Afro Connect Technologies
+  ~ Under the Authority of Devstrike Digital Ltd.
+  ~
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:tint="?attr/colorControlNormal"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M24,3.5c0,0.28-0.22,0.5-0.5,0.5H0.5c-0.28,0-0.5-0.22-0.5-0.5s0.22-0.5,0.5-0.5H23.5c0.28,0,0.5,0.22,0.5,0.5ZM7.5,21H0.5c-0.28,0-0.5,0.22-0.5,0.5s0.22,0.5,0.5,0.5H7.5c0.28,0,0.5-0.22,0.5-0.5s-0.22-0.5-0.5-0.5ZM15.5,12H0.5c-0.28,0-0.5,0.22-0.5,0.5s0.22,0.5,0.5,0.5H15.5c0.28,0,0.5-0.22,0.5-0.5s-0.22-0.5-0.5-0.5Z" />
+</vector>

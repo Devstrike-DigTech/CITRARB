@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2023.
+  ~ Richard Uzor
+  ~ For Afro Connect Technologies
+  ~ Under the Authority of Devstrike Digital Ltd.
+  ~
+  -->
+
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_margin="@dimen/padding_mini"
+    android:padding="@dimen/padding_mini"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_mini">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:civ_border_width="0.5dp"
+        android:layout_margin="@dimen/padding_mini"
+        tools:src="@drawable/devstrike_logo"
+        android:padding="@dimen/padding_mini"
+        android:id="@+id/iv_friend_request_photo"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="@tools:sample/first_names"
+            android:layout_toEndOf="@id/iv_friend_request_photo"
+            android:layout_marginStart="@dimen/padding_mini"
+            android:layout_marginEnd="@dimen/padding_mini"
+            android:padding="@dimen/padding_mini"
+            android:textColor="@color/black"
+            android:id="@+id/txt_friend_request_username"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Male"
+            android:layout_toEndOf="@id/iv_friend_request_photo"
+            android:layout_below="@id/txt_friend_request_username"
+            android:layout_marginStart="@dimen/padding_mini"
+            android:paddingStart="@dimen/padding_mini"
+            android:paddingEnd="@dimen/padding_mini"
+            android:textSize="@dimen/text_xs"
+            android:id="@+id/txt_friend_request_gender"/>
+
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:weightSum="2"
+            android:orientation="horizontal"
+            android:layout_below="@id/txt_friend_request_gender"
+            >
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/ic_star"
+                android:layout_margin="1dp"
+                android:padding="@dimen/padding_mini"
+                android:background="@color/reject_color"
+                android:contentDescription="@string/reject_friend_request"
+                android:id="@+id/iv_reject_friend_request"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/ic_confirm"
+            android:layout_margin="1dp"
+            android:padding="@dimen/padding_mini"
+            android:background="@color/accept_color"
+            android:contentDescription="@string/confirm_friend_request"
+            android:id="@+id/iv_confirm_friend_request"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</com.google.android.material.card.MaterialCardView>
