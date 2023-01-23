@@ -15,8 +15,11 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
 import org.devstrike.app.citrarb.base.BaseViewModel
 import org.devstrike.app.citrarb.features.account.data.models.responses.GetSelfResponse
+import org.devstrike.app.citrarb.features.members.data.models.requests.FriendRequestResponseStatus
 import org.devstrike.app.citrarb.features.members.data.models.requests.SendFriendRequest
 import org.devstrike.app.citrarb.features.members.data.models.responses.AllUsersResponse
+import org.devstrike.app.citrarb.features.members.data.models.responses.FriendRequestAcceptedResponse
+import org.devstrike.app.citrarb.features.members.data.models.responses.GetPendingFriendRequestsResponse
 import org.devstrike.app.citrarb.features.members.data.models.responses.SendFriendRequestResponse
 import org.devstrike.app.citrarb.features.members.repositories.MembersRepo
 import org.devstrike.app.citrarb.features.members.repositories.MembersRepoImpl
@@ -32,7 +35,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MembersViewModel @Inject constructor(
     val membersRepo: MembersRepoImpl
-): BaseViewModel(membersRepo) {
+) : BaseViewModel(membersRepo) {
 
     //state for all users  fetch
     private val _allUsersState = MutableSharedFlow<Resource<AllUsersResponse>>()
@@ -40,16 +43,42 @@ class MembersViewModel @Inject constructor(
 
     //state for send friend request
     private val _sendFriendRequestState = MutableSharedFlow<Resource<SendFriendRequestResponse>>()
-    val sendFriendRequestState: SharedFlow<Resource<SendFriendRequestResponse>> = _sendFriendRequestState
+    val sendFriendRequestState: SharedFlow<Resource<SendFriendRequestResponse>> =
+        _sendFriendRequestState
+
+    //state for get friend requests
+    private val _getFriendRequestState =
+        MutableSharedFlow<Resource<GetPendingFriendRequestsResponse>>()
+    val getFriendRequestState: SharedFlow<Resource<GetPendingFriendRequestsResponse>> =
+        _getFriendRequestState
+
+    //state for accept friend requests
+    private val _acceptFriendRequestState =
+        MutableSharedFlow<Resource<FriendRequestAcceptedResponse>>()
+    val acceptFriendRequestState: SharedFlow<Resource<FriendRequestAcceptedResponse>> =
+        _acceptFriendRequestState
 
     fun getAllUsers() = viewModelScope.launch {
         _allUsersState.emit(Resource.Loading)
         _allUsersState.emit(membersRepo.getAllUsers())
     }
 
-    fun sendFriendRequest(userId: SendFriendRequest) = viewModelScope.launch{
+    fun sendFriendRequest(userId: SendFriendRequest) = viewModelScope.launch {
         _sendFriendRequestState.emit(Resource.Loading)
         _sendFriendRequestState.emit(membersRepo.sendFriendRequest(userId))
+    }
+
+    fun fetchPendingFriendRequests() = viewModelScope.launch {
+        _getFriendRequestState.emit(Resource.Loading)
+        _getFriendRequestState.emit(membersRepo.fetchPendingFriendRequests())
+    }
+
+    fun acceptFriendRequest(
+        requestId: String,
+        friendRequestResponseStatus: FriendRequestResponseStatus
+    ) = viewModelScope.launch {
+        _acceptFriendRequestState.emit(Resource.Loading)
+        _acceptFriendRequestState.emit(membersRepo.acceptFriendRequest(requestId, friendRequestResponseStatus))
     }
 
 }

@@ -45,6 +45,7 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/card_friend_requests"
         app:cardElevation="@dimen/padding_mini"
         android:layout_margin="@dimen/padding_mini"
         android:padding="@dimen/padding_mini"
@@ -102,7 +103,6 @@
                 android:animateLayoutChanges="true"
                 android:animationCache="true"
                 android:layout_below="@id/layout_friend_request_title"
-
                 app:shimmer_repeat_mode="restart"
                 app:shimmer_shape="radial">
 
@@ -209,5 +209,15 @@
 
 
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/friendsProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+
 
 </RelativeLayout>

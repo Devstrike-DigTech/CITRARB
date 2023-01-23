@@ -136,6 +136,12 @@
         <action
             android:id="@+id/action_accountLogIn_to_accountCreate"
             app:destination="@id/accountCreate" />
+        <action
+            android:id="@+id/action_accountLogIn_to_accountProfile"
+            app:destination="@id/accountProfile" />
+        <action
+            android:id="@+id/action_accountLogIn_to_appMenu"
+            app:destination="@id/appMenu" />
     </fragment>
     <fragment
         android:id="@+id/accountCreate"
@@ -154,5 +160,8 @@
         <action
             android:id="@+id/action_membersLanding_to_accountNotLoggedIn"
             app:destination="@id/accountNotLoggedIn" />
+        <action
+            android:id="@+id/action_membersLanding_to_appMenu"
+            app:destination="@id/appMenu" />
     </fragment>
 </navigation>

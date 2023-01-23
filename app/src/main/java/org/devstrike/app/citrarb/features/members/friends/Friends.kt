@@ -9,60 +9,168 @@
 package org.devstrike.app.citrarb.features.members.friends
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import org.devstrike.app.citrarb.R
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import org.devstrike.app.citrarb.base.BaseFragment
+import org.devstrike.app.citrarb.databinding.FragmentFriendsBinding
+import org.devstrike.app.citrarb.features.members.data.MembersApi
+import org.devstrike.app.citrarb.features.members.data.models.requests.FriendRequestResponseStatus
+import org.devstrike.app.citrarb.features.members.data.models.responses.FriendRequest
+import org.devstrike.app.citrarb.features.members.data.models.responses.Requester
+import org.devstrike.app.citrarb.features.members.repositories.MembersRepoImpl
+import org.devstrike.app.citrarb.features.members.ui.MembersLandingDirections
+import org.devstrike.app.citrarb.features.members.ui.MembersViewModel
+import org.devstrike.app.citrarb.network.Resource
+import org.devstrike.app.citrarb.network.handleApiError
+import org.devstrike.app.citrarb.utils.SessionManager
+import org.devstrike.app.citrarb.utils.toast
+import org.devstrike.app.citrarb.utils.visible
+import javax.inject.Inject
+import kotlin.properties.Delegates
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+@AndroidEntryPoint
+class Friends : BaseFragment<MembersViewModel, FragmentFriendsBinding, MembersRepoImpl>() {
 
-/**
- * A simple [Fragment] subclass.
- * Use the [Friends.newInstance] factory method to
- * create an instance of this fragment.
- */
-class Friends : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    @set:Inject
+    var membersApi: MembersApi by Delegates.notNull()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    @set:Inject
+    var sessionManager: SessionManager by Delegates.notNull()
+
+    val membersViewModel: MembersViewModel by activityViewModels()
+    private lateinit var friendRequestsAdapter: FriendRequestsAdapter
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        friendRequestsAdapter = FriendRequestsAdapter(requireContext())
+
+
+        subscribeToFriendRequestsEvent()
+
+
+    }
+
+    private fun subscribeToFriendRequestsEvent() {
+
+        membersViewModel.fetchPendingFriendRequests()
+        lifecycleScope.launch {
+            membersViewModel.getFriendRequestState.collect { result ->
+                when (result) {
+                    is Resource.Success -> {
+                        binding.friendRequestsShimmerLayout.stopShimmer()
+                        binding.friendRequestsShimmerLayout.visible(false)
+                        if (result.value!!.request.isEmpty()) {
+                            requireContext().toast("No Pending Friend Request")
+                            binding.cardFriendRequests.visible(false)
+                        } else {
+                            val friendRequesters = mutableListOf<FriendRequest>()
+
+                            for (requester in result.value.request) {
+                                friendRequesters.add(requester)
+                            }
+
+                            friendRequestsAdapter.submitList(friendRequesters)
+                            subscribeToFriendRequestUi()
+                        }
+
+                    }
+                    is Resource.Failure -> {
+                        binding.friendRequestsShimmerLayout.stopShimmer()
+                        binding.friendRequestsShimmerLayout.visible(false)
+                    }
+                    is Resource.Loading -> {
+                        binding.friendRequestsShimmerLayout.startShimmer()
+
+                    }
+                }
+            }
+        }
+
+    }
+
+    private fun subscribeToFriendRequestUi() {
+        binding.rvFriendRequests.visible(true)
+        val friendRequestListLayoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+
+        binding.rvFriendRequests.apply {
+            adapter = friendRequestsAdapter
+            layoutManager = friendRequestListLayoutManager
+            addItemDecoration(
+                DividerItemDecoration(
+                    requireContext(), friendRequestListLayoutManager.orientation
+                )
+            )
+        }
+
+        friendRequestsAdapter.createOnAcceptClickListener { request ->
+            val status = "accepted"
+            acceptFriendRequest(request, status)
+//            val friendRequestID = SendFriendRequest(it._id)
+//            sendFriendRequest(friendRequestID)
+        }
+        friendRequestsAdapter.createOnRejectClickListener { request ->
+            val status = "declined"
+            acceptFriendRequest(request, status)
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_friends, container, false)
-    }
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment Friends.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            Friends().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    private fun acceptFriendRequest(request: FriendRequest, status: String) {
+        val friendRequestResponseStatus = FriendRequestResponseStatus(
+            status = status
+        )
+        membersViewModel.acceptFriendRequest(request._id, friendRequestResponseStatus)
+        lifecycleScope.launch {
+            membersViewModel.acceptFriendRequestState.collect { result ->
+                when (result) {
+                    is Resource.Success -> {
+                        hideProgressBar()
+                        if (status == "accepted")
+                            requireContext().toast("Accepted!")
+                        else
+                            requireContext().toast("Declined!")
+                        val navToHome = MembersLandingDirections.actionMembersLandingToAppMenu()
+                        findNavController().navigate(navToHome)
+                    }
+                    is Resource.Failure -> {
+                        hideProgressBar()
+                        handleApiError(result.error) { acceptFriendRequest(request, status) }
+                    }
+                    is Resource.Loading -> {
+                        showProgressBar()
+                    }
                 }
             }
+        }
     }
+
+
+    private fun showProgressBar() {
+        binding.friendsProgressBar.visible(true)
+    }
+
+    private fun hideProgressBar() {
+        binding.friendsProgressBar.visible(false)
+    }
+
+
+    override fun getFragmentRepo() = MembersRepoImpl(membersApi, sessionManager)
+
+    override fun getViewModel() = MembersViewModel::class.java
+
+    override fun getFragmentBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ) = FragmentFriendsBinding.inflate(inflater, container, false)
+
 }

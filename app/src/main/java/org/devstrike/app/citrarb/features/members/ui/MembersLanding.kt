@@ -58,8 +58,8 @@ class MembersLanding : BaseFragment<MembersViewModel, FragmentMembersLandingBind
 //        }
         with(binding) {
             //set the title to be displayed on each tab
-            membersTabTitle.addTab(membersTabTitle.newTab().setText("All Members"))
             membersTabTitle.addTab(membersTabTitle.newTab().setText("Friends"))
+            membersTabTitle.addTab(membersTabTitle.newTab().setText("All Members"))
 
             membersTabTitle.tabGravity = TabLayout.GRAVITY_FILL
 
