@@ -8,7 +8,18 @@
 
 package org.devstrike.app.citrarb.features.members.ui
 
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.launch
+import org.devstrike.app.citrarb.base.BaseViewModel
+import org.devstrike.app.citrarb.features.account.data.models.responses.GetSelfResponse
+import org.devstrike.app.citrarb.features.members.data.models.responses.AllUsersResponse
+import org.devstrike.app.citrarb.features.members.repositories.MembersRepo
+import org.devstrike.app.citrarb.features.members.repositories.MembersRepoImpl
+import org.devstrike.app.citrarb.network.Resource
+import javax.inject.Inject
 
 /**
  * Created by Richard Uzor  on 23/01/2023
@@ -17,5 +28,17 @@ import dagger.hilt.android.lifecycle.HiltViewModel
  * Created by Richard Uzor  on 23/01/2023
  */
 @HiltViewModel
-class MembersViewModel {
+class MembersViewModel @Inject constructor(
+    val membersRepo: MembersRepoImpl
+): BaseViewModel(membersRepo) {
+
+    //state for all users  fetch
+    private val _allUsersState = MutableSharedFlow<Resource<AllUsersResponse>>()
+    val allUsersState: SharedFlow<Resource<AllUsersResponse>> = _allUsersState
+
+    fun getAllUsers() = viewModelScope.launch {
+        _allUsersState.emit(Resource.Loading)
+        _allUsersState.emit(membersRepo.getAllUsers())
+    }
+
 }

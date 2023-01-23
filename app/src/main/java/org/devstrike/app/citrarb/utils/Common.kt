@@ -45,39 +45,48 @@ object Common {
     //defines the colors and titles for each button in the app menu grid
     private val newsMenu = LandingMenu(
         itemName = "News",
-        itemColor = "#34fce4"
+        itemColor = "#34fce4",
+        isLoginRequired = false
     )
     private val eyeWitnessMenu = LandingMenu(
         itemName = "Eye Witness",
-        itemColor = "#63bb7a"
+        itemColor = "#63bb7a",
+        isLoginRequired = true
     )
     private val tvMenu = LandingMenu(
         itemName = "TV",
-        itemColor = "#e8557f"
+        itemColor = "#e8557f",
+        isLoginRequired = false
     )
     private val eventsMenu = LandingMenu(
         itemName = "Events",
-        itemColor = "#f071d5"
+        itemColor = "#f071d5",
+        isLoginRequired = true
     )
     private val marketPlaceMenu = LandingMenu(
         itemName = "Market Place",
-        itemColor = "#7453f9"
+        itemColor = "#7453f9",
+        isLoginRequired = true
     )
     private val musicMenu = LandingMenu(
         itemName = "Music",
-        itemColor = "#98dcf8"
+        itemColor = "#98dcf8",
+        isLoginRequired = true
     )
     private val connectMenu = LandingMenu(
         itemName = "Connect",
-        itemColor = "#bd6050"
+        itemColor = "#bd6050",
+        isLoginRequired = true
     )
     private val membersMenu = LandingMenu(
         itemName = "Members",
-        itemColor = "#61a4ca"
+        itemColor = "#61a4ca",
+        isLoginRequired = true
     )
     private val uploadsMenu = LandingMenu(
         itemName = "Uploads",
-        itemColor = "#f1c274"
+        itemColor = "#f1c274",
+        isLoginRequired = true
     )
 
     //created list of the app menu to be populated into the grid recyclerview

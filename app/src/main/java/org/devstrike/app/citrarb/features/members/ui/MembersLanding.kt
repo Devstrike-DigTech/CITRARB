@@ -16,15 +16,27 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayout
+import dagger.hilt.android.AndroidEntryPoint
 import org.devstrike.app.citrarb.R
 import org.devstrike.app.citrarb.base.BaseFragment
 import org.devstrike.app.citrarb.base.BaseRepo
 import org.devstrike.app.citrarb.base.BaseViewModel
 import org.devstrike.app.citrarb.databinding.FragmentMembersLandingBinding
+import org.devstrike.app.citrarb.features.members.data.MembersApi
+import org.devstrike.app.citrarb.features.members.repositories.MembersRepoImpl
 import org.devstrike.app.citrarb.features.news.newsLanding.NewsLandingDirections
 import org.devstrike.app.citrarb.features.news.newsLanding.NewsLandingPagerAdapter
+import org.devstrike.app.citrarb.utils.SessionManager
+import javax.inject.Inject
+import kotlin.properties.Delegates
 
-class MembersLanding : BaseFragment<BaseViewModel, FragmentMembersLandingBinding, BaseRepo>() {
+@AndroidEntryPoint
+class MembersLanding : BaseFragment<MembersViewModel, FragmentMembersLandingBinding, MembersRepoImpl>() {
+
+    @set:Inject
+    var membersApi: MembersApi by Delegates.notNull()
+    @set:Inject
+    var sessionManager: SessionManager by Delegates.notNull()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -32,10 +44,10 @@ class MembersLanding : BaseFragment<BaseViewModel, FragmentMembersLandingBinding
 
         with(binding) {
             //set the title to be displayed on each tab
-            membersTabTitle.addTab(membersTabTitle.newTab().setText("Friends"))
             membersTabTitle.addTab(membersTabTitle.newTab().setText("All Members"))
+            membersTabTitle.addTab(membersTabTitle.newTab().setText("Friends"))
 
-            membersTabTitle.tabGravity = com.google.android.material.tabs.TabLayout.GRAVITY_FILL
+            membersTabTitle.tabGravity = TabLayout.GRAVITY_FILL
 
 //            customToolbar = landingScreen.toolBar() as Toolbar
 //            customToolbar.title = "News"
@@ -49,7 +61,7 @@ class MembersLanding : BaseFragment<BaseViewModel, FragmentMembersLandingBinding
             }
             membersLandingViewPager.adapter = adapter
             membersLandingViewPager.addOnPageChangeListener(
-                com.google.android.material.tabs.TabLayout.TabLayoutOnPageChangeListener(
+                TabLayout.TabLayoutOnPageChangeListener(
                     membersTabTitle
                 )
             )
@@ -58,15 +70,15 @@ class MembersLanding : BaseFragment<BaseViewModel, FragmentMembersLandingBinding
             membersTabTitle.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab) {
                     membersLandingViewPager.currentItem = tab.position
-                    membersTabTitle.setSelectedTabIndicatorColor(resources.getColor(org.devstrike.app.citrarb.R.color.custom_primary))
+                    membersTabTitle.setSelectedTabIndicatorColor(resources.getColor(R.color.custom_secondary))
                     membersTabTitle.setTabTextColors(
-                        android.graphics.Color.BLACK,
-                        resources.getColor(org.devstrike.app.citrarb.R.color.custom_primary)
+                        Color.BLACK,
+                        resources.getColor(R.color.custom_secondary)
                     )
                 }
 
                 override fun onTabUnselected(tab: TabLayout.Tab) {
-                    membersTabTitle.setTabTextColors(android.graphics.Color.WHITE, android.graphics.Color.BLACK)
+                    membersTabTitle.setTabTextColors(Color.WHITE, Color.BLACK)
                 }
 
                 override fun onTabReselected(tab: TabLayout.Tab) {}
@@ -82,13 +94,9 @@ class MembersLanding : BaseFragment<BaseViewModel, FragmentMembersLandingBinding
 
     }
 
-    override fun getFragmentRepo(): BaseRepo {
-        TODO("Not yet implemented")
-    }
+    override fun getFragmentRepo() = MembersRepoImpl(membersApi, sessionManager)
 
-    override fun getViewModel(): Class<BaseViewModel> {
-        TODO("Not yet implemented")
-    }
+    override fun getViewModel() = MembersViewModel::class.java
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,

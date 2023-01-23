@@ -24,6 +24,10 @@ import org.devstrike.app.citrarb.features.account.data.UserApi
 import org.devstrike.app.citrarb.features.account.repositories.UserRepo
 import org.devstrike.app.citrarb.features.account.repositories.UserRepoImpl
 import org.devstrike.app.citrarb.features.landing.repositories.LandingRepo
+import org.devstrike.app.citrarb.features.members.data.MembersApi
+import org.devstrike.app.citrarb.features.members.data.models.responses.Member
+import org.devstrike.app.citrarb.features.members.repositories.MembersRepo
+import org.devstrike.app.citrarb.features.members.repositories.MembersRepoImpl
 import org.devstrike.app.citrarb.features.news.data.NewsApi
 import org.devstrike.app.citrarb.features.news.data.NewsDao
 import org.devstrike.app.citrarb.features.news.repositories.NewsRepo
@@ -118,6 +122,12 @@ object AppModule {
     fun providesUserApi(retrofit: Retrofit): UserApi =
         retrofit.create(UserApi::class.java)
 
+ //Provides the Members api passing the built retrofit instance
+    @Singleton
+    @Provides
+    fun providesMembersApi(retrofit: Retrofit): MembersApi =
+        retrofit.create(MembersApi::class.java)
+
 
     // = = = = = = = = = = = = = = = = = = PROVIDE REPOS = = = = = = = = = = = = = = = = = = = = = =
 
@@ -154,6 +164,7 @@ object AppModule {
             tvApi
         )
     }
+
     //provide User repo returning the implementation parameters
     @Singleton
     @Provides
@@ -163,6 +174,18 @@ object AppModule {
     ): UserRepo {
         return UserRepoImpl(
             userApi,
+            sessionManager
+        )
+    }
+    //provide Members repo returning the implementation parameters
+    @Singleton
+    @Provides
+    fun providesMembersRepo(
+        membersApi: MembersApi,
+        sessionManager: SessionManager
+    ): MembersRepo {
+        return MembersRepoImpl(
+            membersApi,
             sessionManager
         )
     }

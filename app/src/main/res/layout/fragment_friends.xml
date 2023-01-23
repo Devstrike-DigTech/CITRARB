@@ -93,7 +93,7 @@
                 tools:listitem="@layout/item_friend_request_layout"
                 tools:itemCount="3"
                 android:id="@+id/rv_friend_requests"/>
-            
+
             <!--below is the view for our shimmer-->
             <com.facebook.shimmer.ShimmerFrameLayout
                 android:id="@+id/friend_requests_shimmer_layout"

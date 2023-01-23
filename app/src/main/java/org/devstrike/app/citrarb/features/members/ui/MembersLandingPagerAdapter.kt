@@ -36,10 +36,10 @@ class MembersLandingPagerAdapter (var context: FragmentActivity?,
     override fun getItem(position: Int): Fragment {
         return when (position) {
             0 -> {
-                Friends()
+                AllMembers()
             }
             1 -> {
-                AllMembers()
+                Friends()
             }
             else -> getItem(position)
         }

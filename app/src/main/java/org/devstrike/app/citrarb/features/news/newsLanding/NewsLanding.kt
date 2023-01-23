@@ -86,10 +86,10 @@ class NewsLanding : BaseFragment<NewsViewModel, FragmentNewsLandingBinding, Base
             tabTitle.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab) {
                     newsLandingViewPager.currentItem = tab.position
-                    tabTitle.setSelectedTabIndicatorColor(resources.getColor(R.color.custom_primary))
+                    tabTitle.setSelectedTabIndicatorColor(resources.getColor(R.color.custom_secondary))
                     tabTitle.setTabTextColors(
                         Color.BLACK,
-                        resources.getColor(R.color.custom_primary)
+                        resources.getColor(R.color.custom_secondary)
                     )
                 }
 

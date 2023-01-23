@@ -16,5 +16,6 @@ import android.graphics.Color
  */
 data class LandingMenu(
     val itemName: String,
-    val itemColor: String
+    val itemColor: String,
+    val isLoginRequired: Boolean
 )
