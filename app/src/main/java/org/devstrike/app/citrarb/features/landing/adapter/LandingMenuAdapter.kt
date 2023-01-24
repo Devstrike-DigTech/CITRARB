@@ -142,7 +142,6 @@ class LandingMenuAdapter() : ListAdapter<LandingMenu, LandingMenuAdapter.Landing
                     it.snackbar("${menuItem.itemName} coming soon...")
                 }
                 "Members" -> {
-                    it.snackbar("${menuItem.itemName} coming soon...")
                     val navToMembers = AppMenuDirections.actionAppMenuToMembersLanding()
                     it.findNavController().navigate(navToMembers)
                 }

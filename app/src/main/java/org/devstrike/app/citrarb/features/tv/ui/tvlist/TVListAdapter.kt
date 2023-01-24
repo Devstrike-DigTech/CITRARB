@@ -29,7 +29,7 @@ import javax.inject.Inject
 
 
 class TVListAdapter @Inject constructor(val context: Context) :
-    ListAdapter<TVListItem, TVListAdapter.TVListViewHolder>(DiffCallback()) {
+    ListAdapter<TVVideos, TVListAdapter.TVListViewHolder>(DiffCallback()) {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TVListViewHolder {
@@ -47,14 +47,14 @@ class TVListAdapter @Inject constructor(val context: Context) :
         holder.apply {
             bind(createOnClickListener(tvVideo), tvVideo)
         }.also {
-            holder.binding.videoThumbnail.loadImage(tvVideo.thumbnails.default!!.url)
+            holder.binding.videoThumbnail.loadImage(tvVideo.videoThumbnail)
 
         }
     }
 
     class TVListViewHolder(val binding: ItemTvListLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(listener: View.OnClickListener, itemData: TVListItem) {
+        fun bind(listener: View.OnClickListener, itemData: TVVideos) {
             binding.apply {
                 tvListItem = itemData
                 tvItemClickListener = listener
@@ -64,28 +64,29 @@ class TVListAdapter @Inject constructor(val context: Context) :
     }
 
 
-    private fun createOnClickListener(tvListItem: TVListItem): View.OnClickListener {
+    private fun createOnClickListener(tvListItem: TVVideos): View.OnClickListener {
         return View.OnClickListener {
-            Log.d(TAG, "createOnClickListener: ${tvListItem.title} clicked ")
-            Log.d(TAG, "createOnClickListener: ${tvListItem.publishedAt} clicked ")
-            val videoLink = tvListItem.Link.toUri().encodedQuery!!.drop(2)
+            Log.d(TAG, "createOnClickListener: ${tvListItem.videoLink} clicked ")
+            Log.d(TAG, "createOnClickListener: ${tvListItem.videoPublishedDate} clicked ")
+            val videoLink = tvListItem.videoLink//.toUri().encodedQuery!!.drop(2)
 
             val tvVideo = TVVideos(
-                videoTitle = tvListItem.title,
-                videoDescription = tvListItem.description,
+                videoTitle = tvListItem.videoTitle,
+                videoDescription = tvListItem.videoDescription,
                 videoLink = videoLink,
-                videoPublishedDate = tvListItem.publishedAt
+                videoPublishedDate = tvListItem.videoPublishedDate
                     .replace("T", " | ")
-                    .removeSuffix("Z")
+                    .removeSuffix("Z"),
+                videoThumbnail = tvListItem.videoThumbnail
             )
-//
-//            for (video in Common.tvVideos){
+
+           // for (video in Common.tvVideos){
 //                if (video.videoLink == videoLink){
 //                    Common.tvVideos.remove(video)
 //                }
-//            }
-            //Common.tvVideos.add(0, tvVideo)
-            Common.tvVideos.add(tvVideo)
+            //}
+            Common.tvVideos.add(0, tvVideo)
+//            Common.tvVideos.add(tvVideo)
 
             val currentVideoIndex = Common.tvVideos.indexOf(tvVideo)
 
@@ -108,12 +109,12 @@ class TVListAdapter @Inject constructor(val context: Context) :
         }
     }
 
-    private class DiffCallback : DiffUtil.ItemCallback<TVListItem>() {
-        override fun areItemsTheSame(oldItem: TVListItem, newItem: TVListItem): Boolean {
-            return oldItem.title == newItem.title
+    private class DiffCallback : DiffUtil.ItemCallback<TVVideos>() {
+        override fun areItemsTheSame(oldItem: TVVideos, newItem: TVVideos): Boolean {
+            return oldItem.videoLink == newItem.videoLink
         }
 
-        override fun areContentsTheSame(oldItem: TVListItem, newItem: TVListItem): Boolean {
+        override fun areContentsTheSame(oldItem: TVVideos, newItem: TVVideos): Boolean {
             return oldItem == newItem
         }
 

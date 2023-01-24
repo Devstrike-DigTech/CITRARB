@@ -54,8 +54,6 @@ class LandingScreen : BaseFragment<LandingViewModel, FragmentLandingScreenBindin
 
     @set:Inject
     var sessionManager: SessionManager by Delegates.notNull<SessionManager>()
-    var token: String by Delegates.notNull()
-
 
 
     //
@@ -72,7 +70,6 @@ class LandingScreen : BaseFragment<LandingViewModel, FragmentLandingScreenBindin
 //        mCustomToolBar = view.findViewById(R.id.customToolBar)
         mCustomToolBar = landingScreenBinding!!.customToolBar
 
-        CoroutineScope(Dispatchers.IO).launch {  token = sessionManager.getJwtToken()!!}
         //toolBar()
 //        _binding = FragmentLandingScreenBinding.bind(view)
 //        mCustomToolBar = _binding!!.customToolBar
@@ -132,10 +129,7 @@ class LandingScreen : BaseFragment<LandingViewModel, FragmentLandingScreenBindin
                         //}
                     } else {
                         withContext(Dispatchers.Main) {
-                            requireContext().toast(token!!)
-                            val bundle = Bundle()
-                            bundle.putString("token", token)
-                            navController.navigate(R.id.accountProfile, bundle)
+                            navController.navigate(R.id.accountProfile)
 
 //                            graph.setStartDestination(R.id.accountProfile)
 //                            navHostFragment.navController.graph = graph
@@ -157,15 +151,11 @@ class LandingScreen : BaseFragment<LandingViewModel, FragmentLandingScreenBindin
 
             }
             R.id.menu_logout ->{
-                if (token.isEmpty()){
-                    requireContext().toast("Not Logged In")
-                }else{
                     CoroutineScope(Dispatchers.IO).launch {
                         sessionManager.logout()
                         withContext(Dispatchers.Main){
                             navController.navigate(R.id.accountNotLoggedIn)
 
-                        }
                     }
 
                 }

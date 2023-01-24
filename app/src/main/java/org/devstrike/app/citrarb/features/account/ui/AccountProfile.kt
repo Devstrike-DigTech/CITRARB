@@ -41,19 +41,20 @@ class AccountProfile : BaseFragment<AccountViewModel, FragmentAccountProfileBind
 
 
     //val args: AccountProfileArgs by navArgs()
-    var token: String by Delegates.notNull()
+    //var token: String by Delegates.notNull()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         //token = args.userToken
-        token = arguments?.getString("token")!!
-        userViewModel.getUserInfo()
+        //token = arguments?.getString("token")!!
         subscribeToAccountProfileEvents()
 
     }
 
-    private fun subscribeToAccountProfileEvents() = //{
+    private fun subscribeToAccountProfileEvents(){
+        userViewModel.getUserInfo()
+
         lifecycleScope.launch{
             userViewModel.userInfoState.collect{ result ->
                 when(result){
@@ -63,9 +64,9 @@ class AccountProfile : BaseFragment<AccountViewModel, FragmentAccountProfileBind
                     }
                     is Resource.Failure ->{
                         hideProgressBar()
-                        handleApiError(result.error) //{
-                            //userViewModel.getUserInfo()
-                            //subscribeToAccountProfileEvents()
+                        handleApiError(result.error){subscribeToAccountProfileEvents()} //{
+                        //userViewModel.getUserInfo()
+                        //subscribeToAccountProfileEvents()
                         //}
                     }
                     is Resource.Loading ->{
@@ -73,7 +74,9 @@ class AccountProfile : BaseFragment<AccountViewModel, FragmentAccountProfileBind
                     }
                 }
             }
-      //  }
+            //  }
+
+        }
 
     }
 

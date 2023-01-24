@@ -123,11 +123,7 @@
         android:id="@+id/accountProfile"
         android:name="org.devstrike.app.citrarb.features.account.ui.AccountProfile"
         android:label="fragment_account_profile"
-        tools:layout="@layout/fragment_account_profile" >
-        <argument
-            android:name="userToken"
-            app:argType="string" />
-    </fragment>
+        tools:layout="@layout/fragment_account_profile" />
     <fragment
         android:id="@+id/accountLogIn"
         android:name="org.devstrike.app.citrarb.features.account.ui.AccountLogIn"
@@ -151,6 +147,9 @@
         <action
             android:id="@+id/action_accountCreate_to_accountLogIn"
             app:destination="@id/accountLogIn" />
+        <action
+            android:id="@+id/action_accountCreate_to_accountProfile"
+            app:destination="@id/accountProfile" />
     </fragment>
     <fragment
         android:id="@+id/membersLanding"

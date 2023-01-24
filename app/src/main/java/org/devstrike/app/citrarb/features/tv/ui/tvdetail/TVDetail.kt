@@ -38,7 +38,7 @@ class TVDetail : BaseFragment<TVViewModel, FragmentTVDetailBinding, TVRepoImpl>(
     private val args by navArgs<TVDetailArgs>()
     private var videoTitle: String by Delegates.notNull()
     private var videoDescription: String by Delegates.notNull()
-    private var videoLink: String by Delegates.notNull()
+    //private var videoLink: String by Delegates.notNull()
     private var videoPublishedDate: String by Delegates.notNull()
 
     lateinit var videoDetailViewPager: ViewPager2
@@ -49,7 +49,7 @@ class TVDetail : BaseFragment<TVViewModel, FragmentTVDetailBinding, TVRepoImpl>(
         videoDetailViewPager = binding.tvDetailViewPager
         videoTitle = args.videoDetail.videoTitle
         videoDescription = args.videoDetail.videoDescription
-        videoLink = args.videoDetail.videoLink
+        //videoLink = args.videoDetail.videoLink
         videoPublishedDate = args.videoDetail.videoPublishedDate
 
 

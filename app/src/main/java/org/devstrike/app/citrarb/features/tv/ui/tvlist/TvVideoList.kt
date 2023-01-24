@@ -13,6 +13,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -39,7 +40,7 @@ class TvVideoList : BaseFragment<TVViewModel, FragmentTvVideoListBinding, TVRepo
     @set:Inject
     var tvApi: TVApi by Delegates.notNull<TVApi>()
 
-    private val TAG = "allNews"
+    private val TAG = "TvVideoList"
     private val tvViewModel: TVViewModel by activityViewModels()
     private lateinit var tvListAdapter: TVListAdapter
 
@@ -69,7 +70,7 @@ class TvVideoList : BaseFragment<TVViewModel, FragmentTvVideoListBinding, TVRepo
                     //binding.videoListProgressBar.isVisible = false
                     binding.tvShimmerLayout.stopShimmer()
                     binding.tvShimmerLayout.visible(false)
-                    tvListAdapter.submitList(response.value!!.data)
+                    //tvListAdapter.submitList(response.value!!.data)
                     addToList(response.value!!.data)
 
                 }
@@ -94,13 +95,20 @@ class TvVideoList : BaseFragment<TVViewModel, FragmentTvVideoListBinding, TVRepo
             tvVideos = TVVideos(
                 videoTitle = video.title,
                 videoDescription = video.description,
-                videoLink = video.Link,
+                videoLink = video.Link.toUri().encodedQuery!!.drop(2),
                 videoPublishedDate = video.publishedAt.replace("T", " | ")
-                    .removeSuffix("Z")
+                    .removeSuffix("Z"),
+                videoThumbnail = video.thumbnails.default!!.url
             )
             Common.tvVideos.add(tvVideos)
+            tvListAdapter.submitList(Common.tvVideos)
+        }
+        val videosListLinks = mutableListOf<String>()
+        for (links in Common.tvVideos){
+            videosListLinks.add(links.videoLink)
         }
         Log.d(TAG, "addToList: ${Common.tvVideos}")
+        Log.d(TAG, "addToList: $videosListLinks")
     }
 
     private fun setupRecyclerView() {

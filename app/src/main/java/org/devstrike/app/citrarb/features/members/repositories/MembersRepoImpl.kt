@@ -60,7 +60,7 @@ class MembersRepoImpl @Inject constructor(
             if (!isNetworkConnected(sessionManager.context)) {
                 Resource.Failure(value = "No Internet Connection!")
             }
-            membersApi.fetchPendingFriendRequests("Bearer ".plus(token!!))
+            membersApi.fetchPendingFriendRequests("Bearer ".plus(token!!), "pending")
         }
     }
 

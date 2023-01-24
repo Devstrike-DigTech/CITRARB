@@ -38,7 +38,8 @@ interface MembersApi {
     @Headers("Content-Type: application/json")
     @GET("$USER_BASE_URL/api/friendrequests")
     suspend fun fetchPendingFriendRequests(
-        @Header("Authorization") token: String
+        @Header("Authorization") token: String,
+        @Query("status") status: String
         ): GetPendingFriendRequestsResponse
 
     //ACCEPT FRIEND REQUEST

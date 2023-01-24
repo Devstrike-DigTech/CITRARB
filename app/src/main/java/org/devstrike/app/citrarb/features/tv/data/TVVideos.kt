@@ -19,5 +19,6 @@ data class TVVideos(
     val videoTitle: String = "",
     val videoDescription: String = "",
     val videoLink: String = "",
-    val videoPublishedDate: String = ""
+    val videoPublishedDate: String = "",
+    val videoThumbnail: String = ""
 ): Parcelable
