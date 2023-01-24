@@ -77,7 +77,7 @@ class AccountLogIn : BaseFragment<AccountViewModel, FragmentAccountLogInBinding,
                 }
                 is Resource.Failure -> {
                     hideProgressBar()
-                    requireContext().toast(result.value!!)
+                    requireContext().toast(result.toString())
                     //Toast.makeText(requireContext(), result.value, Toast.LENGTH_SHORT).show()
                 }
                 is Resource.Loading -> {

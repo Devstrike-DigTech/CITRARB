@@ -29,28 +29,31 @@ import javax.inject.Inject
 class UserRepoImpl @Inject constructor(
     val userApi: UserApi,
     val sessionManager: SessionManager
-) : UserRepo, BaseRepo(){
+) : UserRepo, BaseRepo() {
     override suspend fun createUser(user: CreateAccountRequest): Resource<String> {
-        return try {
+        return try{
             //check if there is internet connection
             if (!isNetworkConnected(sessionManager.context)) {
                 Resource.Failure(value = "No Internet Connection!")
             }
-
             //create user using api
             val result = userApi.createAccount(user)
             if (result.status == "success") {
                 //save the details in data store
-                sessionManager.updateSession(result.token!!, result.user.username ?: "", result.user.email)
-                Resource.Success("User Created Successfully!")
+                sessionManager.updateSession(
+                    result.token!!,
+                    result.user.username ?: "",
+                    result.user.email
+                )
+                Resource.Success("User Created Successfully")
             } else {
                 Resource.Failure(value = result.status)
             }
-
-        } catch (e: Exception){
+        }catch (e: Exception){
             e.printStackTrace()
-            Resource.Failure(value =e.message ?: "Some Problem Occurred!")
+               Resource.Failure(value = e.message ?: "Some Problem Occurred!")
         }
+
     }
 
     override suspend fun login(user: CreateAccountRequest): Resource<String> {
@@ -59,32 +62,35 @@ class UserRepoImpl @Inject constructor(
             if (!isNetworkConnected(sessionManager.context)) {
                 Resource.Failure(value = "No Internet Connection!")
             }
-
             //log in user using api
             val result = userApi.login(user)
             if (result.status == "success") {
                 //save details in the data store
-                sessionManager.updateSession(result.token!!, result.user.username ?: "", result.user.email)
-                //getUserInfo //get details from server for specific user once user logs in
-                Resource.Success(value = "Logged In Successfully!")
+                sessionManager.updateSession(
+                    result.token!!,
+                    result.user.username ?: "",
+                    result.user.email
+                )
+                Resource.Success("User Created Successfully")
             } else {
                 Resource.Failure(value = result.status)
             }
-
-        } catch (e: Exception) {
+        }catch (e: Exception){
             e.printStackTrace()
             Resource.Failure(value = e.message ?: "Some Problem Occurred!")
-        }    }
+        }
+
+    }
 
     override suspend fun getUserInfo(): Resource<GetSelfResponse> {
         val token = sessionManager.getJwtToken()
         return safeApiCall {
-        //check if there is internet connection
-        if (!isNetworkConnected(sessionManager.context)) {
-            Resource.Failure(value = "No Internet Connection!")
-        }
-           //try {
-               userApi.getUserInfo("Bearer ".plus(token!!))
+            //check if there is internet connection
+            if (!isNetworkConnected(sessionManager.context)) {
+                Resource.Failure(value = "No Internet Connection!")
+            }
+            //try {
+            userApi.getUserInfo("Bearer ".plus(token!!))
 //               if (result.status == "success"){
 //                   Resource.Success(value = result)
 //               }else{
@@ -95,7 +101,7 @@ class UserRepoImpl @Inject constructor(
 //               e.printStackTrace()
 //               Resource.Failure(value = e.message ?: "Some Problem Occurred!")
 //           }
-       }
+        }
 
     }
 
@@ -107,5 +113,6 @@ class UserRepoImpl @Inject constructor(
         } catch (e: Exception) {
             e.printStackTrace()
             Resource.Failure(value = e.message ?: "Some Problem Occurred!")
-        }    }
+        }
+    }
 }

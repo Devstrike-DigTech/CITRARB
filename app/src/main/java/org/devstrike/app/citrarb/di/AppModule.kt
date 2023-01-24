@@ -76,6 +76,12 @@ object AppModule {
 
     }
 
+//    //Provide Gson
+//    @Singleton
+//    @Provides
+//    fun provideToken(sessionManager: SessionManager) = sessionManager.getJwtToken()
+
+
     //Provide Session Manager
     @Singleton
     @Provides

@@ -11,6 +11,7 @@ package org.devstrike.app.citrarb.features.members.friends
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -51,6 +52,7 @@ class Friends : BaseFragment<MembersViewModel, FragmentFriendsBinding, MembersRe
     private lateinit var friendRequestsAdapter: FriendRequestsAdapter
     private lateinit var friendsAdapter: FriendAdapter
 
+    val TAG = "Friends"
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -203,6 +205,7 @@ class Friends : BaseFragment<MembersViewModel, FragmentFriendsBinding, MembersRe
         val friendRequestResponseStatus = FriendRequestResponseStatus(
             status = status
         )
+        Log.d(TAG, "acceptFriendRequest: ${request._id}")
         membersViewModel.acceptFriendRequest(request._id, friendRequestResponseStatus)
         lifecycleScope.launch {
             membersViewModel.acceptFriendRequestState.collect { result ->

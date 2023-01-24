@@ -9,6 +9,7 @@
 package org.devstrike.app.citrarb.features.account.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,6 +40,7 @@ class AccountCreate : BaseFragment<AccountViewModel, FragmentAccountCreateBindin
 
     private val userViewModel: AccountViewModel by activityViewModels()
 
+    val TAG = "AccountCreate"
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -46,6 +48,11 @@ class AccountCreate : BaseFragment<AccountViewModel, FragmentAccountCreateBindin
 
         with(binding){
             //get the values from the UI
+
+            accountCreateAccountLogIn.setOnClickListener {
+                val navToLogin = AccountCreateDirections.actionAccountCreateToAccountLogIn()
+                findNavController().navigate(navToLogin)
+            }
             accountCreateBtn.setOnClickListener {
                 val name = createAccountUsername.text.toString()
                 val email = createAccountEmail.text.toString()
@@ -75,11 +82,13 @@ class AccountCreate : BaseFragment<AccountViewModel, FragmentAccountCreateBindin
                         "Account Successfully Created",
                         Toast.LENGTH_SHORT
                     ).show()
-                    findNavController().popBackStack()
+                    val navToProfile = AccountCreateDirections.actionAccountCreateToAccountProfile()
+                    findNavController().navigate(navToProfile)
                 }
                 is Resource.Failure -> {
                     hideProgressBar()
-                    requireContext().toast(result.value!!)
+                    requireContext().toast(result.toString())
+                    Log.d(TAG, "subscribeToRegisterEvents: ${result.error}")
                 }
                 is Resource.Loading -> {
                     showProgressBar()

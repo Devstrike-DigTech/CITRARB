@@ -98,11 +98,6 @@ class MembersLanding : BaseFragment<MembersViewModel, FragmentMembersLandingBind
                 override fun onTabReselected(tab: TabLayout.Tab) {}
             })
 
-//            ivSavedNews.setOnClickListener {
-//                val navToSavedNews = org.devstrike.app.citrarb.features.news.newsLanding.NewsLandingDirections.actionNewsLandingToSavedNewsList()
-//                findNavController().navigate(navToSavedNews)
-//            }
-
         }
 
 

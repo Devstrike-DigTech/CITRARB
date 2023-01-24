@@ -128,7 +128,7 @@ class TVDetailAdapter : ListAdapter<TVVideos, TVDetailAdapter.ViewHolder>(DiffCa
             Log.d(TAG, "onBindViewHolder: ${detailVideo.videoLink}")
             holder.binding.thirdPartyPlayerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
             override fun onReady(youTubePlayer: YouTubePlayer) {
-                val vidId = detailVideo.videoLink.toUri().encodedQuery!!.drop(2)
+                val vidId = detailVideo.videoLink//.toUri().encodedQuery!!.drop(2)
                 youTubePlayer.cueVideo(vidId, 0f)
             }
         })

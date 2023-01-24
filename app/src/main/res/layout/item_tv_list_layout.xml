@@ -14,7 +14,7 @@
         
         <variable
             name="tvListItem"
-            type="org.devstrike.app.citrarb.features.tv.data.model.TVListItem" />
+            type="org.devstrike.app.citrarb.features.tv.data.TVVideos" />
 
         <variable
             name="tvItemClickListener"
@@ -52,7 +52,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="4dp"
                 android:fontFamily="@font/balsamiq_sans_regular"
-                android:text="@{tvListItem.title}"
+                android:text="@{tvListItem.videoTitle}"
                 android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
