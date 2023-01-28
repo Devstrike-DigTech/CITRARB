@@ -25,6 +25,7 @@ import org.devstrike.app.citrarb.features.account.repositories.UserRepoImpl
 import org.devstrike.app.citrarb.network.Resource
 import org.devstrike.app.citrarb.network.handleApiError
 import org.devstrike.app.citrarb.utils.SessionManager
+import org.devstrike.app.citrarb.utils.toast
 import org.devstrike.app.citrarb.utils.visible
 import javax.inject.Inject
 import kotlin.properties.Delegates
@@ -83,11 +84,18 @@ class AccountProfile : BaseFragment<AccountViewModel, FragmentAccountProfileBind
     private fun subscribeToUi(user: UserX) {
 
         with(binding){
+            if (user.photo.isEmpty()){
+                citrarbProfileAddPhoto.visible(true)
+                ivUserDp.visible(false)
+            }
             txtUserName.text = user.username
             val dateJoined = user.createdAt .replace("T", " | ")
                 .removeSuffix("Z")
             txtUserDateJoined.text = "Joined $dateJoined"
             txtUserEmail.text = user.email
+            profilePhotoLayout.setOnClickListener {
+                requireContext().toast("Add profile photo coming soon!")
+            }
 
         }
 

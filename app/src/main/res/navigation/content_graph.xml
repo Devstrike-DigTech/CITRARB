@@ -19,13 +19,17 @@
         tools:layout="@layout/fragment_app_menu" >
         <action
             android:id="@+id/action_appMenu_to_newsLanding"
-            app:destination="@id/newsLanding" />
+            app:destination="@id/newsLanding"
+            app:enterAnim="@anim/forward_entrance_from_right"
+            app:exitAnim="@anim/forward_exit_to_left" />
         <action
             android:id="@+id/action_appMenu_to_newsDetail"
             app:destination="@id/newsDetail" />
         <action
             android:id="@+id/action_appMenu_to_TVVideoList"
-            app:destination="@id/TVVideoList" />
+            app:destination="@id/TVVideoList"
+            app:enterAnim="@anim/forward_entrance_from_right"
+            app:exitAnim="@anim/forward_exit_to_left" />
         <action
             android:id="@+id/action_appMenu_to_accountNotLoggedIn"
             app:destination="@id/accountNotLoggedIn"
@@ -36,7 +40,9 @@
             app:destination="@id/accountProfile" />
         <action
             android:id="@+id/action_appMenu_to_membersLanding"
-            app:destination="@id/membersLanding" />
+            app:destination="@id/membersLanding"
+            app:enterAnim="@anim/forward_entrance_from_right"
+            app:exitAnim="@anim/forward_exit_to_left" />
     </fragment>
     <fragment
         android:id="@+id/newsLanding"

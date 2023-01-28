@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (c) 2022.
   ~ Richard Uzor
   ~ For Afro Connect Technologies
@@ -7,33 +6,406 @@
   ~
   -->
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".features.landing.ui.AppMenu">
-    <com.google.android.material.card.MaterialCardView
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/grid_card"
-        app:cardElevation="@dimen/padding_mini"
-        android:layout_margin="@dimen/padding_midi"
-        android:padding="@dimen/padding_mini"
-        >
+        android:layout_centerInParent="true"
+        android:layout_margin="@dimen/padding_mini"
+        android:orientation="vertical"
+        android:padding="@dimen/padding_mini">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/landing_menu_grid"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:layout_height="wrap_content"
             android:layout_margin="@dimen/padding_mini"
+            android:orientation="horizontal"
             android:padding="@dimen/padding_mini"
-            tools:listitem="@layout/item_landing_grid_layout"
-            tools:itemCount="3"
-            tools:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
-            />
+            android:weightSum="3">
 
-    </com.google.android.material.card.MaterialCardView>
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/card_news"
+                android:padding="@dimen/padding_mini"
+                android:backgroundTint="@color/news_color"
+                android:layout_margin="@dimen/padding_mini"
+                android:background="@drawable/app_background"
+                app:cardElevation="@dimen/padding_mini">
 
-</FrameLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/padding_mini"
+                    android:orientation="vertical">
+
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/loading_dialog"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        app:lottie_autoPlay="true"
+                        app:lottie_loop="true"
+                        app:lottie_rawRes="@raw/citrarb_news_menu" />
+
+<!--                    <ImageView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="100dp"-->
+<!--                        tools:src="@drawable/devstrike_logo" />-->
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textColor="@color/white"
+                        android:text="@string/news_menu" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/card_tv"
+                android:padding="@dimen/padding_mini"
+                android:backgroundTint="@color/tv_color"
+                android:layout_margin="@dimen/padding_mini"
+                android:background="@drawable/app_background"
+                app:cardElevation="@dimen/padding_mini">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_mini"
+                android:orientation="vertical">
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/citrarb_tv_menu"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/citrarb_tv_menu" />
+
+<!--                <ImageView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="100dp"-->
+<!--                    tools:src="@drawable/citrarb_logo_png" />-->
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textColor="@color/white"
+                    android:text="@string/tv_menu" />
+
+            </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/card_eye_witness"
+                android:padding="@dimen/padding_mini"
+                android:backgroundTint="@color/eye_witness_color"
+                android:layout_margin="@dimen/padding_mini"
+                android:background="@drawable/app_background"
+                app:cardElevation="@dimen/padding_mini">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_mini"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/citrarb_eye_witness_menu"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/citrarb_eye_witness_menu" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textColor="@color/white"
+                    android:text="@string/eye_witness_menu" />
+
+            </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/padding_mini"
+            android:orientation="horizontal"
+            android:padding="@dimen/padding_mini"
+            android:weightSum="3">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/card_members"
+                android:padding="@dimen/padding_mini"
+                android:layout_margin="@dimen/padding_mini"
+                android:background="@drawable/app_background"
+                app:cardElevation="@dimen/padding_mini">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_mini"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/citrarb_members_menu"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/citrarb_members_menu" />
+
+<!--                <ImageView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="100dp"-->
+<!--                    tools:src="@drawable/devstrike_logo" />-->
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/members_menu" />
+
+            </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/card_market_place"
+                android:padding="@dimen/padding_mini"
+                android:layout_margin="@dimen/padding_mini"
+                android:background="@drawable/app_background"
+                app:cardElevation="@dimen/padding_mini">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_mini"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/citrarb_market_place_menu"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/citrarb_market_place_menu" />
+
+                <!--                <ImageView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="100dp"-->
+<!--                    tools:src="@drawable/citrarb_logo_png" />-->
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/market_place_menu" />
+
+            </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/card_events"
+                android:padding="@dimen/padding_mini"
+                android:layout_margin="@dimen/padding_mini"
+                android:background="@drawable/app_background"
+                app:cardElevation="@dimen/padding_mini">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_mini"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/citrarb_events_menu"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/citrarb_events_menu" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/events_menu" />
+
+            </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/padding_mini"
+            android:orientation="horizontal"
+            android:padding="@dimen/padding_mini"
+            android:weightSum="3">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/card_connect"
+                android:padding="@dimen/padding_mini"
+                android:layout_margin="@dimen/padding_mini"
+                android:background="@drawable/app_background"
+                app:cardElevation="@dimen/padding_mini">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_mini"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/citrarb_connect_menu"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/citrarb_connect_menu" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/connect_menu" />
+
+            </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/card_music"
+                android:padding="@dimen/padding_mini"
+                android:layout_margin="@dimen/padding_mini"
+                android:background="@drawable/app_background"
+                app:cardElevation="@dimen/padding_mini">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_mini"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/citrarb_music_menu"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/citrarb_music_menu" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/music_menu" />
+
+            </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/card_uploads"
+                android:padding="@dimen/padding_mini"
+                android:layout_margin="@dimen/padding_mini"
+                android:background="@drawable/app_background"
+                app:cardElevation="@dimen/padding_mini">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_mini"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/citrarb_uploads_menu"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/citrarb_uploads_menu" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/uploads_menu" />
+
+            </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+    <!--    <com.google.android.material.card.MaterialCardView-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:id="@+id/grid_card"-->
+    <!--        app:cardElevation="@dimen/padding_mini"-->
+    <!--        android:layout_margin="@dimen/padding_midi"-->
+    <!--        android:padding="@dimen/padding_mini"-->
+    <!--        >-->
+    <!--        -->
+    <!--        -->
+
+    <!--        <androidx.recyclerview.widget.RecyclerView-->
+    <!--            android:id="@+id/landing_menu_grid"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            tools:layout_height="wrap_content"-->
+    <!--            android:layout_margin="@dimen/padding_mini"-->
+    <!--            android:padding="@dimen/padding_mini"-->
+    <!--            tools:listitem="@layout/item_landing_grid_layout"-->
+    <!--            tools:itemCount="3"-->
+    <!--            tools:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"-->
+    <!--            />-->
+
+    <!--    </com.google.android.material.card.MaterialCardView>-->
+
+</RelativeLayout>

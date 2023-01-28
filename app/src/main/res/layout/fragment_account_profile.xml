@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (c) 2023.
   ~ Richard Uzor
   ~ For Afro Connect Technologies
@@ -8,10 +7,10 @@
   -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".features.account.ui.AccountProfile">
 
@@ -20,199 +19,307 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        app:civ_border_width="0.2dp"
-        android:src="@drawable/ic_user"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/margin_maxi"
-        android:id="@+id/iv_user_dp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="@tools:sample/full_names"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="@dimen/padding_mini"
-        android:padding="@dimen/padding_mini"
-        android:textSize="@dimen/text_l"
-        android:textColor="@color/black"
-        android:id="@+id/txt_user_name"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="Joined December, 2022"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="@dimen/padding_mini"
-        android:padding="@dimen/padding_mini"
-        android:textSize="@dimen/text_s"
-        android:id="@+id/txt_user_date_joined"/>
-
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardElevation="@dimen/padding_mini"
-        android:layout_margin="@dimen/padding_mini"
-        android:padding="@dimen/padding_mini">
-
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_margin="@dimen/padding_mini"
+            android:background="@drawable/profile_header"
+            android:padding="@dimen/padding_mini">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="london.health@email.com"
-                android:layout_margin="@dimen/padding_mini"
-                android:padding="@dimen/padding_mini"
-                android:id="@+id/txt_user_email"
-                android:textSize="@dimen/text_s"/>
+            <FrameLayout
+                android:id="@+id/profile_photo_layout"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_centerInParent="true"
+                android:layout_margin="@dimen/margin_mini">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="3">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/iv_user_dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/margin_mini"
+                    android:visibility="gone"
+                    tools:visibility="gone"
+                    android:src="@drawable/ic_user"
+                    app:civ_border_width="0.2dp" />
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:text="@string/add_phone_number"
-                    tools:text="+234 813 266 5650"
-                    android:layout_margin="@dimen/padding_mini"
-                    tools:textColor="@color/custom_secondary"
-                    android:padding="@dimen/padding_mini"
-                    android:textSize="@dimen/text_s"
-                    android:id="@+id/txt_user_phone_number"/>
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/citrarb_profile_add_photo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:lottie_autoPlay="true"
+                    android:layout_margin="@dimen/margin_mini"
+                    android:visibility="visible"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/citrarb_profile_add_photo" />
 
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:id="@+id/iv_user_edit_phone_number"
-                    app:srcCompat="@drawable/ic_edit"
-                    android:layout_margin="@dimen/padding_mini"
-                    android:contentDescription="@string/edit_phone_number"
-                    android:padding="@dimen/padding_mini"/>
 
-            </LinearLayout>
+            </FrameLayout>
+
 
 
             <TextView
+                android:id="@+id/txt_user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/add_gender"
-                tools:text="Male"
-                android:layout_margin="@dimen/padding_mini"
-                tools:textColor="@color/custom_secondary"
+                android:layout_below="@id/profile_photo_layout"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="@dimen/padding_mini"
+                android:layout_marginTop="@dimen/padding_mini"
+                android:layout_marginEnd="@dimen/padding_mini"
+                android:layout_marginBottom="@dimen/padding_mini"
                 android:padding="@dimen/padding_mini"
-                android:textSize="@dimen/text_s"
-                android:id="@+id/txt_user_gender"/>
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_l"
+                tools:text="@tools:sample/full_names" />
+
+            <TextView
+                android:id="@+id/txt_user_date_joined"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txt_user_name"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="@dimen/padding_mini"
+                android:layout_marginTop="@dimen/padding_mini"
+                android:layout_marginEnd="@dimen/padding_mini"
+                android:layout_marginBottom="@dimen/padding_mini"
+                android:padding="@dimen/padding_mini"
+                android:textSize="@dimen/text_xs"
+                android:textColor="@color/white"
+                tools:text="Joined December, 2022" />
+        </RelativeLayout>
+
+
+<!--        <com.google.android.material.card.MaterialCardView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_margin="@dimen/padding_mini"-->
+<!--            android:padding="@dimen/padding_mini"-->
+<!--            app:cardElevation="@dimen/padding_mini">-->
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="3">
+                android:layout_margin="@dimen/padding_mini"
+                android:padding="@dimen/padding_mini"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sign_in_email"
+                    android:textSize="@dimen/text_xxs" />
+
+                <TextView
+                    android:id="@+id/txt_user_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/padding_mini"
+                    android:padding="@dimen/padding_mini"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_s"
+                    tools:text="london.health@email.com" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/black"
+                    android:alpha="0.1"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sign_in_phone_number"
+                    android:textSize="@dimen/text_xxs" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <TextView
+                        android:id="@+id/txt_user_phone_number"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/padding_mini"
+                        android:layout_weight="2"
+                        android:padding="@dimen/padding_mini"
+                        android:text="@string/add_phone_number"
+                        android:textSize="@dimen/text_s"
+                        tools:text="+234 813 266 5650"
+                        tools:textColor="@color/custom_secondary" />
+
+                    <ImageView
+                        android:id="@+id/iv_user_edit_phone_number"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/padding_mini"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/edit_phone_number"
+                        android:padding="@dimen/padding_mini"
+                        app:srcCompat="@drawable/ic_edit" />
+
+                </LinearLayout>
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/black"
+                    android:alpha="0.1"/>
 
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:text="@string/add_occupation"
-                    tools:text="Driver"
-                    android:layout_margin="@dimen/padding_mini"
-                    tools:textColor="@color/custom_secondary"
-                    android:padding="@dimen/padding_mini"
-                    android:textSize="@dimen/text_s"
-                    android:id="@+id/txt_user_occupation_one"/>
+                    android:text="@string/sign_in_gender"
+                    android:textSize="@dimen/text_xxs" />
 
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:id="@+id/iv_user_edit_occupation_one"
-                    app:srcCompat="@drawable/ic_edit"
-                    android:layout_margin="@dimen/padding_mini"
-                    android:contentDescription="@string/edit_occupation"
-                    android:padding="@dimen/padding_mini"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="3">
 
                 <TextView
-                    android:id="@+id/txt_user_occupation_two"
-                    android:layout_width="0dp"
+                    android:id="@+id/txt_user_gender"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
                     android:layout_margin="@dimen/padding_mini"
                     android:padding="@dimen/padding_mini"
+                    android:text="@string/add_gender"
                     android:textSize="@dimen/text_s"
-                    android:text="@string/add_occupation"
-                    tools:text="Singer"
-                    tools:textColor="@color/custom_secondary"
-                    />
+                    tools:text="Male"
+                    tools:textColor="@color/custom_secondary" />
 
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:id="@+id/iv_user_edit_occupation_two"
-                    app:srcCompat="@drawable/ic_edit"
-                    android:layout_margin="@dimen/padding_mini"
-                    android:contentDescription="@string/edit_occupation"
-                    android:padding="@dimen/padding_mini"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/black"
+                    android:alpha="0.1"/>
 
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="3">
 
                 <TextView
-                    android:id="@+id/txt_user_location"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:layout_margin="@dimen/padding_mini"
-                    android:padding="@dimen/padding_mini"
-                    android:text="@string/add_location"
-                    android:textSize="@dimen/text_s"
-                    tools:text="@tools:sample/cities"
-                    tools:textColor="@color/custom_secondary"
-                    />
+                    android:text="@string/sign_in_occupation"
+                    android:textSize="@dimen/text_xxs" />
 
-                <ImageView
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:id="@+id/iv_user_edit_location"
-                    app:srcCompat="@drawable/ic_location"
-                    android:layout_margin="@dimen/padding_mini"
-                    android:contentDescription="@string/edit_occupation"
-                    android:padding="@dimen/padding_mini"/>
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+
+                    <TextView
+                        android:id="@+id/txt_user_occupation_one"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/padding_mini"
+                        android:layout_weight="2"
+                        android:padding="@dimen/padding_mini"
+                        android:text="@string/add_occupation"
+                        android:textSize="@dimen/text_s"
+                        tools:text="Driver"
+                        tools:textColor="@color/custom_secondary" />
+
+                    <ImageView
+                        android:id="@+id/iv_user_edit_occupation_one"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/padding_mini"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/edit_occupation"
+                        android:padding="@dimen/padding_mini"
+                        app:srcCompat="@drawable/ic_edit" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <TextView
+                        android:id="@+id/txt_user_occupation_two"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/padding_mini"
+                        android:layout_weight="2"
+                        android:padding="@dimen/padding_mini"
+                        android:text="@string/add_occupation"
+                        android:textSize="@dimen/text_s"
+                        tools:text="Singer"
+                        tools:textColor="@color/custom_secondary" />
+
+                    <ImageView
+                        android:id="@+id/iv_user_edit_occupation_two"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/padding_mini"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/edit_occupation"
+                        android:padding="@dimen/padding_mini"
+                        app:srcCompat="@drawable/ic_edit" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/black"
+                    android:alpha="0.1"/>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sign_in_location"
+                    android:textSize="@dimen/text_xxs" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <TextView
+                        android:id="@+id/txt_user_location"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/padding_mini"
+                        android:layout_weight="2"
+                        android:padding="@dimen/padding_mini"
+                        android:text="@string/add_location"
+                        android:textSize="@dimen/text_s"
+                        tools:text="@tools:sample/cities"
+                        tools:textColor="@color/custom_secondary" />
+
+                    <ImageView
+                        android:id="@+id/iv_user_edit_location"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/padding_mini"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/edit_occupation"
+                        android:padding="@dimen/padding_mini"
+                        app:srcCompat="@drawable/ic_location" />
+
+                </LinearLayout>
+
 
             </LinearLayout>
 
+<!--        </com.google.android.material.card.MaterialCardView>-->
 
-
-
-        </LinearLayout>
-
-    </com.google.android.material.card.MaterialCardView>
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:backgroundTint="@color/reject_color"
+            android:text="@string/btn_deleter_account_text" />
 
     </LinearLayout>
+
     <ProgressBar
         android:id="@+id/accountProfileProgressBar"
         android:layout_width="wrap_content"

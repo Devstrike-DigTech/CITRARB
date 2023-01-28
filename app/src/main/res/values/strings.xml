@@ -52,4 +52,18 @@
     <string name="reject_friend_request">Reject friend request</string>
     <string name="call_friend_text">Call</string>
     <string name="message_friend_text">Message</string>
+    <string name="news_menu">News</string>
+    <string name="tv_menu">TV</string>
+    <string name="members_menu">Members</string>
+    <string name="connect_menu">Connect</string>
+    <string name="eye_witness_menu">Eye Witness</string>
+    <string name="market_place_menu">Market Place</string>
+    <string name="events_menu">Events</string>
+    <string name="music_menu">Music</string>
+    <string name="uploads_menu">Uploads</string>
+    <string name="btn_deleter_account_text">Delete Account</string>
+    <string name="sign_in_phone_number">Phone Number</string>
+    <string name="sign_in_gender">Gender</string>
+    <string name="sign_in_occupation">Occupation</string>
+    <string name="sign_in_location">Location</string>
 </resources>

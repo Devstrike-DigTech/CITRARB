@@ -24,29 +24,42 @@
 <!--        android:layout_margin="@dimen/padding_mini"-->
 <!--        android:background="@drawable/app_background">-->
 
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/padding_mini"
-            android:padding="@dimen/padding_mini"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:id="@+id/card_tool_bar"
-            app:cardCornerRadius="@dimen/padding_mini"
-            app:cardElevation="@dimen/padding_mini">
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/customToolBar"
+<!--        <com.google.android.material.card.MaterialCardView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_margin="@dimen/padding_mini"-->
+<!--            android:padding="@dimen/padding_mini"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            -->
+<!--            app:cardCornerRadius="@dimen/padding_mini"-->
+<!--            app:cardElevation="@dimen/padding_mini">-->
+<!--            -->
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:elevation="4dp"
-                app:menu="@menu/tool_bar_menu"
-                android:padding="@dimen/padding_mini">
+                android:background="@drawable/toolbar_header"
+                android:id="@+id/card_tool_bar"
+                android:padding="@dimen/padding_midi">
 
-            </androidx.appcompat.widget.Toolbar>
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/customToolBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:elevation="4dp"
+                    android:padding="@dimen/padding_mini"
+                    app:menu="@menu/tool_bar_menu"
+                    app:subtitle="@string/tool_bar_sub_title"
+                    app:subtitleTextColor="@color/custom_secondary"
+                    app:title="@string/tool_bar_title"
+                    app:titleTextColor="@color/custom_secondary_variant">
 
-        </com.google.android.material.card.MaterialCardView>
+                </androidx.appcompat.widget.Toolbar>
+
+            </RelativeLayout>
+
+<!--        </com.google.android.material.card.MaterialCardView>-->
 
 <!--    </com.google.android.material.appbar.AppBarLayout>-->
 
