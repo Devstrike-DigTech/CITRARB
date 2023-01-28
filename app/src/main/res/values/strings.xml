@@ -66,4 +66,10 @@
     <string name="sign_in_gender">Gender</string>
     <string name="sign_in_occupation">Occupation</string>
     <string name="sign_in_location">Location</string>
+    <string name="sort_all_upcoming_events">Sort all upcoming events in alphabetical order</string>
+    <string name="search_upcoming_events">Search for an upcoming event by name</string>
+    <string name="upcoming_event_going_btn_text">Going</string>
+    <string name="upcoming_event_not_going_btn_text">Not going</string>
+    <string name="search_concluded_events">Search for a concluded event by name</string>
+    <string name="iv_event_star">Concluded Event Rating</string>
 </resources>

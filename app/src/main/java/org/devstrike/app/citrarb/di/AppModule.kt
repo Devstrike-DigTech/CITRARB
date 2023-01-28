@@ -23,9 +23,11 @@ import org.devstrike.app.citrarb.base.BaseRepo
 import org.devstrike.app.citrarb.features.account.data.UserApi
 import org.devstrike.app.citrarb.features.account.repositories.UserRepo
 import org.devstrike.app.citrarb.features.account.repositories.UserRepoImpl
+import org.devstrike.app.citrarb.features.events.data.EventsApi
+import org.devstrike.app.citrarb.features.events.repositories.EventsRepo
+import org.devstrike.app.citrarb.features.events.repositories.EventsRepoImpl
 import org.devstrike.app.citrarb.features.landing.repositories.LandingRepo
 import org.devstrike.app.citrarb.features.members.data.MembersApi
-import org.devstrike.app.citrarb.features.members.data.models.responses.Member
 import org.devstrike.app.citrarb.features.members.repositories.MembersRepo
 import org.devstrike.app.citrarb.features.members.repositories.MembersRepoImpl
 import org.devstrike.app.citrarb.features.news.data.NewsApi
@@ -135,6 +137,13 @@ object AppModule {
         retrofit.create(MembersApi::class.java)
 
 
+ //Provides the Events api passing the built retrofit instance
+    @Singleton
+    @Provides
+    fun providesEventsApi(retrofit: Retrofit): EventsApi =
+        retrofit.create(EventsApi::class.java)
+
+
     // = = = = = = = = = = = = = = = = = = PROVIDE REPOS = = = = = = = = = = = = = = = = = = = = = =
 
     //provide landing repo returning the implementation parameters
@@ -192,6 +201,18 @@ object AppModule {
     ): MembersRepo {
         return MembersRepoImpl(
             membersApi,
+            sessionManager
+        )
+    }
+    //provide Members repo returning the implementation parameters
+    @Singleton
+    @Provides
+    fun providesEventsRepo(
+        eventsApi: EventsApi,
+        sessionManager: SessionManager
+    ): EventsRepo {
+        return EventsRepoImpl(
+            eventsApi,
             sessionManager
         )
     }
