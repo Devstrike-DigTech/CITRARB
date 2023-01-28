@@ -11,33 +11,53 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".features.account.ui.AccountNotLoggedIn">
 
-    <ImageView
-        android:id="@+id/iv_not_logged_in"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/margin_maxi"
-        android:padding="@dimen/padding_mini"
-        app:srcCompat="@drawable/ic_no_user" />
-
-    <TextView
-        android:id="@+id/account_not_logged_in_title"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/iv_not_logged_in"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="@dimen/margin_midi"
-        android:text="@string/account_not_logged_in_title"
-        android:textSize="@dimen/text_l"
-        android:textStyle="bold" />
+        android:layout_margin="@dimen/padding_mini"
+        android:id="@+id/layout_not_logged_header"
+        android:background="@drawable/profile_header"
+        android:padding="@dimen/padding_mini">
+
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/citrarb_profile_add_photo"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                app:lottie_autoPlay="true"
+                android:layout_margin="@dimen/margin_mini"
+                android:visibility="visible"
+                android:layout_centerInParent="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/citrarb_not_logged_in" />
+
+
+
+
+        <TextView
+            android:id="@+id/account_not_logged_in_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/citrarb_profile_add_photo"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/padding_mini"
+            android:padding="@dimen/padding_mini"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_l"
+            android:text="@string/account_not_logged_in_title"
+            android:textStyle="bold"  />
+
+    </RelativeLayout>
+
 
     <Button
         android:id="@+id/account_btn_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/account_not_logged_in_title"
+        android:layout_below="@+id/layout_not_logged_header"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/margin_midi"
         android:backgroundTint="@color/custom_secondary"
