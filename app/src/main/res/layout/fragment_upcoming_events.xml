@@ -79,7 +79,7 @@
 
                 <!--below is the view for our shimmer-->
                 <com.facebook.shimmer.ShimmerFrameLayout
-                    android:id="@+id/friends_shimmer_layout"
+                    android:id="@+id/upcoming_event_shimmer_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:animateLayoutChanges="true"

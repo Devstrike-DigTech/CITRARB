@@ -43,6 +43,11 @@
             app:destination="@id/membersLanding"
             app:enterAnim="@anim/forward_entrance_from_right"
             app:exitAnim="@anim/forward_exit_to_left" />
+        <action
+            android:id="@+id/action_appMenu_to_eventsLanding"
+            app:destination="@id/eventsLanding"
+            app:enterAnim="@anim/forward_entrance_from_right"
+            app:exitAnim="@anim/forward_exit_to_left" />
     </fragment>
     <fragment
         android:id="@+id/newsLanding"
@@ -168,5 +173,16 @@
         <action
             android:id="@+id/action_membersLanding_to_appMenu"
             app:destination="@id/appMenu" />
+    </fragment>
+    <fragment
+        android:id="@+id/eventsLanding"
+        android:name="org.devstrike.app.citrarb.features.events.ui.EventsLanding"
+        android:label="fragment_events_landing"
+        tools:layout="@layout/fragment_events_landing" >
+        <action
+            android:id="@+id/action_eventsLanding_to_appMenu"
+            app:destination="@id/appMenu"
+            app:enterAnim="@anim/backward_entrance_from_left"
+            app:exitAnim="@anim/backward_exit_to_right" />
     </fragment>
 </navigation>

@@ -101,7 +101,8 @@ class AppMenu : BaseFragment<LandingViewModel, FragmentAppMenuBinding, LandingRe
             }
 
             cardEvents.setOnClickListener {
-                //val navToEvents = AppMenuDirections
+                val navToEvents = AppMenuDirections.actionAppMenuToEventsLanding()
+                findNavController().navigate(navToEvents)
             }
 
             cardConnect.setOnClickListener {

@@ -8,11 +8,22 @@
 
 package org.devstrike.app.citrarb.features.events.ui
 
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.launch
 import org.devstrike.app.citrarb.base.BaseViewModel
+import org.devstrike.app.citrarb.features.events.data.models.requests.CreateEventRequest
+import org.devstrike.app.citrarb.features.events.data.models.responses.CreateEventResponse
+import org.devstrike.app.citrarb.features.events.data.models.responses.GetEventsResponse
 import org.devstrike.app.citrarb.features.events.repositories.EventsRepo
 import org.devstrike.app.citrarb.features.events.repositories.EventsRepoImpl
+import org.devstrike.app.citrarb.features.members.data.models.requests.SendFriendRequest
+import org.devstrike.app.citrarb.features.members.data.models.responses.AllUsersResponse
+import org.devstrike.app.citrarb.features.members.data.models.responses.SendFriendRequestResponse
 import org.devstrike.app.citrarb.features.members.repositories.MembersRepoImpl
+import org.devstrike.app.citrarb.network.Resource
 import javax.inject.Inject
 
 /**
@@ -26,5 +37,25 @@ class EventsViewModel @Inject constructor(
     val eventsRepo: EventsRepoImpl
 ) : BaseViewModel(eventsRepo) {
 
+    //state for all users  fetch
+    private val _allEventsState = MutableSharedFlow<Resource<GetEventsResponse>>()
+    val allEventsState: SharedFlow<Resource<GetEventsResponse>> = _allEventsState
+
+    //state for send friend request
+    private val _createEventState = MutableSharedFlow<Resource<CreateEventResponse>>()
+    val createEventState: SharedFlow<Resource<CreateEventResponse>> =
+        _createEventState
+
+
+
+    fun getAllEvents() = viewModelScope.launch {
+        _allEventsState.emit(Resource.Loading)
+        _allEventsState.emit(eventsRepo.getAllEvents())
+    }
+
+    fun createEvent(createdEvent: CreateEventRequest) = viewModelScope.launch {
+        _createEventState.emit(Resource.Loading)
+        _createEventState.emit(eventsRepo.createEvent(createdEvent))
+    }
 
 }

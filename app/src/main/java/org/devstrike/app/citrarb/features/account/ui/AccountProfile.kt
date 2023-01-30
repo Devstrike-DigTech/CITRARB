@@ -19,12 +19,12 @@ import kotlinx.coroutines.launch
 import org.devstrike.app.citrarb.base.BaseFragment
 import org.devstrike.app.citrarb.databinding.FragmentAccountProfileBinding
 import org.devstrike.app.citrarb.features.account.data.UserApi
-import org.devstrike.app.citrarb.features.account.data.models.responses.User
 import org.devstrike.app.citrarb.features.account.data.models.responses.UserX
 import org.devstrike.app.citrarb.features.account.repositories.UserRepoImpl
 import org.devstrike.app.citrarb.network.Resource
 import org.devstrike.app.citrarb.network.handleApiError
 import org.devstrike.app.citrarb.utils.SessionManager
+import org.devstrike.app.citrarb.utils.convertISODateToMonthAndYear
 import org.devstrike.app.citrarb.utils.toast
 import org.devstrike.app.citrarb.utils.visible
 import javax.inject.Inject
@@ -89,9 +89,9 @@ class AccountProfile : BaseFragment<AccountViewModel, FragmentAccountProfileBind
                 ivUserDp.visible(false)
             }
             txtUserName.text = user.username
-            val dateJoined = user.createdAt .replace("T", " | ")
-                .removeSuffix("Z")
-            txtUserDateJoined.text = "Joined $dateJoined"
+//            val dateJoined = user.createdAt .replace("T", " | ")
+//                .removeSuffix("Z")
+            txtUserDateJoined.text = "Joined ${convertISODateToMonthAndYear(user.createdAt)}"
             txtUserEmail.text = user.email
             profilePhotoLayout.setOnClickListener {
                 requireContext().toast("Add profile photo coming soon!")

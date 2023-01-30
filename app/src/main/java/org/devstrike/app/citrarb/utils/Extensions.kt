@@ -9,15 +9,11 @@
 package org.devstrike.app.citrarb.utils
 
 import android.app.Activity
-import android.app.Dialog
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.view.View
 import android.widget.Toast
-import androidx.core.graphics.drawable.toDrawable
 import com.google.android.material.snackbar.Snackbar
-import org.devstrike.app.citrarb.R
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -87,4 +83,31 @@ fun getDate(milliSeconds: Long?, dateFormat: String?): String {
     val calendar: Calendar? = Calendar.getInstance()
     calendar?.timeInMillis = milliSeconds!!
     return formatter.format(calendar?.time!!)
+}
+
+fun convertISODateToMonthAndYear(isoDate: String?): String {
+    val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+    dateFormat.timeZone = TimeZone.getTimeZone("UTC")
+    val date = dateFormat.parse(isoDate!!)
+    val monthAndYearFormat = SimpleDateFormat("MMMM yyyy", Locale.getDefault())
+    return monthAndYearFormat.format(date!!)
+}
+
+fun convertISODateToMonthYearAndTime(isoDate: String?): String {
+    val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+    dateFormat.timeZone = TimeZone.getTimeZone("UTC")
+    val date = dateFormat.parse(isoDate!!)
+    val monthAndYearFormat = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
+    val hourAndMinuteFormat = SimpleDateFormat("HH:mm a", Locale.getDefault())
+    val monthDate = monthAndYearFormat.format(date!!)
+    val hourDate = hourAndMinuteFormat.format(date)
+    return "$monthDate by $hourDate"
+}
+
+fun convertMillisToISODate(milliseconds: Long?){
+    val date = Date(milliseconds!!)
+    val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+    dateFormat.timeZone = TimeZone.getTimeZone("UTC")
+    val iso8601 = dateFormat.format(date)
+
 }
