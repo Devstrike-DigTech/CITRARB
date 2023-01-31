@@ -9,13 +9,10 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
 
-    <solid android:color="@color/custom_secondary"/>
-    <corners
-        android:topLeftRadius="30dp"
-        android:topRightRadius="30dp"/>
-
-    <stroke
-        android:color="@color/custom_primary"
+    <solid android:color="@android:color/white"/>
+    <stroke android:color="@color/custom_secondary"
         android:width="2dp"/>
-
+    <corners
+        android:bottomLeftRadius="30dp"
+        android:bottomRightRadius="30dp"/>
 </shape>

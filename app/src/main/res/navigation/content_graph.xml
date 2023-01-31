@@ -184,5 +184,38 @@
             app:destination="@id/appMenu"
             app:enterAnim="@anim/backward_entrance_from_left"
             app:exitAnim="@anim/backward_exit_to_right" />
+        <action
+            android:id="@+id/action_eventsLanding_to_createEvent"
+            app:destination="@id/createEvent" />
+    </fragment>
+    <fragment
+        android:id="@+id/createEvent"
+        android:name="org.devstrike.app.citrarb.features.events.newevent.CreateEvent"
+        android:label="fragment_create_event"
+        tools:layout="@layout/fragment_create_event" >
+        <action
+            android:id="@+id/action_createEvent_to_createEventHosts"
+            app:destination="@id/createEventHosts" />
+    </fragment>
+    <fragment
+        android:id="@+id/createEventHosts"
+        android:name="org.devstrike.app.citrarb.features.events.newevent.CreateEventHosts"
+        android:label="fragment_create_event_hosts"
+        tools:layout="@layout/fragment_create_event_hosts" >
+        <action
+            android:id="@+id/action_createEventHosts_to_createEvent"
+            app:destination="@id/createEvent" />
+        <argument
+            android:name="eventName"
+            app:argType="string" />
+        <argument
+            android:name="eventDescription"
+            app:argType="string" />
+        <argument
+            android:name="eventLocation"
+            app:argType="string" />
+        <argument
+            android:name="eventDate"
+            app:argType="string" />
     </fragment>
 </navigation>

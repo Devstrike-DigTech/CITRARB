@@ -20,27 +20,27 @@
         android:layout_margin="@dimen/padding_mini"
         android:layout_width="match_parent"
         android:padding="@dimen/padding_mini"
-        app:cardElevation="@dimen/padding_mini">
+        app:cardElevation="@dimen/padding_mini"
+        app:cardCornerRadius="@dimen/padding_maxi"
+        >
 
         <RelativeLayout
-            android:layout_height="wrap_content"
+            android:layout_height="170dp"
             android:layout_width="match_parent"
-            android:padding="@dimen/padding_mini">
+            android:padding="@dimen/padding_mini"
+            android:id="@+id/layout_item">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/iv_upcoming_event_photo"
-                android:layout_height="50dp"
-                android:layout_margin="@dimen/padding_mini"
-                android:layout_width="50dp"
-                android:padding="@dimen/padding_mini"
-                app:civ_border_width="0.5dp"
-                tools:src="@drawable/devstrike_logo" />
+            <ImageView
+                android:id="@+id/background_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:src="@drawable/citrarb_logo_png" />
 
             <TextView
                 android:id="@+id/txt_event_name"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/padding_mini"
-                android:layout_toEndOf="@id/iv_upcoming_event_photo"
                 android:layout_width="wrap_content"
                 android:padding="@dimen/padding_mini"
                 android:text="@{upcomingEventItem.name}"
@@ -53,7 +53,6 @@
                 android:layout_below="@id/txt_event_name"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/padding_mini"
-                android:layout_toEndOf="@id/iv_upcoming_event_photo"
                 android:layout_width="wrap_content"
                 android:paddingStart="@dimen/padding_mini"
                 android:paddingEnd="@dimen/padding_mini"
@@ -63,7 +62,6 @@
                 android:layout_below="@id/txt_event_date"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/padding_mini"
-                android:layout_toEndOf="@id/iv_upcoming_event_photo"
                 android:layout_width="wrap_content"
                 android:paddingStart="@dimen/padding_mini"
                 android:paddingEnd="@dimen/padding_mini"
@@ -74,45 +72,22 @@
                 android:layout_below="@id/txt_event_location"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/padding_mini"
-                android:layout_toEndOf="@id/iv_upcoming_event_photo"
                 android:layout_width="wrap_content"
                 android:paddingStart="@dimen/padding_mini"
                 android:paddingEnd="@dimen/padding_mini"
                 android:text="@{upcomingEventItem.host}"
                 tools:text="Hosts: Emmy, Nado, Doro, Bucci" />
 
-            <LinearLayout
-                android:layout_below="@id/txt_event_hosts"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/padding_mini"
-                android:layout_width="match_parent"
-                android:orientation="horizontal"
-                android:padding="@dimen/padding_mini"
-                android:weightSum="2">
-
                 <Button
+                    android:layout_below="@id/txt_event_hosts"
                     android:backgroundTint="@color/custom_secondary"
                     android:id="@+id/btn_upcoming_event_going"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/padding_mini"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:padding="@dimen/padding_mini"
                     android:text="@string/upcoming_event_going_btn_text"
                     style="?android:attr/buttonBarButtonStyle" />
-
-                <Button
-                    android:backgroundTint="@color/custom_secondary"
-                    android:id="@+id/btn_upcoming_event_not_going"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/padding_mini"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:padding="@dimen/padding_mini"
-                    android:text="@string/upcoming_event_not_going_btn_text"
-                    style="?android:attr/buttonBarButtonStyle" />
-
-            </LinearLayout>
 
 
         </RelativeLayout>
@@ -121,5 +96,6 @@
     </com.google.android.material.card.MaterialCardView>
 
 </layout>
+
 
 

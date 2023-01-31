@@ -72,4 +72,20 @@
     <string name="upcoming_event_not_going_btn_text">Not going</string>
     <string name="search_concluded_events">Search for a concluded event by name</string>
     <string name="iv_event_star">Concluded Event Rating</string>
+    <string name="events_fab">Button to create new event or view attending events</string>
+    <string name="new_event">Create New Event</string>
+    <string name="attending_event">Attending Events</string>
+    <string name="new_event_image">New Event Image</string>
+    <string name="create_event_name">Event Name</string>
+    <string name="create_event_description">Event Description</string>
+    <string name="create_event_location">Event Location</string>
+    <string name="new_event_select_current_event_location">Select current location as event location</string>
+    <string name="create_event_time">Event Date</string>
+    <string name="cancel">cancel</string>
+    <string name="next">Next</string>
+    <string name="create_event_hosts_title">Hosts</string>
+    <string name="add_host">Add hosts for new event</string>
+    <string name="create_event_title">Create Event</string>
+    <string name="add_new_event_image_prompt">Add Event Image</string>
+    <string name="create_event_date">Enter date and time for the new event</string>
 </resources>

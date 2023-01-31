@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2023.
+  ~ Richard Uzor
+  ~ For Afro Connect Technologies
+  ~ Under the Authority of Devstrike Digital Ltd.
+  ~
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".features.events.newevent.CreateEventHosts">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_mini"
+        android:layout_marginBottom="@dimen/padding_mini"
+        app:cardElevation="@dimen/padding_mini">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/app_background"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txt_event_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_mini"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_xl"
+                tools:text="Event Name" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:padding="@dimen/padding_mini"
+                android:layout_margin="@dimen/padding_mini"
+                android:layout_below="@id/txt_event_name"
+                android:id="@+id/layout_image">
+
+                <ImageView
+                    android:id="@+id/iv_create_event_host_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="@dimen/padding_mini"
+                    android:contentDescription="@string/new_event_image"
+                    android:scaleType="fitXY"
+                    android:alpha="0.7"
+                    tools:src="@tools:sample/avatars"/>
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:textColor="@color/black"
+                    tools:text="@tools:sample/lorem/random"
+                    android:justificationMode="inter_word"
+                    tools:lines="2"
+                    android:padding="@dimen/padding_mini"
+                    android:layout_margin="@dimen/padding_mini"
+                    android:id="@+id/txt_create_event_host_description"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/layout_image"
+                android:background="@drawable/profile_footer"
+                android:layout_alignParentBottom="true">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/padding_mini"
+                    android:layout_margin="@dimen/padding_maxi"
+                    android:text="@string/create_event_hosts_title"
+                    android:textSize="@dimen/text_l"
+                    android:id="@+id/create_event_hosts_title"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_toEndOf="@id/create_event_hosts_title"
+                    app:srcCompat="@drawable/ic_add"
+                    android:layout_margin="@dimen/padding_maxi"
+                    android:padding="@dimen/padding_mini"
+                    android:id="@+id/create_event_add_host_btn"
+                    android:contentDescription="@string/add_host" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:padding="@dimen/padding_mini"
+                    android:layout_margin="@dimen/padding_maxi"
+                    android:layout_below="@id/create_event_hosts_title"
+                    android:id="@+id/rv_event_hosts"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="2"
+                    android:layout_alignParentBottom="true"
+                    android:layout_margin="@dimen/padding_mini"
+                    android:padding="@dimen/padding_mini">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:id="@+id/create_event_cancel_btn"
+                        android:text="@string/cancel"
+                        android:backgroundTint="@color/custom_secondary"
+                        android:layout_margin="@dimen/padding_mini"
+                        android:padding="@dimen/padding_mini"
+                        app:strokeColor="@color/custom_primary"
+                        app:strokeWidth="2dp"
+                        />
+
+
+                    <com.google.android.material.button.MaterialButton
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:id="@+id/create_event_next_btn"
+                        android:text="@string/next"
+                        android:backgroundTint="@color/custom_secondary"
+                        android:layout_margin="@dimen/padding_mini"
+                        android:padding="@dimen/padding_mini"
+                        app:strokeColor="@color/custom_primary"
+                        app:strokeWidth="2dp"/>
+
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+</RelativeLayout>

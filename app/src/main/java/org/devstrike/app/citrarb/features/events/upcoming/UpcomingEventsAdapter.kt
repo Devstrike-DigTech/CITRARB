@@ -18,6 +18,7 @@ import org.devstrike.app.citrarb.databinding.ItemUpcomingEventsLayoutBinding
 import org.devstrike.app.citrarb.features.events.data.models.responses.Event
 import org.devstrike.app.citrarb.features.members.data.models.responses.FriendRequest
 import org.devstrike.app.citrarb.utils.convertISODateToMonthYearAndTime
+import org.devstrike.app.citrarb.utils.loadImage
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
@@ -75,10 +76,10 @@ class UpcomingEventsAdapter @Inject constructor(
                 isInviteAccepted = true
                 onItemAcceptClickListener?.invoke(event)
             }
-            itemView.binding.btnUpcomingEventNotGoing.setOnClickListener {
-                isInviteAccepted = false
-                onItemRejectClickListener?.invoke(event)
-            }
+//            itemView.binding.btnUpcomingEventNotGoing.setOnClickListener {
+//                isInviteAccepted = false
+//                onItemRejectClickListener?.invoke(event)
+//            }
             itemView.binding.txtEventDate.text = convertISODateToMonthYearAndTime(event.time)
             val eventHosts = mutableListOf<String>()
             eventHosts.add(event.host)
@@ -87,6 +88,7 @@ class UpcomingEventsAdapter @Inject constructor(
             }
             for (host in eventHosts)
                 itemView.binding.txtEventHosts.append("$host, ")
+            //itemView.binding.backgroundImage.loadImage()
         }
     }
     private var onItemAcceptClickListener: ((Event) -> Unit)? = null

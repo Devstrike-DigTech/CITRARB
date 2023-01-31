@@ -11,15 +11,19 @@ package org.devstrike.app.citrarb.features.events.upcoming
 import android.content.ContentValues
 import android.os.Bundle
 import android.provider.CalendarContract
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import org.devstrike.app.citrarb.R
 import org.devstrike.app.citrarb.base.BaseFragment
 import org.devstrike.app.citrarb.databinding.FragmentUpcomingEventsBinding
 import org.devstrike.app.citrarb.features.events.data.EventsApi
@@ -27,6 +31,7 @@ import org.devstrike.app.citrarb.features.events.data.models.requests.EventAtten
 import org.devstrike.app.citrarb.features.events.data.models.responses.Data
 import org.devstrike.app.citrarb.features.events.data.models.responses.Event
 import org.devstrike.app.citrarb.features.events.repositories.EventsRepoImpl
+import org.devstrike.app.citrarb.features.events.ui.EventsLandingDirections
 import org.devstrike.app.citrarb.features.events.ui.EventsViewModel
 import org.devstrike.app.citrarb.network.Resource
 import org.devstrike.app.citrarb.network.handleApiError
@@ -57,9 +62,31 @@ class UpcomingEvents : BaseFragment<EventsViewModel, FragmentUpcomingEventsBindi
 
         upcomingEventsAdapter = UpcomingEventsAdapter(requireContext())
 
+        binding.fabAddEvent.setOnClickListener {
+            val popup = PopupMenu(requireContext(), it)
+            popup.menuInflater.inflate(R.menu.events_menu, popup.menu)
+            popup.setOnMenuItemClickListener { item ->
+                when (item.itemId) {
+                    R.id.event_menu_new_event -> {
+                        val navToCreateNewEvent = EventsLandingDirections.actionEventsLandingToCreateEvent()
+                        findNavController().navigate(navToCreateNewEvent)
+                        true
+                    }
+                    R.id.event_menu_attending_event -> {
+                        // Perform action for option 2
+                        true
+                    }
+                    else -> false
+                }
+            }
+            popup.show()
+        }
+
         subscribeToUpcomingEventsListEvent()
 
     }
+
+
 
     private fun subscribeToUpcomingEventsListEvent() {
         eventsViewModel.getAllEvents()
@@ -67,15 +94,28 @@ class UpcomingEvents : BaseFragment<EventsViewModel, FragmentUpcomingEventsBindi
             eventsViewModel.allEventsState.collect{ result ->
                 when(result){
                     is Resource.Success ->{
+                        val userId = sessionManager.getCurrentUserId()
                         binding.upcomingEventShimmerLayout.apply {
                             stopShimmer()
                             visible(false)
                         }
-                        if (result.value!!.event.isEmpty())
+                        if (result.value!!.event.isEmpty()) {
                             requireContext().toast("No upcoming events!")
-                        else
-                            upcomingEventsAdapter.submitList(result.value.event)
-                        subscribeToUpcomingEventsUi()
+                        } else {
+                            val unansweredEvents = mutableListOf<Event>()
+                            for (event in result.value.event){
+                                for (attendee in event.attendees){
+                                    if (attendee.userId != userId){
+                                        unansweredEvents.add(event)
+                                        Log.d(TAG, "subscribeToUpcomingEventsListEvent inside attendees loop: $unansweredEvents")
+                                    }
+                                }
+                                Log.d(TAG, "subscribeToUpcomingEventsListEvent inside events loop: $unansweredEvents")
+                            }
+                            Log.d(TAG, "subscribeToUpcomingEventsListEvent outside all loops: $unansweredEvents")
+                            upcomingEventsAdapter.submitList(unansweredEvents)
+                            subscribeToUpcomingEventsUi()
+                        }
                     }
                     is Resource.Failure ->{
                         binding.upcomingEventShimmerLayout.stopShimmer()
@@ -83,6 +123,7 @@ class UpcomingEvents : BaseFragment<EventsViewModel, FragmentUpcomingEventsBindi
                         handleApiError(result.error){subscribeToUpcomingEventsListEvent()}
                     }
                     is Resource.Loading ->{
+                        binding.upcomingEventShimmerLayout.visible(true)
                         binding.upcomingEventShimmerLayout.startShimmer()
                     }
                 }

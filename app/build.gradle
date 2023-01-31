@@ -152,6 +152,12 @@ dependencies {
     //run-time permission manager
     implementation 'com.karumi:dexter:5.0.0'
 
+    //circle menu
+    //implementation 'com.github.Hitomis:CircleMenu:v1.1.0'
+
+    //location detector
+    implementation 'com.google.android.gms:play-services-location:20.0.0'
+
 
 
 }

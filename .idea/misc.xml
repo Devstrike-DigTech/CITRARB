@@ -9,7 +9,12 @@
         <entry key="app/src/main/res/drawable/check_24.xml" value="0.1215" />
         <entry key="app/src/main/res/drawable/citrarb_logo.xml" value="0.117" />
         <entry key="app/src/main/res/drawable/cross-small_24.xml" value="0.1215" />
+        <entry key="app/src/main/res/drawable/general_header.xml" value="0.1455" />
         <entry key="app/src/main/res/drawable/ic_account_circle.xml" value="0.1455" />
+        <entry key="app/src/main/res/drawable/ic_calendar_clock.xml" value="0.1455" />
+        <entry key="app/src/main/res/drawable/ic_location_marker.xml" value="0.1455" />
+        <entry key="app/src/main/res/drawable/ic_lock.xml" value="0.1455" />
+        <entry key="app/src/main/res/drawable/ic_my_location.xml" value="0.1455" />
         <entry key="app/src/main/res/drawable/ic_news.xml" value="0.1275" />
         <entry key="app/src/main/res/drawable/ic_no_user.xml" value="0.1215" />
         <entry key="app/src/main/res/drawable/ic_search.xml" value="0.1215" />
@@ -32,6 +37,8 @@
         <entry key="app/src/main/res/layout/fragment_all_news.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_app_menu.xml" value="0.3176803588867188" />
         <entry key="app/src/main/res/layout/fragment_concluded_events.xml" value="0.15942028985507245" />
+        <entry key="app/src/main/res/layout/fragment_create_event.xml" value="0.20993957519531253" />
+        <entry key="app/src/main/res/layout/fragment_create_event_hosts.xml" value="0.27188507080078117" />
         <entry key="app/src/main/res/layout/fragment_entertainment_news.xml" value="0.15081521739130435" />
         <entry key="app/src/main/res/layout/fragment_events_landing.xml" value="0.15942028985507245" />
         <entry key="app/src/main/res/layout/fragment_eye_witness_list.xml" value="0.1099290780141844" />
@@ -71,6 +78,7 @@
         <entry key="app/src/main/res/layout/item_tv_video_list_layout.xml" value="0.27208251953124996" />
         <entry key="app/src/main/res/layout/item_upcoming_events_layout.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_upcoming_events_shimmer_layout.xml" value="0.4035947712418301" />
+        <entry key="app/src/main/res/menu/events_menu.xml" value="0.1648148148148148" />
         <entry key="app/src/main/res/menu/tool_bar_menu.xml" value="0.22604166666666667" />
       </map>
     </option>

@@ -43,7 +43,8 @@ class UserRepoImpl @Inject constructor(
                 sessionManager.updateSession(
                     result.token!!,
                     result.user.username ?: "",
-                    result.user.email
+                    result.user.email,
+                    result.user._id
                 )
                 Resource.Success("User Created Successfully")
             } else {
@@ -69,7 +70,8 @@ class UserRepoImpl @Inject constructor(
                 sessionManager.updateSession(
                     result.token!!,
                     result.user.username ?: "",
-                    result.user.email
+                    result.user.email,
+                    result.user._id
                 )
                 Resource.Success("User Created Successfully")
             } else {
