@@ -146,4 +146,12 @@ dependencies {
     implementation "com.airbnb.android:lottie:4.2.0"
     implementation 'io.github.amrdeveloper:lottiedialog:1.0.0'
 
+    //calendar event adder
+    //implementation 'com.github.thellimist:ez-calendar:1.0.2'
+
+    //run-time permission manager
+    implementation 'com.karumi:dexter:5.0.0'
+
+
+
 }

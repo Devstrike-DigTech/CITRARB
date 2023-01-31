@@ -9,7 +9,9 @@
 package org.devstrike.app.citrarb.features.events.data
 
 import org.devstrike.app.citrarb.features.events.data.models.requests.CreateEventRequest
+import org.devstrike.app.citrarb.features.events.data.models.requests.EventAttendanceRequest
 import org.devstrike.app.citrarb.features.events.data.models.responses.CreateEventResponse
+import org.devstrike.app.citrarb.features.events.data.models.responses.EventAttendanceResponse
 import org.devstrike.app.citrarb.features.events.data.models.responses.GetEventsResponse
 import org.devstrike.app.citrarb.features.members.data.models.requests.SendFriendRequest
 import org.devstrike.app.citrarb.features.members.data.models.responses.SendFriendRequestResponse
@@ -33,6 +35,13 @@ interface EventsApi {
     suspend fun fetchAllEvent(
         @Header("Authorization") token: String
     ): GetEventsResponse
+
+    @Headers("Content-Type: application/json")
+    @POST("${Common.USER_BASE_URL}/api/event-attendance")
+    suspend fun eventAttendance(
+        @Header("Authorization") token: String,
+        @Body attendanceRequest: EventAttendanceRequest
+    ): EventAttendanceResponse
 
 
 

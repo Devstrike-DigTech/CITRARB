@@ -107,4 +107,14 @@ object Common {
 
     var toolBarTitle = "Coal City Connect"
     var toolBarSubTitle = "Connecting People"
+
+    data class CalendarDetails(
+        val year: Int,
+        val month: Int,
+        val dayOfMonth: Int,
+        val dayOfWeek: Int,
+        val hour: Int,
+        val minute: Int,
+        val second: Int
+    )
 }

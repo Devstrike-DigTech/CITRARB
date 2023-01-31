@@ -11,7 +11,9 @@ package org.devstrike.app.citrarb.features.events.repositories
 import org.devstrike.app.citrarb.base.BaseRepo
 import org.devstrike.app.citrarb.features.events.data.EventsApi
 import org.devstrike.app.citrarb.features.events.data.models.requests.CreateEventRequest
+import org.devstrike.app.citrarb.features.events.data.models.requests.EventAttendanceRequest
 import org.devstrike.app.citrarb.features.events.data.models.responses.CreateEventResponse
+import org.devstrike.app.citrarb.features.events.data.models.responses.EventAttendanceResponse
 import org.devstrike.app.citrarb.features.events.data.models.responses.GetEventsResponse
 import org.devstrike.app.citrarb.features.members.data.MembersApi
 import org.devstrike.app.citrarb.features.members.repositories.MembersRepo
@@ -51,6 +53,17 @@ class EventsRepoImpl @Inject constructor(
                 Resource.Failure(value = "No Internet Connection!")
             }
             eventsApi.createEvent("Bearer ".plus(token!!), createdEvent)
+        }
+    }
+
+    override suspend fun eventAttendance(attendanceRequest: EventAttendanceRequest): Resource<EventAttendanceResponse> {
+        val token = sessionManager.getJwtToken()
+        return safeApiCall {
+            //check if there is internet connection
+            if (!isNetworkConnected(sessionManager.context)) {
+                Resource.Failure(value = "No Internet Connection!")
+            }
+            eventsApi.eventAttendance("Bearer ".plus(token!!), attendanceRequest)
         }
     }
 

@@ -8,16 +8,21 @@
 
 package org.devstrike.app.citrarb.features.landing.ui
 
+
+import android.Manifest
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
-import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.DexterBuilder
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionDeniedResponse
+import com.karumi.dexter.listener.PermissionGrantedResponse
+import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.single.PermissionListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -55,7 +60,6 @@ class LandingScreen : BaseFragment<LandingViewModel, FragmentLandingScreenBindin
     @set:Inject
     var sessionManager: SessionManager by Delegates.notNull<SessionManager>()
 
-
     //
 //    fun toolBar(): View{
 //        return mCustomToolBar
@@ -75,6 +79,51 @@ class LandingScreen : BaseFragment<LandingViewModel, FragmentLandingScreenBindin
 //        mCustomToolBar = _binding!!.customToolBar
 
         //val navHostFragment = binding.mainContainerLanding as NavHostFragment
+
+
+
+        //Request permissions
+        Dexter.withActivity(requireActivity()) //Dexter makes runtime permission easier to implement
+            .withPermission(Manifest.permission.WRITE_CALENDAR)
+            .withListener(object : PermissionListener {
+                override fun onPermissionGranted(response: PermissionGrantedResponse?) {
+
+                }
+
+                override fun onPermissionDenied(response: PermissionDeniedResponse?) {
+                    requireContext().toast("Accept Permission")
+                }
+
+                override fun onPermissionRationaleShouldBeShown(
+                    permission: PermissionRequest?,
+                    token: PermissionToken?
+                ) {
+
+                }
+            }
+            ).check()
+        //Request permissions
+
+        //Request permissions
+        Dexter.withActivity(requireActivity()) //Dexter makes runtime permission easier to implement
+            .withPermission(Manifest.permission.READ_CALENDAR)
+            .withListener(object : PermissionListener {
+                override fun onPermissionGranted(response: PermissionGrantedResponse?) {
+
+                }
+
+                override fun onPermissionDenied(response: PermissionDeniedResponse?) {
+                    requireContext().toast("Accept Permission")
+                }
+
+                override fun onPermissionRationaleShouldBeShown(
+                    permission: PermissionRequest?,
+                    token: PermissionToken?
+                ) {
+
+                }
+            }
+            ).check()
 
     }
 
@@ -103,7 +152,8 @@ class LandingScreen : BaseFragment<LandingViewModel, FragmentLandingScreenBindin
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val navController = landingScreenBinding!!.mainContainerLanding.findNavController()
+        val navController =
+            landingScreenBinding!!.mainContainerLanding.findNavController()
         val graph = navController.navInflater.inflate(R.navigation.content_graph)
         navController.graph = graph
         //navController.navigate(R.id.appMenu)
@@ -150,11 +200,11 @@ class LandingScreen : BaseFragment<LandingViewModel, FragmentLandingScreenBindin
                 requireContext().toast("Settings Clicked!")
 
             }
-            R.id.menu_logout ->{
-                    CoroutineScope(Dispatchers.IO).launch {
-                        sessionManager.logout()
-                        withContext(Dispatchers.Main){
-                            navController.navigate(R.id.accountNotLoggedIn)
+            R.id.menu_logout -> {
+                CoroutineScope(Dispatchers.IO).launch {
+                    sessionManager.logout()
+                    withContext(Dispatchers.Main) {
+                        navController.navigate(R.id.accountNotLoggedIn)
 
                     }
 

@@ -111,3 +111,36 @@ fun convertMillisToISODate(milliseconds: Long?){
     val iso8601 = dateFormat.format(date)
 
 }
+
+fun getYearFromISODate(isoDate: String?): Common.CalendarDetails {
+    //val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US)
+    //val date = dateFormat.parse(isoDate!!)
+    //val iso8601Date = "2023-04-06T23:00:30.000Z"
+    val formatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US)
+    formatter.timeZone = TimeZone.getTimeZone("UTC")
+    val date = formatter.parse(isoDate!!)
+    val milliseconds = date!!.time
+
+    val calendar = Calendar.getInstance()
+    calendar.timeInMillis = milliseconds
+
+    return Common.CalendarDetails(
+        calendar.get(Calendar.YEAR),
+        calendar.get(Calendar.MONTH),
+        calendar.get(Calendar.DAY_OF_MONTH),
+        calendar.get(Calendar.DAY_OF_WEEK),
+        calendar.get(Calendar.HOUR),
+        calendar.get(Calendar.MINUTE),
+        calendar.get(Calendar.SECOND),
+    )
+
+}
+
+fun getMonthFromISODate(isoDate: String?): Int{
+    val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US)
+    val date = dateFormat.parse(isoDate!!)
+    val calendar = Calendar.getInstance()
+    calendar.time = date!!
+    return calendar.get(Calendar.MONTH)
+}
+

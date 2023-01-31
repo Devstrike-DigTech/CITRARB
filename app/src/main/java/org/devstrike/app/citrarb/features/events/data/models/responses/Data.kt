@@ -8,14 +8,10 @@
 
 package org.devstrike.app.citrarb.features.events.data.models.responses
 
-data class Event(
+data class Data(
+    val __v: Int,
     val _id: String,
-    val attendees: List<Attendees>,
-    val coHosts: List<String>,
-    val host: String,
-    val id: String,
-    val location: String,
-    val name: String,
-    val numberOfAttendee: Int,
-    val time: String
+    val eventId: String,
+    val status: String,
+    val userId: String
 )

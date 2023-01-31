@@ -15,7 +15,9 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
 import org.devstrike.app.citrarb.base.BaseViewModel
 import org.devstrike.app.citrarb.features.events.data.models.requests.CreateEventRequest
+import org.devstrike.app.citrarb.features.events.data.models.requests.EventAttendanceRequest
 import org.devstrike.app.citrarb.features.events.data.models.responses.CreateEventResponse
+import org.devstrike.app.citrarb.features.events.data.models.responses.EventAttendanceResponse
 import org.devstrike.app.citrarb.features.events.data.models.responses.GetEventsResponse
 import org.devstrike.app.citrarb.features.events.repositories.EventsRepo
 import org.devstrike.app.citrarb.features.events.repositories.EventsRepoImpl
@@ -37,14 +39,19 @@ class EventsViewModel @Inject constructor(
     val eventsRepo: EventsRepoImpl
 ) : BaseViewModel(eventsRepo) {
 
-    //state for all users  fetch
+    //state for all events  fetch
     private val _allEventsState = MutableSharedFlow<Resource<GetEventsResponse>>()
     val allEventsState: SharedFlow<Resource<GetEventsResponse>> = _allEventsState
 
-    //state for send friend request
+    //state for creating an event
     private val _createEventState = MutableSharedFlow<Resource<CreateEventResponse>>()
     val createEventState: SharedFlow<Resource<CreateEventResponse>> =
         _createEventState
+
+ //state for event attendance request
+    private val _eventAttendanceState = MutableSharedFlow<Resource<EventAttendanceResponse>>()
+    val eventAttendanceState: SharedFlow<Resource<EventAttendanceResponse>> =
+        _eventAttendanceState
 
 
 
@@ -56,6 +63,11 @@ class EventsViewModel @Inject constructor(
     fun createEvent(createdEvent: CreateEventRequest) = viewModelScope.launch {
         _createEventState.emit(Resource.Loading)
         _createEventState.emit(eventsRepo.createEvent(createdEvent))
+    }
+
+    fun eventAttendance(attendanceRequest: EventAttendanceRequest) = viewModelScope.launch {
+        _eventAttendanceState.emit(Resource.Loading)
+        _eventAttendanceState.emit(eventsRepo.eventAttendance(attendanceRequest))
     }
 
 }
