@@ -26,6 +26,7 @@ import org.devstrike.app.citrarb.base.BaseFragment
 import org.devstrike.app.citrarb.base.BaseRepo
 import org.devstrike.app.citrarb.base.BaseViewModel
 import org.devstrike.app.citrarb.databinding.FragmentMembersLandingBinding
+import org.devstrike.app.citrarb.features.members.data.FriendsDao
 import org.devstrike.app.citrarb.features.members.data.MembersApi
 import org.devstrike.app.citrarb.features.members.repositories.MembersRepoImpl
 import org.devstrike.app.citrarb.features.news.newsLanding.NewsLandingDirections
@@ -41,6 +42,8 @@ class MembersLanding : BaseFragment<MembersViewModel, FragmentMembersLandingBind
     var membersApi: MembersApi by Delegates.notNull()
     @set:Inject
     var sessionManager: SessionManager by Delegates.notNull()
+    @set:Inject
+    var friendsDao: FriendsDao by Delegates.notNull()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -103,7 +106,7 @@ class MembersLanding : BaseFragment<MembersViewModel, FragmentMembersLandingBind
 
     }
 
-    override fun getFragmentRepo() = MembersRepoImpl(membersApi, sessionManager)
+    override fun getFragmentRepo() = MembersRepoImpl(membersApi, friendsDao, sessionManager)
 
     override fun getViewModel() = MembersViewModel::class.java
 

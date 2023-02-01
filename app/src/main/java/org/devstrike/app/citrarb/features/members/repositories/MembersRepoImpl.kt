@@ -10,6 +10,7 @@ package org.devstrike.app.citrarb.features.members.repositories
 
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import org.devstrike.app.citrarb.base.BaseRepo
+import org.devstrike.app.citrarb.features.members.data.FriendsDao
 import org.devstrike.app.citrarb.features.members.data.MembersApi
 import org.devstrike.app.citrarb.features.members.data.models.requests.FriendRequestResponseStatus
 import org.devstrike.app.citrarb.features.members.data.models.requests.SendFriendRequest
@@ -26,6 +27,7 @@ import javax.inject.Inject
 @ActivityRetainedScoped
 class MembersRepoImpl @Inject constructor(
     val membersApi: MembersApi,
+    val friendsDao: FriendsDao,
     val sessionManager: SessionManager
 ) : MembersRepo, BaseRepo() {
 
@@ -86,7 +88,17 @@ class MembersRepoImpl @Inject constructor(
             if (!isNetworkConnected(sessionManager.context)) {
                 Resource.Failure(value = "No Internet Connection!")
             }
-            membersApi.getMyFriends("Bearer ".plus(token!!))
+            val result = membersApi.getMyFriends("Bearer ".plus(token!!))
+
+                result.friends.forEach{ friendInfo ->
+                    friendsDao.insertFriend(friendInfo.friend)
+                }
+
+
+
+            result
+
+
         }
 
     }

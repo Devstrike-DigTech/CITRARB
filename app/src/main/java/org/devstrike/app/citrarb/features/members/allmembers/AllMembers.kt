@@ -23,6 +23,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.devstrike.app.citrarb.base.BaseFragment
 import org.devstrike.app.citrarb.databinding.FragmentAllMembersBinding
+import org.devstrike.app.citrarb.features.members.data.FriendsDao
 import org.devstrike.app.citrarb.features.members.data.MembersApi
 import org.devstrike.app.citrarb.features.members.data.models.requests.SendFriendRequest
 import org.devstrike.app.citrarb.features.members.data.models.responses.Member
@@ -43,6 +44,9 @@ class AllMembers : BaseFragment<MembersViewModel, FragmentAllMembersBinding, Mem
     var membersApi: MembersApi by Delegates.notNull()
     @set:Inject
     var sessionManager: SessionManager by Delegates.notNull()
+    @set:Inject
+    var friendsDao: FriendsDao by Delegates.notNull()
+
 
     val membersViewModel: MembersViewModel by activityViewModels()
 
@@ -148,7 +152,7 @@ class AllMembers : BaseFragment<MembersViewModel, FragmentAllMembersBinding, Mem
 
 
 
-    override fun getFragmentRepo() = MembersRepoImpl(membersApi, sessionManager)
+    override fun getFragmentRepo() = MembersRepoImpl(membersApi,friendsDao, sessionManager)
 
     override fun getViewModel() = MembersViewModel::class.java
 

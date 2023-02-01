@@ -10,6 +10,7 @@ package org.devstrike.app.citrarb.features.events.ui
 
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
@@ -23,8 +24,10 @@ import org.devstrike.app.citrarb.features.events.repositories.EventsRepo
 import org.devstrike.app.citrarb.features.events.repositories.EventsRepoImpl
 import org.devstrike.app.citrarb.features.members.data.models.requests.SendFriendRequest
 import org.devstrike.app.citrarb.features.members.data.models.responses.AllUsersResponse
+import org.devstrike.app.citrarb.features.members.data.models.responses.Friend
 import org.devstrike.app.citrarb.features.members.data.models.responses.SendFriendRequestResponse
 import org.devstrike.app.citrarb.features.members.repositories.MembersRepoImpl
+import org.devstrike.app.citrarb.features.news.newsLanding.data.local.SavedNewsListData
 import org.devstrike.app.citrarb.network.Resource
 import javax.inject.Inject
 
@@ -53,7 +56,14 @@ class EventsViewModel @Inject constructor(
     val eventAttendanceState: SharedFlow<Resource<EventAttendanceResponse>> =
         _eventAttendanceState
 
+    private lateinit var _savedFriendList: Flow<List<Friend>>
+    val savedFriendList: Flow<List<Friend>>
+        get() = _savedFriendList
 
+
+
+    var savedFriendsList = eventsRepo.getFriendsListItemFromDB()
+    var searchQuery: String = ""
 
     fun getAllEvents() = viewModelScope.launch {
         _allEventsState.emit(Resource.Loading)

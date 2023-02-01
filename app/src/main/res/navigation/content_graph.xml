@@ -216,6 +216,9 @@
             app:argType="string" />
         <argument
             android:name="eventDate"
-            app:argType="string" />
+            app:argType="long" />
+        <action
+            android:id="@+id/action_createEventHosts_to_eventsLanding"
+            app:destination="@id/eventsLanding" />
     </fragment>
 </navigation>

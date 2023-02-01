@@ -8,8 +8,11 @@
 
 package org.devstrike.app.citrarb.features.events.data.models.responses
 
+import com.google.gson.annotations.SerializedName
+
 data class Event(
     val _id: String,
+    @SerializedName("eventAttendance")
     val attendees: List<Attendees>,
     val coHosts: List<String>,
     val host: String,

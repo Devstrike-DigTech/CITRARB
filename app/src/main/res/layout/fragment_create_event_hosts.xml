@@ -14,6 +14,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".features.events.newevent.CreateEventHosts">
 
+    <ProgressBar
+        android:id="@+id/createEventsProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -88,24 +96,30 @@
                     android:id="@+id/create_event_hosts_title"/>
 
                 <ImageView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/create_event_add_host_btn"
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:layout_toEndOf="@id/create_event_hosts_title"
-                    app:srcCompat="@drawable/ic_add"
-                    android:layout_margin="@dimen/padding_maxi"
+                    android:layout_marginStart="@dimen/padding_maxi"
+                    android:layout_marginTop="@dimen/padding_maxi"
+                    android:layout_marginEnd="@dimen/padding_maxi"
+                    android:layout_marginBottom="@dimen/padding_maxi"
+                    android:contentDescription="@string/add_host"
                     android:padding="@dimen/padding_mini"
-                    android:id="@+id/create_event_add_host_btn"
-                    android:contentDescription="@string/add_host" />
+                    app:srcCompat="@drawable/ic_add" />
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_event_hosts"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="250dp"
+                    android:layout_below="@id/create_event_hosts_title"
+                    android:layout_marginStart="@dimen/padding_maxi"
+                    android:layout_marginTop="@dimen/padding_maxi"
+                    android:layout_marginEnd="@dimen/padding_maxi"
+                    android:layout_marginBottom="@dimen/padding_maxi"
                     android:clipToPadding="false"
                     android:padding="@dimen/padding_mini"
-                    android:layout_margin="@dimen/padding_maxi"
-                    android:layout_below="@id/create_event_hosts_title"
-                    android:id="@+id/rv_event_hosts"/>
+                    tools:listitem="@layout/item_event_co_hosts_list_layout" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -134,7 +148,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:id="@+id/create_event_next_btn"
-                        android:text="@string/next"
+                        android:text="@string/create_event"
                         android:backgroundTint="@color/custom_secondary"
                         android:layout_margin="@dimen/padding_mini"
                         android:padding="@dimen/padding_mini"

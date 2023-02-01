@@ -36,4 +36,7 @@
     <style name="TabTextAppearance" parent="TextAppearance.AppCompat.Medium">
         <item name="android:textSize">12sp</item>
     </style>
+    <style name="CustomAlertDialog" parent="MaterialAlertDialog.Material3">
+        <item name="android:windowBackground">@drawable/rounded_corner</item>
+    </style>
 </resources>

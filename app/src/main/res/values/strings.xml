@@ -88,4 +88,6 @@
     <string name="create_event_title">Create Event</string>
     <string name="add_new_event_image_prompt">Add Event Image</string>
     <string name="create_event_date">Enter date and time for the new event</string>
+    <string name="add_hosts">Add hosts</string>
+    <string name="create_event">Create Event</string>
 </resources>

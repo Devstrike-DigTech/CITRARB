@@ -11,6 +11,8 @@ package org.devstrike.app.citrarb.features.events.data.models.requests
 data class CreateEventRequest(
     val coHosts: List<String>,
     val location: String,
+    val description: String,
     val name: String,
-    val time: String
+    val time: Long
+    //val photo: String
 )

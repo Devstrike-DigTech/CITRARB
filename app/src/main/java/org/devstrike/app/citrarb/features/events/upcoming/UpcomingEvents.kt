@@ -33,6 +33,7 @@ import org.devstrike.app.citrarb.features.events.data.models.responses.Event
 import org.devstrike.app.citrarb.features.events.repositories.EventsRepoImpl
 import org.devstrike.app.citrarb.features.events.ui.EventsLandingDirections
 import org.devstrike.app.citrarb.features.events.ui.EventsViewModel
+import org.devstrike.app.citrarb.features.members.data.FriendsDao
 import org.devstrike.app.citrarb.network.Resource
 import org.devstrike.app.citrarb.network.handleApiError
 import org.devstrike.app.citrarb.utils.SessionManager
@@ -50,6 +51,8 @@ class UpcomingEvents : BaseFragment<EventsViewModel, FragmentUpcomingEventsBindi
     var eventsApi: EventsApi by Delegates.notNull()
     @set:Inject
     var sessionManager: SessionManager by Delegates.notNull()
+    @set:Inject
+    var friendsDao: FriendsDao by Delegates.notNull()
 
     val eventsViewModel: EventsViewModel by activityViewModels()
     private lateinit var upcomingEventsAdapter: UpcomingEventsAdapter
@@ -99,16 +102,21 @@ class UpcomingEvents : BaseFragment<EventsViewModel, FragmentUpcomingEventsBindi
                             stopShimmer()
                             visible(false)
                         }
-                        if (result.value!!.event.isEmpty()) {
+                        if (result.value!!.event.isEmpty() || result.value.length == 0) {
                             requireContext().toast("No upcoming events!")
                         } else {
                             val unansweredEvents = mutableListOf<Event>()
                             for (event in result.value.event){
-                                for (attendee in event.attendees){
-                                    if (attendee.userId != userId){
-                                        unansweredEvents.add(event)
-                                        Log.d(TAG, "subscribeToUpcomingEventsListEvent inside attendees loop: $unansweredEvents")
+                                if (event.attendees.isNotEmpty()){
+                                    for (attendee in event.attendees){
+                                        if (attendee.userId != userId){
+                                            unansweredEvents.add(event)
+                                            Log.d(TAG, "subscribeToUpcomingEventsListEvent inside attendees loop: $unansweredEvents")
+                                        }
                                     }
+                                }
+                                else{
+                                    unansweredEvents.add(event)
                                 }
                                 Log.d(TAG, "subscribeToUpcomingEventsListEvent inside events loop: $unansweredEvents")
                             }
@@ -239,7 +247,7 @@ class UpcomingEvents : BaseFragment<EventsViewModel, FragmentUpcomingEventsBindi
         binding.upcomingEventsProgressBar.visible(false)
     }
 
-    override fun getFragmentRepo() = EventsRepoImpl(eventsApi, sessionManager)
+    override fun getFragmentRepo() = EventsRepoImpl(eventsApi, friendsDao, sessionManager)
 
     override fun getViewModel() = EventsViewModel::class.java
 

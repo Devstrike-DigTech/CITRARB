@@ -24,6 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.devstrike.app.citrarb.base.BaseFragment
 import org.devstrike.app.citrarb.databinding.FragmentFriendsBinding
+import org.devstrike.app.citrarb.features.members.data.FriendsDao
 import org.devstrike.app.citrarb.features.members.data.MembersApi
 import org.devstrike.app.citrarb.features.members.data.models.requests.FriendRequestResponseStatus
 import org.devstrike.app.citrarb.features.members.data.models.responses.FriendInfo
@@ -47,6 +48,9 @@ class Friends : BaseFragment<MembersViewModel, FragmentFriendsBinding, MembersRe
 
     @set:Inject
     var sessionManager: SessionManager by Delegates.notNull()
+
+    @set:Inject
+    var friendsDao: FriendsDao by Delegates.notNull()
 
     val membersViewModel: MembersViewModel by activityViewModels()
     private lateinit var friendRequestsAdapter: FriendRequestsAdapter
@@ -241,7 +245,7 @@ class Friends : BaseFragment<MembersViewModel, FragmentFriendsBinding, MembersRe
     }
 
 
-    override fun getFragmentRepo() = MembersRepoImpl(membersApi, sessionManager)
+    override fun getFragmentRepo() = MembersRepoImpl(membersApi, friendsDao, sessionManager)
 
     override fun getViewModel() = MembersViewModel::class.java
 

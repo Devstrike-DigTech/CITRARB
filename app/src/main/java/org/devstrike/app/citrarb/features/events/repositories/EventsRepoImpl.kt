@@ -8,6 +8,7 @@
 
 package org.devstrike.app.citrarb.features.events.repositories
 
+import kotlinx.coroutines.flow.Flow
 import org.devstrike.app.citrarb.base.BaseRepo
 import org.devstrike.app.citrarb.features.events.data.EventsApi
 import org.devstrike.app.citrarb.features.events.data.models.requests.CreateEventRequest
@@ -15,8 +16,11 @@ import org.devstrike.app.citrarb.features.events.data.models.requests.EventAtten
 import org.devstrike.app.citrarb.features.events.data.models.responses.CreateEventResponse
 import org.devstrike.app.citrarb.features.events.data.models.responses.EventAttendanceResponse
 import org.devstrike.app.citrarb.features.events.data.models.responses.GetEventsResponse
+import org.devstrike.app.citrarb.features.members.data.FriendsDao
 import org.devstrike.app.citrarb.features.members.data.MembersApi
+import org.devstrike.app.citrarb.features.members.data.models.responses.Friend
 import org.devstrike.app.citrarb.features.members.repositories.MembersRepo
+import org.devstrike.app.citrarb.features.news.newsLanding.data.local.SavedNewsListData
 import org.devstrike.app.citrarb.network.Resource
 import org.devstrike.app.citrarb.network.isNetworkConnected
 import org.devstrike.app.citrarb.utils.SessionManager
@@ -30,6 +34,7 @@ import javax.inject.Inject
  */
 class EventsRepoImpl @Inject constructor(
     val eventsApi: EventsApi,
+    val friendsDao: FriendsDao,
     val sessionManager: SessionManager
 ) : EventsRepo, BaseRepo() {
 
@@ -66,6 +71,11 @@ class EventsRepoImpl @Inject constructor(
             eventsApi.eventAttendance("Bearer ".plus(token!!), attendanceRequest)
         }
     }
+
+
+    override fun getFriendsListItemFromDB(): Flow<List<Friend>> =
+        friendsDao.getAllFriendsOrderByName()
+
 
 
 }

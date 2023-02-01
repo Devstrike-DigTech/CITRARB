@@ -22,12 +22,14 @@
         <entry key="app/src/main/res/drawable/layers_24.xml" value="0.142" />
         <entry key="app/src/main/res/drawable/profile_footer.xml" value="0.1455" />
         <entry key="app/src/main/res/drawable/profile_header.xml" value="0.1455" />
+        <entry key="app/src/main/res/drawable/rounded_corner.xml" value="0.1455" />
         <entry key="app/src/main/res/drawable/search_24.xml" value="0.1215" />
         <entry key="app/src/main/res/drawable/share_24.xml" value="0.142" />
         <entry key="app/src/main/res/drawable/toolbar_header.xml" value="0.1455" />
         <entry key="app/src/main/res/drawable/user_24.xml" value="0.1215" />
         <entry key="app/src/main/res/font/font.xml" value="0.21666666666666667" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.23485784919653893" />
+        <entry key="app/src/main/res/layout/custom_select_event_hosts.xml" value="0.25" />
         <entry key="app/src/main/res/layout/custom_tv_view_pager_item.xml" value="0.1099290780141844" />
         <entry key="app/src/main/res/layout/fragment_account_create.xml" value="0.2682052833446558" />
         <entry key="app/src/main/res/layout/fragment_account_log_in.xml" value="0.1" />
@@ -38,7 +40,7 @@
         <entry key="app/src/main/res/layout/fragment_app_menu.xml" value="0.3176803588867188" />
         <entry key="app/src/main/res/layout/fragment_concluded_events.xml" value="0.15942028985507245" />
         <entry key="app/src/main/res/layout/fragment_create_event.xml" value="0.20993957519531253" />
-        <entry key="app/src/main/res/layout/fragment_create_event_hosts.xml" value="0.27188507080078117" />
+        <entry key="app/src/main/res/layout/fragment_create_event_hosts.xml" value="0.2569444444444444" />
         <entry key="app/src/main/res/layout/fragment_entertainment_news.xml" value="0.15081521739130435" />
         <entry key="app/src/main/res/layout/fragment_events_landing.xml" value="0.15942028985507245" />
         <entry key="app/src/main/res/layout/fragment_eye_witness_list.xml" value="0.1099290780141844" />
@@ -64,7 +66,9 @@
         <entry key="app/src/main/res/layout/item_all_members_shimmer_layout.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_concluded_events_layout.xml" value="0.41442953020134227" />
         <entry key="app/src/main/res/layout/item_concluded_events_shimmer_layout.xml" value="0.3611111111111111" />
+        <entry key="app/src/main/res/layout/item_event_co_hosts_list_layout.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_eye_witness_list_layout.xml" value="0.2323716060248069" />
+        <entry key="app/src/main/res/layout/item_freinds_host_list_layout.xml" value="0.36170910821444746" />
         <entry key="app/src/main/res/layout/item_friend_request_layout.xml" value="0.308822723048557" />
         <entry key="app/src/main/res/layout/item_friend_request_shimmer_layout.xml" value="0.2565583125677756" />
         <entry key="app/src/main/res/layout/item_friends_layout.xml" value="0.1928101436224631" />
@@ -78,6 +82,7 @@
         <entry key="app/src/main/res/layout/item_tv_video_list_layout.xml" value="0.27208251953124996" />
         <entry key="app/src/main/res/layout/item_upcoming_events_layout.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_upcoming_events_shimmer_layout.xml" value="0.4035947712418301" />
+        <entry key="app/src/main/res/menu/events_host_tool_bar_menu.xml" value="0.24270833333333333" />
         <entry key="app/src/main/res/menu/events_menu.xml" value="0.1648148148148148" />
         <entry key="app/src/main/res/menu/tool_bar_menu.xml" value="0.22604166666666667" />
       </map>

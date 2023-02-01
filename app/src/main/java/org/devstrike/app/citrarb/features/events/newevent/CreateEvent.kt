@@ -36,7 +36,9 @@ import org.devstrike.app.citrarb.features.events.data.models.requests.CreateEven
 import org.devstrike.app.citrarb.features.events.repositories.EventsRepoImpl
 import org.devstrike.app.citrarb.features.events.ui.EventsLandingDirections
 import org.devstrike.app.citrarb.features.events.ui.EventsViewModel
+import org.devstrike.app.citrarb.features.members.data.FriendsDao
 import org.devstrike.app.citrarb.utils.SessionManager
+import org.devstrike.app.citrarb.utils.convertISODateToMillis
 import org.devstrike.app.citrarb.utils.toast
 import java.util.*
 import javax.inject.Inject
@@ -50,13 +52,15 @@ class CreateEvent : BaseFragment<EventsViewModel, FragmentCreateEventBinding, Ev
     var eventsApi: EventsApi by Delegates.notNull()
     @set:Inject
     var sessionManager: SessionManager by Delegates.notNull()
+    @set:Inject
+    var friendsDao: FriendsDao by Delegates.notNull()
 
     val eventsViewModel: EventsViewModel by activityViewModels()
 
     lateinit var eventName: String
     lateinit var eventDescription: String
     lateinit var eventLocation: String
-    lateinit var eventDate: String
+    var eventDate: Long = 0
 
     private lateinit var date_time: String
     var mYear = 0
@@ -142,7 +146,7 @@ class CreateEvent : BaseFragment<EventsViewModel, FragmentCreateEventBinding, Ev
             eventName = etCreateEventName.text.toString().trim()
             eventDescription = etCreateEventDescription.text.toString().trim()
             eventLocation = etCreateEventLocation.text.toString().trim()
-            eventDate = etCreateEventTime.text.toString().trim()
+            //eventDate = etCreateEventTime.text.toString().trim()
 
                 performValidation()
             }
@@ -183,7 +187,8 @@ class CreateEvent : BaseFragment<EventsViewModel, FragmentCreateEventBinding, Ev
                 mHour = hourOfDay
                 mMinute = minute
                 binding.etCreateEventTime.setText("$date_time by $hourOfDay:$minute")
-                eventDate = "${date_time}T$hourOfDay:$minute:00.000Z"
+                 val iSODate= "${date_time}T$hourOfDay:$minute:00.000Z"
+                eventDate = convertISODateToMillis(iSODate)
             }, mHour, mMinute, false
         )
         timePickerDialog.show()
@@ -204,7 +209,7 @@ class CreateEvent : BaseFragment<EventsViewModel, FragmentCreateEventBinding, Ev
                 textInputLayoutCreateEventLocation.error = "Required"
                 etCreateEventLocation.requestFocus()
             }
-            if (eventDate.isEmpty()){
+            if (etCreateEventTime.text.isNullOrEmpty()){
                 textInputLayoutCreateEventTime.error = "Required"
                 etCreateEventTime.requestFocus()
             }
@@ -216,7 +221,7 @@ class CreateEvent : BaseFragment<EventsViewModel, FragmentCreateEventBinding, Ev
 
     }
 
-    override fun getFragmentRepo() = EventsRepoImpl(eventsApi, sessionManager)
+    override fun getFragmentRepo() = EventsRepoImpl(eventsApi, friendsDao, sessionManager)
 
     override fun getViewModel() = EventsViewModel::class.java
 

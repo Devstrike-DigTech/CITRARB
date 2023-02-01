@@ -144,3 +144,11 @@ fun getMonthFromISODate(isoDate: String?): Int{
     return calendar.get(Calendar.MONTH)
 }
 
+fun convertISODateToMillis(isoDate: String): Long {
+    val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+    dateFormat.timeZone = TimeZone.getTimeZone("UTC")
+    val date = dateFormat.parse(isoDate)
+    return date!!.time
+
+}
+

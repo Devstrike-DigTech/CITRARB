@@ -20,6 +20,7 @@ import org.devstrike.app.citrarb.base.BaseFragment
 import org.devstrike.app.citrarb.databinding.FragmentEventsLandingBinding
 import org.devstrike.app.citrarb.features.events.data.EventsApi
 import org.devstrike.app.citrarb.features.events.repositories.EventsRepoImpl
+import org.devstrike.app.citrarb.features.members.data.FriendsDao
 import org.devstrike.app.citrarb.utils.SessionManager
 import javax.inject.Inject
 import kotlin.properties.Delegates
@@ -31,6 +32,8 @@ class EventsLanding : BaseFragment<EventsViewModel, FragmentEventsLandingBinding
     var eventsApi: EventsApi by Delegates.notNull()
     @set:Inject
     var sessionManager: SessionManager by Delegates.notNull()
+    @set:Inject
+    var friendsDao: FriendsDao by Delegates.notNull()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -81,7 +84,7 @@ class EventsLanding : BaseFragment<EventsViewModel, FragmentEventsLandingBinding
 
     }
 
-    override fun getFragmentRepo() = EventsRepoImpl(eventsApi, sessionManager)
+    override fun getFragmentRepo() = EventsRepoImpl(eventsApi, friendsDao, sessionManager)
 
     override fun getViewModel() = EventsViewModel::class.java
 

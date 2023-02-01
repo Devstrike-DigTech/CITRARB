@@ -27,6 +27,7 @@ import org.devstrike.app.citrarb.features.events.data.EventsApi
 import org.devstrike.app.citrarb.features.events.repositories.EventsRepo
 import org.devstrike.app.citrarb.features.events.repositories.EventsRepoImpl
 import org.devstrike.app.citrarb.features.landing.repositories.LandingRepo
+import org.devstrike.app.citrarb.features.members.data.FriendsDao
 import org.devstrike.app.citrarb.features.members.data.MembersApi
 import org.devstrike.app.citrarb.features.members.repositories.MembersRepo
 import org.devstrike.app.citrarb.features.members.repositories.MembersRepoImpl
@@ -109,6 +110,13 @@ object AppModule {
     fun provideLocalNewsListDao(
         appDb: CitrarbDatabase
     ) = appDb.getNewsListDao()
+
+    //Provide Friends Database DAO
+    @Singleton
+    @Provides
+    fun provideFriendsListDao(
+        appDb: CitrarbDatabase
+    ) = appDb.getFriendListDao()
 
     // = = = = = = = = = = = = = = = = = = PROVIDE APIS = = = = = = = = = = = = = = = = = = = = = =
 
@@ -197,10 +205,12 @@ object AppModule {
     @Provides
     fun providesMembersRepo(
         membersApi: MembersApi,
+        friendsDao: FriendsDao,
         sessionManager: SessionManager
     ): MembersRepo {
         return MembersRepoImpl(
             membersApi,
+            friendsDao,
             sessionManager
         )
     }
@@ -209,10 +219,12 @@ object AppModule {
     @Provides
     fun providesEventsRepo(
         eventsApi: EventsApi,
+        friendsDao: FriendsDao,
         sessionManager: SessionManager
     ): EventsRepo {
         return EventsRepoImpl(
             eventsApi,
+            friendsDao,
             sessionManager
         )
     }
