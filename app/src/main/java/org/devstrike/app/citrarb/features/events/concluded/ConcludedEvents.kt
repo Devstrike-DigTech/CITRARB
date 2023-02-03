@@ -9,60 +9,153 @@
 package org.devstrike.app.citrarb.features.events.concluded
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import org.devstrike.app.citrarb.R
+import androidx.appcompat.widget.SearchView
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
+import org.devstrike.app.citrarb.base.BaseFragment
+import org.devstrike.app.citrarb.base.CitrarbDatabase
+import org.devstrike.app.citrarb.databinding.FragmentConcludedEventsBinding
+import org.devstrike.app.citrarb.features.events.data.EventsApi
+import org.devstrike.app.citrarb.features.events.data.EventsDao
+import org.devstrike.app.citrarb.features.events.data.models.responses.Event
+import org.devstrike.app.citrarb.features.events.repositories.EventsRepoImpl
+import org.devstrike.app.citrarb.features.events.ui.EventsViewModel
+import org.devstrike.app.citrarb.features.members.data.FriendsDao
+import org.devstrike.app.citrarb.utils.SessionManager
+import org.devstrike.app.citrarb.utils.convertISODateToMillis
+import org.devstrike.app.citrarb.utils.toast
+import org.devstrike.app.citrarb.utils.visible
+import javax.inject.Inject
+import kotlin.properties.Delegates
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+@AndroidEntryPoint
+class ConcludedEvents : BaseFragment<EventsViewModel, FragmentConcludedEventsBinding, EventsRepoImpl>() {
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ConcludedEvents.newInstance] factory method to
- * create an instance of this fragment.
- */
-class ConcludedEvents : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+    @set:Inject
+    var eventsApi: EventsApi by Delegates.notNull()
+    @set:Inject
+    var sessionManager: SessionManager by Delegates.notNull()
+    @set:Inject
+    var friendsDao: FriendsDao by Delegates.notNull()
+    @set:Inject
+    var eventsDao: EventsDao by Delegates.notNull()
+    @set:Inject
+    var db: CitrarbDatabase by Delegates.notNull()
+
+
+    val eventsViewModel: EventsViewModel by activityViewModels()
+
+    private lateinit var concludedEventsAdapter: ConcludedEventsAdapter
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        concludedEventsAdapter = ConcludedEventsAdapter(requireContext())
+        subscribeToConcludedEventsListEvent()
+
+        binding.ivSearchConcludedEvents.setOnQueryTextListener(object :
+            SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                query?.let {
+                    searchConcludedEvent(it)
+                }
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                newText?.let {
+                    searchConcludedEvent(it)
+                }
+                return true
+            }
+
+        })
+
+
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_concluded_events, container, false)
+    //function to actually search the notes with the entered search characters that match saved notes
+    private fun searchConcludedEvent(query: String) = lifecycleScope.launch {
+        eventsViewModel.searchQuery = query
+        concludedEventsAdapter.events = eventsViewModel.savedEventsList.first().filter {
+            it.name.contains(query, true) || it.location.contains(query, true) || it.host.contains(
+                query,
+                true
+            )
+        }.toMutableList()
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ConcludedEvents.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ConcludedEvents().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+
+
+    private fun subscribeToConcludedEventsListEvent() {
+        lifecycleScope.launch{
+            //val userId = sessionManager.getCurrentUserId()
+            val query = eventsViewModel.searchQuery
+            eventsViewModel.savedEventsList.collect{ result ->
+                if (result.isEmpty()) {
+                    requireContext().toast("No concluded events!")
+                } else {
+                    val concludedEvents = mutableListOf<Event>()
+                    for (event in result) {
+                        val eventTime = convertISODateToMillis(event.time)
+                        if (eventTime < System.currentTimeMillis()) { //is concluded
+                            concludedEvents.add(event)
+                        }
+                    }
+                    //concludedEventsAdapter.submitList(concludedEvents)
+                    concludedEventsAdapter.events = concludedEvents.filter { event ->
+                        event.name.contains(query, true) || event.location.contains(query, true) || event.host.contains(
+                            query,
+                            true
+                        )
+                    }.toMutableList()
+                    subscribeToConcludedEventsUi()
                 }
             }
+        }
+
     }
+
+    private fun subscribeToConcludedEventsUi() {
+        binding.rvConcludedEvents.visible(true)
+
+        val upcomingEventsListLayoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+
+        binding.rvConcludedEvents.apply {
+            adapter = concludedEventsAdapter
+            layoutManager = upcomingEventsListLayoutManager
+            addItemDecoration(
+                DividerItemDecoration(
+                    requireContext(), upcomingEventsListLayoutManager.orientation
+                )
+            )
+        }
+
+        concludedEventsAdapter.createOnItemClickListener { event ->
+
+        }
+
+
+    }
+
+
+    override fun getFragmentRepo() = EventsRepoImpl(eventsApi, db, friendsDao, eventsDao, sessionManager)
+
+    override fun getViewModel() = EventsViewModel::class.java
+
+    override fun getFragmentBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ) = FragmentConcludedEventsBinding.inflate(inflater, container, false)
+
 }

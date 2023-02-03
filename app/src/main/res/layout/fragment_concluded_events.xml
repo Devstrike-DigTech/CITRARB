@@ -19,49 +19,53 @@
         android:id="@+id/iv_sort_concluding_events"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/padding_mini"
-        android:contentDescription="@string/sort_all_upcoming_events"
+        android:layout_margin="@dimen/padding_maxi"
+        android:layout_alignParentEnd="true"
+        android:contentDescription="@string/sort_all_concluded_events"
         android:padding="@dimen/padding_mini"
         app:srcCompat="@drawable/ic_sort" />
 
-    <ImageView
+    <androidx.appcompat.widget.SearchView
         android:id="@+id/iv_search_concluded_events"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
         android:layout_margin="@dimen/padding_mini"
+        app:queryHint="@string/search_concluded_events"
         android:contentDescription="@string/search_concluded_events"
         android:padding="@dimen/padding_mini"
         app:srcCompat="@drawable/ic_search" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/iv_search_concluded_events"
-        android:layout_margin="@dimen/padding_mini"
-        android:orientation="vertical"
-        android:padding="@dimen/padding_mini">
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@id/iv_search_concluded_events"-->
+<!--        android:layout_margin="@dimen/padding_mini"-->
+<!--        android:orientation="vertical"-->
+<!--        android:padding="@dimen/padding_mini">-->
 
 
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/padding_mini"
-            android:padding="@dimen/padding_mini"
-            app:cardElevation="@dimen/padding_mini">
+<!--        <com.google.android.material.card.MaterialCardView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_margin="@dimen/padding_mini"-->
+<!--            android:padding="@dimen/padding_mini"-->
+<!--            app:cardElevation="@dimen/padding_mini">-->
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/iv_search_concluded_events"
                 android:orientation="vertical">
-
 
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_concluded_events"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/padding_mini"
+                    android:layout_marginStart="@dimen/padding_mini"
+                    android:layout_marginTop="@dimen/padding_mini"
+                    android:layout_marginEnd="@dimen/padding_mini"
+                    android:layout_marginBottom="@dimen/padding_mini"
                     android:clipToPadding="false"
                     android:padding="@dimen/padding_mini"
                     tools:itemCount="2"
@@ -73,6 +77,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:animateLayoutChanges="true"
+                    android:visibility="gone"
                     android:animationCache="true"
                     app:shimmer_repeat_mode="restart"
                     app:shimmer_shape="radial">
@@ -101,10 +106,10 @@
 
             </RelativeLayout>
 
-        </com.google.android.material.card.MaterialCardView>
+<!--        </com.google.android.material.card.MaterialCardView>-->
 
 
-    </LinearLayout>
+<!--    </LinearLayout>-->
 
 
 </RelativeLayout>

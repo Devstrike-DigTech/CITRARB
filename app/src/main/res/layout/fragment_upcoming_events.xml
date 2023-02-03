@@ -29,20 +29,20 @@
         android:id="@+id/iv_sort_upcoming_events"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/padding_mini"
+        android:layout_margin="@dimen/padding_maxi"
         android:contentDescription="@string/sort_all_upcoming_events"
         android:padding="@dimen/padding_mini"
+        android:layout_alignParentEnd="true"
         app:srcCompat="@drawable/ic_sort" />
 
-    <ImageView
+    <androidx.appcompat.widget.SearchView
         android:id="@+id/iv_search_upcoming_events"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
         android:layout_margin="@dimen/padding_mini"
         android:contentDescription="@string/search_upcoming_events"
         android:padding="@dimen/padding_mini"
-        app:srcCompat="@drawable/ic_search" />
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -95,6 +95,7 @@
                     android:layout_height="wrap_content"
                     android:animateLayoutChanges="true"
                     android:animationCache="true"
+                    android:visibility="gone"
                     app:shimmer_repeat_mode="restart"
                     app:shimmer_shape="radial">
 

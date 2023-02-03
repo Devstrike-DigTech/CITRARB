@@ -220,5 +220,18 @@
         <action
             android:id="@+id/action_createEventHosts_to_eventsLanding"
             app:destination="@id/eventsLanding" />
+        <action
+            android:id="@+id/action_createEventHosts_to_upcomingEvents"
+            app:destination="@id/upcomingEvents" />
     </fragment>
+    <fragment
+        android:id="@+id/upcomingEvents"
+        android:name="org.devstrike.app.citrarb.features.events.upcoming.UpcomingEvents"
+        android:label="fragment_upcoming_events"
+        tools:layout="@layout/fragment_upcoming_events" />
+    <fragment
+        android:id="@+id/concludedEvents"
+        android:name="org.devstrike.app.citrarb.features.events.concluded.ConcludedEvents"
+        android:label="fragment_concluded_events"
+        tools:layout="@layout/fragment_concluded_events" />
 </navigation>

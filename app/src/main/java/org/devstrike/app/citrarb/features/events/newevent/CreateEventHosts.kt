@@ -26,8 +26,10 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import org.devstrike.app.citrarb.R
 import org.devstrike.app.citrarb.base.BaseFragment
+import org.devstrike.app.citrarb.base.CitrarbDatabase
 import org.devstrike.app.citrarb.databinding.FragmentCreateEventHostsBinding
 import org.devstrike.app.citrarb.features.events.data.EventsApi
+import org.devstrike.app.citrarb.features.events.data.EventsDao
 import org.devstrike.app.citrarb.features.events.data.models.requests.CreateEventRequest
 import org.devstrike.app.citrarb.features.events.repositories.EventsRepoImpl
 import org.devstrike.app.citrarb.features.events.ui.EventsViewModel
@@ -50,9 +52,14 @@ class CreateEventHosts :
 
     @set:Inject
     var friendDao: FriendsDao by Delegates.notNull()
+    @set:Inject
+    var eventDao: EventsDao by Delegates.notNull()
 
     @set:Inject
     var sessionManager: SessionManager by Delegates.notNull()
+    @set:Inject
+    var db: CitrarbDatabase by Delegates.notNull()
+
 
     private var coHosts = mutableListOf<Friend>()
 
@@ -134,7 +141,7 @@ class CreateEventHosts :
                     is Resource.Success ->{
                         hideProgressBar()
                         requireContext().toast("Event Created!")
-                        val navBackToEvents = CreateEventHostsDirections.actionCreateEventHostsToEventsLanding()
+                        val navBackToEvents = CreateEventHostsDirections.actionCreateEventHostsToUpcomingEvents()
                         findNavController().navigate(navBackToEvents)
 
                     }
@@ -267,7 +274,7 @@ class CreateEventHosts :
     }
 
 
-    override fun getFragmentRepo() = EventsRepoImpl(eventApi, friendDao, sessionManager)
+    override fun getFragmentRepo() = EventsRepoImpl(eventApi, db, friendDao, eventDao, sessionManager)
 
 
     override fun getViewModel() = EventsViewModel::class.java

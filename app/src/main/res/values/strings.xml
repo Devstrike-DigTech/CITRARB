@@ -90,4 +90,6 @@
     <string name="create_event_date">Enter date and time for the new event</string>
     <string name="add_hosts">Add hosts</string>
     <string name="create_event">Create Event</string>
+    <string name="sort_all_concluded_eventsS">Sort all concluded events alphabetically</string>
+    <string name="sort_all_concluded_events">Sort all concluded events alphabetically</string>
 </resources>

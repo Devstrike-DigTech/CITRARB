@@ -17,6 +17,8 @@ import org.devstrike.app.citrarb.features.tv.data.TVVideos
  */
 object Common {
 
+    var userId = ""
+
     //base url for all api calls
     const val BASE_URL = "https://fair-cyan-crayfish-sock.cyclic.app/"
     const val USER_BASE_URL = "https://citrab.onrender.com"

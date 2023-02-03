@@ -60,11 +60,11 @@
         <entry key="app/src/main/res/layout/fragment_sports_news.xml" value="0.15081521739130435" />
         <entry key="app/src/main/res/layout/fragment_t_v_detail.xml" value="0.18" />
         <entry key="app/src/main/res/layout/fragment_tv_video_list.xml" value="0.14492753623188406" />
-        <entry key="app/src/main/res/layout/fragment_upcoming_events.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_upcoming_events.xml" value="0.2356687898089172" />
         <entry key="app/src/main/res/layout/fragment_user_account.xml" value="0.1802536231884058" />
         <entry key="app/src/main/res/layout/item_all_members_layout.xml" value="0.20554199218750002" />
         <entry key="app/src/main/res/layout/item_all_members_shimmer_layout.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/item_concluded_events_layout.xml" value="0.41442953020134227" />
+        <entry key="app/src/main/res/layout/item_concluded_events_layout.xml" value="0.4669187145557656" />
         <entry key="app/src/main/res/layout/item_concluded_events_shimmer_layout.xml" value="0.3611111111111111" />
         <entry key="app/src/main/res/layout/item_event_co_hosts_list_layout.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_eye_witness_list_layout.xml" value="0.2323716060248069" />

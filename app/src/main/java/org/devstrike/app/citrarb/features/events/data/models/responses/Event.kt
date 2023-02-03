@@ -8,14 +8,20 @@
 
 package org.devstrike.app.citrarb.features.events.data.models.responses
 
+import androidx.room.*
 import com.google.gson.annotations.SerializedName
+import org.devstrike.app.citrarb.utils.CitrarbTypeConverters
 
+@Entity
+@TypeConverters(CitrarbTypeConverters::class)
 data class Event(
-    val _id: String,
+    @SerializedName("_id")
+    val uid: String,
     @SerializedName("eventAttendance")
-    val attendees: List<Attendees>,
+    val attendees: List<String>,
     val coHosts: List<String>,
     val host: String,
+    @PrimaryKey(autoGenerate = false)
     val id: String,
     val location: String,
     val name: String,

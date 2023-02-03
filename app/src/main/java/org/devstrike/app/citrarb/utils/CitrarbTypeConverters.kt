@@ -11,6 +11,7 @@ package org.devstrike.app.citrarb.utils
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import org.devstrike.app.citrarb.features.events.data.models.responses.Attendees
 import org.devstrike.app.citrarb.features.news.newsdetail.data.NewsArticle
 import org.devstrike.app.citrarb.features.news.newsLanding.data.remote.NewsListResponse
 
@@ -22,6 +23,27 @@ import org.devstrike.app.citrarb.features.news.newsLanding.data.remote.NewsListR
  */
 class CitrarbTypeConverters {
     val gson = Gson()
+
+    @TypeConverter
+    fun fromStringList(list: List<String>): String {
+        return list.joinToString(",")
+    }
+
+    @TypeConverter
+    fun toStringList(data: String): List<String> {
+        return data.split(",")
+    }
+
+    @TypeConverter
+    fun fromAttendeesList(list: List<Attendees>): String {
+        return gson.toJson(list)
+    }
+
+    @TypeConverter
+    fun toAttendeesList(data: String): List<Attendees> {
+        val type = object : TypeToken<List<Attendees>>() {}.type
+        return gson.fromJson(data, type)
+    }
 
     //convert news list response data class to a string
     @TypeConverter
@@ -48,4 +70,6 @@ class CitrarbTypeConverters {
         val articleObjectType = object : TypeToken<NewsArticle>() {}.type
         return gson.fromJson(newsArticleString, articleObjectType)
     }
+
+
 }

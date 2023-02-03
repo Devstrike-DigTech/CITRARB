@@ -6,7 +6,7 @@
  *
  */
 
-package org.devstrike.app.citrarb.features.events.upcoming
+package org.devstrike.app.citrarb.features.events.concluded
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -15,47 +15,36 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import org.devstrike.app.citrarb.databinding.ItemUpcomingEventsLayoutBinding
+import org.devstrike.app.citrarb.databinding.ItemConcludedEventsLayoutBinding
 import org.devstrike.app.citrarb.features.events.data.models.responses.Event
-import org.devstrike.app.citrarb.features.members.data.models.responses.Friend
-import org.devstrike.app.citrarb.features.members.data.models.responses.FriendRequest
-import org.devstrike.app.citrarb.utils.Common.userId
-import org.devstrike.app.citrarb.utils.SessionManager
+import org.devstrike.app.citrarb.features.events.upcoming.UpcomingEventsAdapter
+import org.devstrike.app.citrarb.utils.Common
 import org.devstrike.app.citrarb.utils.convertISODateToMonthYearAndTime
-import org.devstrike.app.citrarb.utils.loadImage
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
 /**
- * Created by Richard Uzor  on 30/01/2023
+ * Created by Richard Uzor  on 02/02/2023
  */
 /**
- * Created by Richard Uzor  on 30/01/2023
+ * Created by Richard Uzor  on 02/02/2023
  */
-class UpcomingEventsAdapter @Inject constructor(
+class ConcludedEventsAdapter @Inject constructor(
     val context: Context
-) : RecyclerView.Adapter<UpcomingEventsAdapter.UpcomingEventsListViewHolder>() {
+) : RecyclerView.Adapter<ConcludedEventsAdapter.ConcludedEventsListViewHolder>() {
 
     private var isInviteAccepted by Delegates.notNull<Boolean>()
 
-    class UpcomingEventsListViewHolder(val binding: ItemUpcomingEventsLayoutBinding) :
+    class ConcludedEventsListViewHolder(val binding: ItemConcludedEventsLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(itemData: Event) {
             binding.apply {
-                upcomingEventItem = itemData
-                //itemSendRequestClickListener = listener
+                concludedEventItem = itemData
+                //concludedEventItemClicker = listener
                 executePendingBindings()
             }
         }
     }
-
-    //implement the getter and setter for the diff util with the notes
-    private val diffUtil = DiffCallback()
-    val differ = AsyncListDiffer(this, diffUtil)
-    var events: MutableList<Event>
-        get() = differ.currentList
-        set(value) = differ.submitList(value)
-
 
 
     private class DiffCallback : DiffUtil.ItemCallback<Event>() {
@@ -69,23 +58,34 @@ class UpcomingEventsAdapter @Inject constructor(
 
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UpcomingEventsListViewHolder {
-        return UpcomingEventsListViewHolder(
-            ItemUpcomingEventsLayoutBinding.inflate(
+
+    //implement the getter and setter for the diff util with the notes
+    private val diffUtil = ConcludedEventsAdapter.DiffCallback()
+    val differ = AsyncListDiffer(this, diffUtil)
+    var events: MutableList<Event>
+        get() = differ.currentList
+        set(value) = differ.submitList(value)
+
+
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): ConcludedEventsListViewHolder {
+        return ConcludedEventsListViewHolder(
+            ItemConcludedEventsLayoutBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent, false
             )
         )
     }
 
-    override fun onBindViewHolder(holder: UpcomingEventsListViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ConcludedEventsListViewHolder, position: Int) {
         val event = events[position]
         holder.apply {
             bind(event)
         }.also { itemView ->
-            itemView.binding.btnUpcomingEventGoing.setOnClickListener {
-                isInviteAccepted = true
-                onItemAcceptClickListener?.invoke(event)
+            itemView.binding.root.setOnClickListener {
+                onItemClickListener?.invoke(event)
             }
 //            itemView.binding.btnUpcomingEventNotGoing.setOnClickListener {
 //                isInviteAccepted = false
@@ -94,33 +94,29 @@ class UpcomingEventsAdapter @Inject constructor(
             itemView.binding.txtEventDate.text = convertISODateToMonthYearAndTime(event.time)
             val eventHosts = mutableListOf<String>()
             eventHosts.add(event.host)
-            for (host in event.coHosts){
+            for (host in event.coHosts) {
                 eventHosts.add(host)
             }
             for (host in eventHosts)
                 itemView.binding.txtEventHosts.append("$host, ")
             //itemView.binding.backgroundImage.loadImage()
-
-            itemView.binding.txtAttendanceStatus.apply {
-                this.text = if(event.attendees.contains(userId)){
-                     "Going"
+            itemView.binding.txtEventAttendance.apply {
+                this.text = if(event.attendees.contains(Common.userId)){
+                    "Attended"
                 }else{
-                    "Not Going"
+                    "Not Attended"
                 }
             }
         }
     }
-    private var onItemAcceptClickListener: ((Event) -> Unit)? = null
-    private var onItemRejectClickListener: ((Event) -> Unit)? = null
-    fun createOnAcceptClickListener(listener: (Event) -> Unit){
-        onItemAcceptClickListener = listener
-    }
 
-    fun createOnRejectClickListener(listener: (Event) -> Unit){
-        onItemRejectClickListener = listener
+    private var onItemClickListener: ((Event) -> Unit)? = null
+    fun createOnItemClickListener(listener: (Event) -> Unit) {
+        onItemClickListener = listener
     }
 
     override fun getItemCount(): Int {
         return events.size
     }
+
 }

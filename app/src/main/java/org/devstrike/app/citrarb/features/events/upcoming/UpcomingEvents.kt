@@ -11,22 +11,25 @@ package org.devstrike.app.citrarb.features.events.upcoming
 import android.content.ContentValues
 import android.os.Bundle
 import android.provider.CalendarContract
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.PopupMenu
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import org.devstrike.app.citrarb.R
 import org.devstrike.app.citrarb.base.BaseFragment
+import org.devstrike.app.citrarb.base.CitrarbDatabase
 import org.devstrike.app.citrarb.databinding.FragmentUpcomingEventsBinding
 import org.devstrike.app.citrarb.features.events.data.EventsApi
+import org.devstrike.app.citrarb.features.events.data.EventsDao
 import org.devstrike.app.citrarb.features.events.data.models.requests.EventAttendanceRequest
 import org.devstrike.app.citrarb.features.events.data.models.responses.Data
 import org.devstrike.app.citrarb.features.events.data.models.responses.Event
@@ -36,23 +39,30 @@ import org.devstrike.app.citrarb.features.events.ui.EventsViewModel
 import org.devstrike.app.citrarb.features.members.data.FriendsDao
 import org.devstrike.app.citrarb.network.Resource
 import org.devstrike.app.citrarb.network.handleApiError
-import org.devstrike.app.citrarb.utils.SessionManager
-import org.devstrike.app.citrarb.utils.getYearFromISODate
-import org.devstrike.app.citrarb.utils.toast
-import org.devstrike.app.citrarb.utils.visible
+import org.devstrike.app.citrarb.utils.*
 import java.util.*
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
 @AndroidEntryPoint
-class UpcomingEvents : BaseFragment<EventsViewModel, FragmentUpcomingEventsBinding, EventsRepoImpl>() {
+class UpcomingEvents :
+    BaseFragment<EventsViewModel, FragmentUpcomingEventsBinding, EventsRepoImpl>() {
 
     @set:Inject
     var eventsApi: EventsApi by Delegates.notNull()
+
     @set:Inject
     var sessionManager: SessionManager by Delegates.notNull()
+
     @set:Inject
     var friendsDao: FriendsDao by Delegates.notNull()
+
+    @set:Inject
+    var eventsDao: EventsDao by Delegates.notNull()
+
+    @set:Inject
+    var db: CitrarbDatabase by Delegates.notNull()
+
 
     val eventsViewModel: EventsViewModel by activityViewModels()
     private lateinit var upcomingEventsAdapter: UpcomingEventsAdapter
@@ -71,7 +81,8 @@ class UpcomingEvents : BaseFragment<EventsViewModel, FragmentUpcomingEventsBindi
             popup.setOnMenuItemClickListener { item ->
                 when (item.itemId) {
                     R.id.event_menu_new_event -> {
-                        val navToCreateNewEvent = EventsLandingDirections.actionEventsLandingToCreateEvent()
+                        val navToCreateNewEvent =
+                            EventsLandingDirections.actionEventsLandingToCreateEvent()
                         findNavController().navigate(navToCreateNewEvent)
                         true
                     }
@@ -87,53 +98,77 @@ class UpcomingEvents : BaseFragment<EventsViewModel, FragmentUpcomingEventsBindi
 
         subscribeToUpcomingEventsListEvent()
 
+
+        binding.ivSearchUpcomingEvents.setOnQueryTextListener(object :
+            SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                query?.let {
+                    searchUpcomingEvent(it)
+                }
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                newText?.let {
+                    searchUpcomingEvent(it)
+                }
+                return true
+            }
+
+        })
+
     }
 
 
+    //function to actually search the notes with the entered search characters that match saved notes
+    private fun searchUpcomingEvent(query: String) = lifecycleScope.launch {
+        eventsViewModel.searchQuery = query
+        upcomingEventsAdapter.events = eventsViewModel.savedEventsList.first().filter {
+            it.name.contains(query, true) || it.location.contains(query, true) || it.host.contains(
+                query,
+                true
+            )
+        }.toMutableList()
+    }
+
 
     private fun subscribeToUpcomingEventsListEvent() {
-        eventsViewModel.getAllEvents()
-        lifecycleScope.launch{
-            eventsViewModel.allEventsState.collect{ result ->
-                when(result){
-                    is Resource.Success ->{
-                        val userId = sessionManager.getCurrentUserId()
-                        binding.upcomingEventShimmerLayout.apply {
-                            stopShimmer()
-                            visible(false)
+        lifecycleScope.launch {
+            val userId = sessionManager.getCurrentUserId()
+            val query = eventsViewModel.searchQuery
+            eventsViewModel.savedEventsList.collect { result ->
+                if (result.isEmpty()) {
+                    requireContext().toast("No upcoming events!")
+                } else {
+
+                    val upcomingEvents = mutableListOf<Event>()
+                    for (event in result) {
+                        val eventTime = convertISODateToMillis(event.time)
+                        if (eventTime > System.currentTimeMillis()) { //is upcoming
+                            upcomingEvents.add(event)
                         }
-                        if (result.value!!.event.isEmpty() || result.value.length == 0) {
-                            requireContext().toast("No upcoming events!")
-                        } else {
-                            val unansweredEvents = mutableListOf<Event>()
-                            for (event in result.value.event){
-                                if (event.attendees.isNotEmpty()){
-                                    for (attendee in event.attendees){
-                                        if (attendee.userId != userId){
-                                            unansweredEvents.add(event)
-                                            Log.d(TAG, "subscribeToUpcomingEventsListEvent inside attendees loop: $unansweredEvents")
-                                        }
-                                    }
-                                }
-                                else{
+                    }
+                    val unansweredEvents = mutableListOf<Event>()
+                    for (event in upcomingEvents) {
+                        if (event.attendees.isNotEmpty()) {
+                            for (attendee in event.attendees) {
+                                if (attendee !== userId) {
                                     unansweredEvents.add(event)
                                 }
-                                Log.d(TAG, "subscribeToUpcomingEventsListEvent inside events loop: $unansweredEvents")
                             }
-                            Log.d(TAG, "subscribeToUpcomingEventsListEvent outside all loops: $unansweredEvents")
-                            upcomingEventsAdapter.submitList(unansweredEvents)
-                            subscribeToUpcomingEventsUi()
+                        } else {
+                            unansweredEvents.add(event)
                         }
                     }
-                    is Resource.Failure ->{
-                        binding.upcomingEventShimmerLayout.stopShimmer()
-                        binding.upcomingEventShimmerLayout.visible(false)
-                        handleApiError(result.error){subscribeToUpcomingEventsListEvent()}
-                    }
-                    is Resource.Loading ->{
-                        binding.upcomingEventShimmerLayout.visible(true)
-                        binding.upcomingEventShimmerLayout.startShimmer()
-                    }
+
+                    upcomingEventsAdapter.events = upcomingEvents.filter { event ->
+                        event.name.contains(query, true) || event.location.contains(query, true) || event.host.contains(
+                            query,
+                            true
+                        )
+                    }.toMutableList()
+                    //upcomingEventsAdapter.submitList(unansweredEvents)
+                    subscribeToUpcomingEventsUi()
                 }
             }
         }
@@ -177,20 +212,20 @@ class UpcomingEvents : BaseFragment<EventsViewModel, FragmentUpcomingEventsBindi
     ) {
 
         eventsViewModel.eventAttendance(attendanceRequest)
-        lifecycleScope.launch{
-            eventsViewModel.eventAttendanceState.collect{ result ->
-                when(result){
-                    is Resource.Success ->{
+        lifecycleScope.launch {
+            eventsViewModel.eventAttendanceState.collect { result ->
+                when (result) {
+                    is Resource.Success -> {
                         addToCalendar(result.value!!.data, event)
                         hideProgressBar()
                         requireContext().toast("Added to calendar!")
 
                     }
-                    is Resource.Failure ->{
+                    is Resource.Failure -> {
                         hideProgressBar()
-                        handleApiError(result.error){makeReservation(attendanceRequest, event)}
+                        handleApiError(result.error) { makeReservation(attendanceRequest, event) }
                     }
-                    is Resource.Loading ->{
+                    is Resource.Loading -> {
                         showProgressBar()
                     }
                 }
@@ -235,19 +270,19 @@ class UpcomingEvents : BaseFragment<EventsViewModel, FragmentUpcomingEventsBindi
         contentResolver.insert(CalendarContract.Events.CONTENT_URI, values)
 
 
-
     }
 
 
-    private fun showProgressBar(){
+    private fun showProgressBar() {
         binding.upcomingEventsProgressBar.visible(true)
     }
 
-    private fun hideProgressBar(){
+    private fun hideProgressBar() {
         binding.upcomingEventsProgressBar.visible(false)
     }
 
-    override fun getFragmentRepo() = EventsRepoImpl(eventsApi, friendsDao, sessionManager)
+    override fun getFragmentRepo() =
+        EventsRepoImpl(eventsApi, db, friendsDao, eventsDao, sessionManager)
 
     override fun getViewModel() = EventsViewModel::class.java
 

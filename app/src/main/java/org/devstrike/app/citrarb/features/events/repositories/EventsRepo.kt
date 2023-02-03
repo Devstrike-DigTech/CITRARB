@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.Flow
 import org.devstrike.app.citrarb.features.events.data.models.requests.CreateEventRequest
 import org.devstrike.app.citrarb.features.events.data.models.requests.EventAttendanceRequest
 import org.devstrike.app.citrarb.features.events.data.models.responses.CreateEventResponse
+import org.devstrike.app.citrarb.features.events.data.models.responses.Event
 import org.devstrike.app.citrarb.features.events.data.models.responses.EventAttendanceResponse
 import org.devstrike.app.citrarb.features.events.data.models.responses.GetEventsResponse
 import org.devstrike.app.citrarb.features.members.data.models.requests.SendFriendRequest
@@ -25,8 +26,10 @@ import org.devstrike.app.citrarb.network.Resource
  */
 interface EventsRepo {
 
-    suspend fun getAllEvents(): Resource<GetEventsResponse>
+    //suspend
+    fun getAllEvents(): Flow<Resource<List<Event>>>
     suspend fun createEvent(createdEvent: CreateEventRequest): Resource<CreateEventResponse>
     suspend fun eventAttendance(attendanceRequest: EventAttendanceRequest): Resource<EventAttendanceResponse>
     fun getFriendsListItemFromDB(): Flow<List<Friend>>
+    fun getEventsListItemFromDB(): Flow<List<Event>>
 }

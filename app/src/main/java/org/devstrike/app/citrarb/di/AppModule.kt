@@ -24,6 +24,7 @@ import org.devstrike.app.citrarb.features.account.data.UserApi
 import org.devstrike.app.citrarb.features.account.repositories.UserRepo
 import org.devstrike.app.citrarb.features.account.repositories.UserRepoImpl
 import org.devstrike.app.citrarb.features.events.data.EventsApi
+import org.devstrike.app.citrarb.features.events.data.EventsDao
 import org.devstrike.app.citrarb.features.events.repositories.EventsRepo
 import org.devstrike.app.citrarb.features.events.repositories.EventsRepoImpl
 import org.devstrike.app.citrarb.features.landing.repositories.LandingRepo
@@ -117,6 +118,13 @@ object AppModule {
     fun provideFriendsListDao(
         appDb: CitrarbDatabase
     ) = appDb.getFriendListDao()
+
+    //Provide Events Database DAO
+    @Singleton
+    @Provides
+    fun provideEventsListDao(
+        appDb: CitrarbDatabase
+    ) = appDb.getEventsListDao()
 
     // = = = = = = = = = = = = = = = = = = PROVIDE APIS = = = = = = = = = = = = = = = = = = = = = =
 
@@ -219,12 +227,16 @@ object AppModule {
     @Provides
     fun providesEventsRepo(
         eventsApi: EventsApi,
+        db: CitrarbDatabase,
         friendsDao: FriendsDao,
+        eventsDao: EventsDao,
         sessionManager: SessionManager
     ): EventsRepo {
         return EventsRepoImpl(
             eventsApi,
+            db,
             friendsDao,
+            eventsDao,
             sessionManager
         )
     }

@@ -8,6 +8,7 @@
 
 package org.devstrike.app.citrarb.features.events.ui
 
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
@@ -63,12 +64,14 @@ class EventsViewModel @Inject constructor(
 
 
     var savedFriendsList = eventsRepo.getFriendsListItemFromDB()
+    var savedEventsList = eventsRepo.getEventsListItemFromDB()
     var searchQuery: String = ""
 
-    fun getAllEvents() = viewModelScope.launch {
-        _allEventsState.emit(Resource.Loading)
-        _allEventsState.emit(eventsRepo.getAllEvents())
-    }
+    val getAllEvents = eventsRepo.getAllEvents().asLiveData()
+//    launch {
+//        _allEventsState.emit(Resource.Loading)
+//        _allEventsState.emit(eventsRepo.getAllEvents())
+//    }
 
     fun createEvent(createdEvent: CreateEventRequest) = viewModelScope.launch {
         _createEventState.emit(Resource.Loading)

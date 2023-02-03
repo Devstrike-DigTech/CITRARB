@@ -10,18 +10,30 @@ package org.devstrike.app.citrarb.features.events.ui
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import org.devstrike.app.citrarb.R
 import org.devstrike.app.citrarb.base.BaseFragment
+import org.devstrike.app.citrarb.base.CitrarbDatabase
 import org.devstrike.app.citrarb.databinding.FragmentEventsLandingBinding
 import org.devstrike.app.citrarb.features.events.data.EventsApi
+import org.devstrike.app.citrarb.features.events.data.EventsDao
+import org.devstrike.app.citrarb.features.events.data.models.responses.Event
 import org.devstrike.app.citrarb.features.events.repositories.EventsRepoImpl
 import org.devstrike.app.citrarb.features.members.data.FriendsDao
+import org.devstrike.app.citrarb.network.Resource
+import org.devstrike.app.citrarb.network.handleApiError
+import org.devstrike.app.citrarb.utils.Common
 import org.devstrike.app.citrarb.utils.SessionManager
+import org.devstrike.app.citrarb.utils.toast
+import org.devstrike.app.citrarb.utils.visible
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
@@ -34,6 +46,13 @@ class EventsLanding : BaseFragment<EventsViewModel, FragmentEventsLandingBinding
     var sessionManager: SessionManager by Delegates.notNull()
     @set:Inject
     var friendsDao: FriendsDao by Delegates.notNull()
+    @set:Inject
+    var eventsDao: EventsDao by Delegates.notNull()
+    @set:Inject
+    var db: CitrarbDatabase by Delegates.notNull()
+
+    private val eventsViewModel: EventsViewModel by activityViewModels()
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -81,10 +100,47 @@ class EventsLanding : BaseFragment<EventsViewModel, FragmentEventsLandingBinding
             })
 
         }
+        subscribeToEventsListEvent()
 
     }
 
-    override fun getFragmentRepo() = EventsRepoImpl(eventsApi, friendsDao, sessionManager)
+    private fun subscribeToEventsListEvent() {
+        eventsViewModel.getAllEvents.observe(viewLifecycleOwner){ result ->
+            lifecycleScope.launch{
+                    when(result){
+                        is Resource.Success ->{
+                            val userId = sessionManager.getCurrentUserId()
+                            Common.userId = userId!!
+                            hideProgressBar()
+                            if (result.value!!.isEmpty()) {
+                                requireContext().toast("No events!")
+                            }
+                        }
+                        is Resource.Failure ->{
+                            hideProgressBar()
+                            handleApiError(result.error){subscribeToEventsListEvent()}
+                        }
+                        is Resource.Loading ->{
+                            showProgressBar()
+                        }
+                    }
+
+            }
+
+        }
+
+    }
+
+
+    private fun showProgressBar(){
+        binding.progressBarEvents.visible(true)
+    }
+
+    private fun hideProgressBar(){
+        binding.progressBarEvents.visible(false)
+    }
+
+    override fun getFragmentRepo() = EventsRepoImpl(eventsApi, db, friendsDao, eventsDao, sessionManager)
 
     override fun getViewModel() = EventsViewModel::class.java
 

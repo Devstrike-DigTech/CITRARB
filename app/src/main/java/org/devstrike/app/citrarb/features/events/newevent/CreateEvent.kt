@@ -30,8 +30,10 @@ import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.single.PermissionListener
 import dagger.hilt.android.AndroidEntryPoint
 import org.devstrike.app.citrarb.base.BaseFragment
+import org.devstrike.app.citrarb.base.CitrarbDatabase
 import org.devstrike.app.citrarb.databinding.FragmentCreateEventBinding
 import org.devstrike.app.citrarb.features.events.data.EventsApi
+import org.devstrike.app.citrarb.features.events.data.EventsDao
 import org.devstrike.app.citrarb.features.events.data.models.requests.CreateEventRequest
 import org.devstrike.app.citrarb.features.events.repositories.EventsRepoImpl
 import org.devstrike.app.citrarb.features.events.ui.EventsLandingDirections
@@ -54,6 +56,11 @@ class CreateEvent : BaseFragment<EventsViewModel, FragmentCreateEventBinding, Ev
     var sessionManager: SessionManager by Delegates.notNull()
     @set:Inject
     var friendsDao: FriendsDao by Delegates.notNull()
+    @set:Inject
+    var eventsDao: EventsDao by Delegates.notNull()
+    @set:Inject
+    var db: CitrarbDatabase by Delegates.notNull()
+
 
     val eventsViewModel: EventsViewModel by activityViewModels()
 
@@ -221,7 +228,7 @@ class CreateEvent : BaseFragment<EventsViewModel, FragmentCreateEventBinding, Ev
 
     }
 
-    override fun getFragmentRepo() = EventsRepoImpl(eventsApi, friendsDao, sessionManager)
+    override fun getFragmentRepo() = EventsRepoImpl(eventsApi, db, friendsDao, eventsDao, sessionManager)
 
     override fun getViewModel() = EventsViewModel::class.java
 

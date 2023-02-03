@@ -6,110 +6,138 @@
   ~
   -->
 
-<com.google.android.material.card.MaterialCardView xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="@dimen/padding_mini"
-    android:layout_width="match_parent"
-    android:padding="@dimen/padding_mini"
-    app:cardElevation="@dimen/padding_mini">
+    >
+    <data>
+        <variable
+            name="concludedEventItem"
+            type="org.devstrike.app.citrarb.features.events.data.models.responses.Event" />
+        <variable
+            name="concludedEventItemClicker"
+            type="android.view.View.OnClickListener" />
+    </data>
 
-    <RelativeLayout
+    <com.google.android.material.card.MaterialCardView
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_mini"
         android:layout_width="match_parent"
-        android:padding="@dimen/padding_mini">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/iv_concluded_event_photo"
-            android:layout_height="50dp"
-            android:layout_margin="@dimen/padding_mini"
-            android:layout_width="50dp"
-            android:padding="@dimen/padding_mini"
-            app:civ_border_width="0.5dp"
-            tools:src="@drawable/devstrike_logo" />
-
-        <TextView
-            android:id="@+id/txt_event_name"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/padding_mini"
-            android:layout_toEndOf="@id/iv_concluded_event_photo"
-            android:layout_width="wrap_content"
-            android:padding="@dimen/padding_mini"
-            android:text="@{friendItem.friend.username}"
-            android:textColor="@color/black"
-            android:textSize="@dimen/text_l"
-            tools:text="Event Name" />
-
-        <TextView
-            android:id="@+id/txt_event_date"
-            android:layout_below="@id/txt_event_name"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/padding_mini"
-            android:layout_toEndOf="@id/iv_concluded_event_photo"
-            android:layout_width="wrap_content"
-            android:paddingStart="@dimen/padding_mini"
-            android:paddingEnd="@dimen/padding_mini"
-            tools:text="@tools:sample/date/ddmmyy" />
-        <TextView
-            android:id="@+id/txt_event_location"
-            android:layout_below="@id/txt_event_date"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/padding_mini"
-            android:layout_toEndOf="@id/iv_concluded_event_photo"
-            android:layout_width="wrap_content"
-            android:paddingStart="@dimen/padding_mini"
-            android:paddingEnd="@dimen/padding_mini"
-            tools:text="@tools:sample/cities" />
-        <TextView
-            android:id="@+id/txt_event_hosts"
-            android:layout_below="@id/txt_event_location"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/padding_mini"
-            android:layout_toEndOf="@id/iv_concluded_event_photo"
-            android:layout_width="wrap_content"
-            android:paddingStart="@dimen/padding_mini"
-            android:paddingEnd="@dimen/padding_mini"
-            tools:text="Hosts: Emmy, Nado, Doro, Bucci" />
+        android:onClick="@{concludedEventItemClicker}"
+        android:padding="@dimen/padding_mini"
+        app:cardElevation="@dimen/padding_mini">
 
         <RelativeLayout
-            android:layout_alignParentEnd="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="200dp"
+            android:layout_width="match_parent"
+            android:padding="@dimen/padding_mini">
 
             <ImageView
-                android:id="@+id/iv_concluded_event_star"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:contentDescription="@string/iv_event_star"
-                app:srcCompat="@drawable/ic_star" />
+                android:id="@+id/iv_concluded_event_photo"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/padding_mini"
+                android:scaleType="fitXY"
+                android:layout_width="match_parent"
+                android:padding="@dimen/padding_mini"
+                app:civ_border_width="0.5dp"
+                android:contentDescription="@string/new_event_image"
+                tools:src="@drawable/devstrike_logo" />
 
             <TextView
+                android:id="@+id/txt_event_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/iv_concluded_event_star"
-                android:layout_centerHorizontal="true"
-                android:id="@+id/iv_concluded_event_rating"
+                android:layout_marginStart="@dimen/padding_mini"
+                android:layout_marginTop="@dimen/padding_mini"
+                android:layout_marginEnd="@dimen/padding_mini"
+                android:layout_marginBottom="@dimen/padding_mini"
+                android:padding="@dimen/padding_mini"
+                android:text="@{concludedEventItem.name}"
+                android:textColor="@color/black"
                 android:textSize="@dimen/text_l"
-                tools:text="3.5" />
+                tools:text="Event Name" />
 
             <TextView
+                android:id="@+id/txt_event_attendance"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding_mini"
+                android:layout_width="wrap_content"
+                android:layout_below="@id/txt_event_name"
+                android:paddingStart="@dimen/padding_mini"
+                android:paddingEnd="@dimen/padding_mini"
+                tools:text="@tools:sample/date/ddmmyy" />
+
+            <TextView
+                android:id="@+id/txt_event_date"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding_mini"
+                android:layout_width="wrap_content"
+                android:layout_above="@id/txt_event_location"
+                android:paddingStart="@dimen/padding_mini"
+                android:paddingEnd="@dimen/padding_mini"
+                tools:text="@tools:sample/date/ddmmyy" />
+            <TextView
+                android:id="@+id/txt_event_location"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding_mini"
+                android:layout_above="@id/txt_event_hosts"
+                android:text="@{concludedEventItem.location}"
+                android:layout_width="wrap_content"
+                android:paddingStart="@dimen/padding_mini"
+                android:paddingEnd="@dimen/padding_mini"
+                tools:text="@tools:sample/cities" />
+
+            <TextView
+                android:id="@+id/txt_event_hosts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="@dimen/padding_mini"
+                android:paddingStart="@dimen/padding_mini"
+                android:paddingEnd="@dimen/padding_mini"
+                tools:text="Hosts: Emmy, Nado, Doro, Bucci" />
+
+            <RelativeLayout
+                android:layout_alignParentEnd="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/iv_concluded_event_rating"
-                android:layout_centerHorizontal="true"
-                android:textSize="@dimen/text_l"
-                tools:text="4 Raters" />
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/iv_concluded_event_star"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:contentDescription="@string/iv_event_star"
+                    app:srcCompat="@drawable/ic_star" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/iv_concluded_event_star"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/iv_concluded_event_rating"
+                    android:textSize="@dimen/text_l"
+                    tools:text="3.5" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/iv_concluded_event_rating"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="@dimen/text_l"
+                    tools:text="4 Raters" />
+
+
+            </RelativeLayout>
 
 
         </RelativeLayout>
 
 
-    </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
 
+</layout>
 
-</com.google.android.material.card.MaterialCardView>
 
 

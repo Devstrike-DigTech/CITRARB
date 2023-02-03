@@ -8,6 +8,9 @@
 
 package org.devstrike.app.citrarb.features.events.data.models.responses
 
+import androidx.room.Entity
+
+@Entity
 data class Attendees(
     val __v: Int,
     val _id: String,
