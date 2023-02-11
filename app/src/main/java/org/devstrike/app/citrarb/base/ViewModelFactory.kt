@@ -12,6 +12,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import org.devstrike.app.citrarb.features.account.repositories.UserRepoImpl
 import org.devstrike.app.citrarb.features.account.ui.AccountViewModel
+import org.devstrike.app.citrarb.features.connect.repositories.ConnectRepoImpl
+import org.devstrike.app.citrarb.features.connect.ui.ConnectViewModel
 import org.devstrike.app.citrarb.features.events.repositories.EventsRepoImpl
 import org.devstrike.app.citrarb.features.events.ui.EventsViewModel
 import org.devstrike.app.citrarb.features.landing.repositories.LandingRepo
@@ -42,6 +44,7 @@ class ViewModelFactory(
             modelClass.isAssignableFrom(AccountViewModel::class.java) -> AccountViewModel(repo as UserRepoImpl) as T
             modelClass.isAssignableFrom(MembersViewModel::class.java) -> MembersViewModel(repo as MembersRepoImpl) as T
             modelClass.isAssignableFrom(EventsViewModel::class.java) -> EventsViewModel(repo as EventsRepoImpl) as T
+            modelClass.isAssignableFrom(ConnectViewModel::class.java) -> ConnectViewModel(repo as ConnectRepoImpl) as T
             else -> throw IllegalAccessException("ViewModelClass Not Found")
         }
     }

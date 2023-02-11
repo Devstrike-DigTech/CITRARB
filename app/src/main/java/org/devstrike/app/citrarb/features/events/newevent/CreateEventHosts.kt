@@ -8,6 +8,7 @@
 
 package org.devstrike.app.citrarb.features.events.newevent
 
+import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -33,11 +34,13 @@ import org.devstrike.app.citrarb.features.events.data.EventsDao
 import org.devstrike.app.citrarb.features.events.data.models.requests.CreateEventRequest
 import org.devstrike.app.citrarb.features.events.repositories.EventsRepoImpl
 import org.devstrike.app.citrarb.features.events.ui.EventsViewModel
+import org.devstrike.app.citrarb.features.events.upcoming.UpcomingEventsDirections
 import org.devstrike.app.citrarb.features.members.data.FriendsDao
 import org.devstrike.app.citrarb.features.members.data.models.responses.Friend
 import org.devstrike.app.citrarb.network.Resource
 import org.devstrike.app.citrarb.network.handleApiError
 import org.devstrike.app.citrarb.utils.SessionManager
+import org.devstrike.app.citrarb.utils.showProgressDialog
 import org.devstrike.app.citrarb.utils.toast
 import org.devstrike.app.citrarb.utils.visible
 import javax.inject.Inject
@@ -49,17 +52,16 @@ class CreateEventHosts :
 
     @set:Inject
     var eventApi: EventsApi by Delegates.notNull()
-
     @set:Inject
     var friendDao: FriendsDao by Delegates.notNull()
     @set:Inject
     var eventDao: EventsDao by Delegates.notNull()
-
     @set:Inject
     var sessionManager: SessionManager by Delegates.notNull()
     @set:Inject
     var db: CitrarbDatabase by Delegates.notNull()
 
+    private var progressDialog: Dialog? = null
 
     private var coHosts = mutableListOf<Friend>()
 
@@ -136,20 +138,22 @@ class CreateEventHosts :
     private fun createEventOnCloud(createEventRequest: CreateEventRequest) {
         eventsViewModel.createEvent(createEventRequest)
         lifecycleScope.launch {
-            eventsViewModel.createEventState.collect{ result ->
-                when(result){
-                    is Resource.Success ->{
+            eventsViewModel.createEventState.collect { result ->
+                when (result) {
+                    is Resource.Success -> {
                         hideProgressBar()
                         requireContext().toast("Event Created!")
-                        val navBackToEvents = CreateEventHostsDirections.actionCreateEventHostsToUpcomingEvents()
+                        onDestroyView()
+                        val navBackToEvents =
+                            CreateEventHostsDirections.actionCreateEventHostsToUpcomingEvents()
                         findNavController().navigate(navBackToEvents)
 
                     }
-                    is Resource.Failure ->{
+                    is Resource.Failure -> {
                         hideProgressBar()
-                        handleApiError(result.error){createEventOnCloud(createEventRequest)}
+                        handleApiError(result.error) { createEventOnCloud(createEventRequest) }
                     }
-                    is Resource.Loading ->{
+                    is Resource.Loading -> {
                         showProgressBar()
                     }
                 }
@@ -266,15 +270,17 @@ class CreateEventHosts :
 
 
     private fun showProgressBar() {
-        binding.createEventsProgressBar.visible(true)
+        hideProgressBar()
+        progressDialog = requireActivity().showProgressDialog()
     }
 
     private fun hideProgressBar() {
-        binding.createEventsProgressBar.visible(false)
+        progressDialog?.let { if (it.isShowing) it.cancel() }
     }
 
 
-    override fun getFragmentRepo() = EventsRepoImpl(eventApi, db, friendDao, eventDao, sessionManager)
+    override fun getFragmentRepo() =
+        EventsRepoImpl(eventApi, db, friendDao, eventDao, sessionManager)
 
 
     override fun getViewModel() = EventsViewModel::class.java

@@ -22,12 +22,12 @@
         android:visibility="gone"
         tools:visibility="visible" />
 
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/padding_mini"
-        android:layout_marginBottom="@dimen/padding_mini"
-        app:cardElevation="@dimen/padding_mini">
+<!--    <com.google.android.material.card.MaterialCardView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_margin="@dimen/padding_mini"-->
+<!--        android:layout_marginBottom="@dimen/padding_mini"-->
+<!--        app:cardElevation="@dimen/padding_mini">-->
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -83,17 +83,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/layout_image"
-                android:background="@drawable/profile_footer"
-                android:layout_alignParentBottom="true">
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/profile_footer">
 
                 <TextView
+                    android:id="@+id/create_event_hosts_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/padding_mini"
                     android:layout_margin="@dimen/padding_maxi"
+                    android:padding="@dimen/padding_mini"
                     android:text="@string/create_event_hosts_title"
-                    android:textSize="@dimen/text_l"
-                    android:id="@+id/create_event_hosts_title"/>
+                    android:textSize="@dimen/text_l" />
 
                 <ImageView
                     android:id="@+id/create_event_add_host_btn"
@@ -124,36 +124,35 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:weightSum="2"
                     android:layout_alignParentBottom="true"
                     android:layout_margin="@dimen/padding_mini"
-                    android:padding="@dimen/padding_mini">
+                    android:padding="@dimen/padding_mini"
+                    android:weightSum="2">
 
                     <com.google.android.material.button.MaterialButton
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:id="@+id/create_event_cancel_btn"
-                        android:text="@string/cancel"
-                        android:backgroundTint="@color/custom_secondary"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
                         android:layout_margin="@dimen/padding_mini"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/custom_secondary"
                         android:padding="@dimen/padding_mini"
+                        android:text="@string/cancel"
                         app:strokeColor="@color/custom_primary"
-                        app:strokeWidth="2dp"
-                        />
+                        app:strokeWidth="2dp" />
 
 
                     <com.google.android.material.button.MaterialButton
+                        android:id="@+id/create_event_next_btn"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:id="@+id/create_event_next_btn"
-                        android:text="@string/create_event"
-                        android:backgroundTint="@color/custom_secondary"
                         android:layout_margin="@dimen/padding_mini"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/custom_secondary"
                         android:padding="@dimen/padding_mini"
+                        android:text="@string/create_event"
                         app:strokeColor="@color/custom_primary"
-                        app:strokeWidth="2dp"/>
+                        app:strokeWidth="2dp" />
 
 
                 </LinearLayout>
@@ -165,7 +164,7 @@
 
 
 
-    </com.google.android.material.card.MaterialCardView>
+<!--    </com.google.android.material.card.MaterialCardView>-->
 
 
 </RelativeLayout>

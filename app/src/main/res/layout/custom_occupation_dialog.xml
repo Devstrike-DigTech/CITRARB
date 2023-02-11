@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2023.
+  ~ Richard Uzor
+  ~ For Afro Connect Technologies
+  ~ Under the Authority of Devstrike Digital Ltd.
+  ~
+  -->
+
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/padding_mini"
+    android:padding="@dimen/padding_mini"
+    app:cardElevation="@dimen/padding_mini">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_mini"
+        android:padding="@dimen/padding_mini">
+
+        <TextView
+            android:id="@+id/occupation_dialog_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/padding_mini"
+            android:padding="@dimen/padding_mini"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_l"
+            tools:text="@tools:sample/full_names" />
+
+        <TextView
+            android:id="@+id/occupation_dialog_occupation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/occupation_dialog_name"
+            android:layout_margin="@dimen/padding_mini"
+            android:padding="@dimen/padding_mini"
+            android:textColor="@color/black"
+            tools:text="Software Developer" />
+
+        <ImageView
+            android:id="@+id/occupation_dialog_share_iv"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_below="@id/occupation_dialog_name"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="@dimen/padding_mini"
+            android:contentDescription="@string/occupation_dialog_image"
+            app:srcCompat="@drawable/ic_share" />
+
+        <ImageView
+            android:id="@+id/occupation_dialog_call_iv"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_below="@id/occupation_dialog_name"
+            android:layout_marginStart="@dimen/padding_mini"
+            android:layout_marginTop="@dimen/padding_mini"
+            android:layout_marginEnd="@dimen/padding_mini"
+            android:layout_marginBottom="@dimen/padding_mini"
+            android:layout_toStartOf="@id/occupation_dialog_share_iv"
+            android:contentDescription="@string/occupation_dialog_call_image"
+            app:srcCompat="@drawable/ic_phone_connect" />
+
+        <ImageView
+            android:id="@+id/occupation_dialog_message_iv"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_below="@id/occupation_dialog_name"
+            android:layout_margin="@dimen/padding_mini"
+            android:layout_toStartOf="@id/occupation_dialog_call_iv"
+            android:contentDescription="@string/occupation_dialog_call_image"
+            app:srcCompat="@drawable/ic_whatsapp" />
+
+        <TextView
+            android:id="@+id/occupation_dialog_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/occupation_dialog_occupation"
+            android:layout_margin="@dimen/padding_mini"
+            android:padding="@dimen/padding_mini"
+            android:textColor="@color/custom_secondary"
+            app:drawableStartCompat="@drawable/ic_marker"
+            android:drawablePadding="@dimen/padding_mini"
+            tools:text="@tools:sample/cities" />
+
+        <TextView
+            android:id="@+id/occupation_dialog_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/occupation_dialog_location"
+            android:layout_marginStart="@dimen/padding_mini"
+            android:layout_marginTop="@dimen/padding_mini"
+            android:layout_marginEnd="@dimen/padding_mini"
+            android:layout_marginBottom="@dimen/padding_mini"
+            android:lines="2"
+            android:padding="@dimen/padding_mini"
+            tools:text="@tools:sample/lorem/random" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/occupation_dialog_okay_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/occupation_dialog_description"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/padding_mini"
+            android:backgroundTint="@color/custom_secondary"
+            android:padding="@dimen/padding_mini"
+            android:text="@string/okay" />
+
+    </RelativeLayout>
+
+</com.google.android.material.card.MaterialCardView>

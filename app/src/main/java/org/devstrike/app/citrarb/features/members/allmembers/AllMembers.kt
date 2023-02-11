@@ -8,6 +8,7 @@
 
 package org.devstrike.app.citrarb.features.members.allmembers
 
+import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -32,6 +33,7 @@ import org.devstrike.app.citrarb.features.members.ui.MembersViewModel
 import org.devstrike.app.citrarb.network.Resource
 import org.devstrike.app.citrarb.network.handleApiError
 import org.devstrike.app.citrarb.utils.SessionManager
+import org.devstrike.app.citrarb.utils.showProgressDialog
 import org.devstrike.app.citrarb.utils.toast
 import org.devstrike.app.citrarb.utils.visible
 import javax.inject.Inject
@@ -51,6 +53,9 @@ class AllMembers : BaseFragment<MembersViewModel, FragmentAllMembersBinding, Mem
     val membersViewModel: MembersViewModel by activityViewModels()
 
     private lateinit var allMembersAdapter: AllMembersAdapter
+
+    private var progressDialog: Dialog? = null
+
 
     val TAG = "AllMembers"
 
@@ -142,12 +147,13 @@ class AllMembers : BaseFragment<MembersViewModel, FragmentAllMembersBinding, Mem
     }
 
 
-    private fun showProgressBar(){
-        binding.sendRequestProgressBar.visible(true)
+    private fun showProgressBar() {
+        hideProgressBar()
+        progressDialog = requireActivity().showProgressDialog()
     }
 
-    private fun hideProgressBar(){
-        binding.sendRequestProgressBar.visible(false)
+    private fun hideProgressBar() {
+        progressDialog?.let { if (it.isShowing) it.cancel() }
     }
 
 

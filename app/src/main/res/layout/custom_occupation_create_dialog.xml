@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2023.
+  ~ Richard Uzor
+  ~ For Afro Connect Technologies
+  ~ Under the Authority of Devstrike Digital Ltd.
+  ~
+  -->
+
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/padding_mini"
+    app:cardElevation="@dimen/padding_mini">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_mini"
+        android:padding="@dimen/padding_mini">
+
+        <TextView
+            android:id="@+id/txt_create_occupation_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/create_occupation_title"
+            android:textAlignment="center"
+            android:textSize="@dimen/text_xl" />
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout_create_occupation_name"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_create_occupation_title"
+            android:layout_margin="@dimen/padding_mini"
+            android:hint="@string/create_occupation_name"
+            android:padding="@dimen/padding_mini">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_create_occupation_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/create_occupation_name"
+                android:drawableStart="@drawable/ic_account_circle"
+                android:drawablePadding="@dimen/padding_mini"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
+                android:labelFor="@id/et_create_occupation_name" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout_create_occupation_job_title"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_input_layout_create_occupation_name"
+            android:layout_margin="@dimen/padding_mini"
+            android:padding="@dimen/padding_mini">
+
+            <AutoCompleteTextView
+                android:id="@+id/et_create_occupation_job_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_mini"
+                android:drawableStart="@drawable/ic_briefcase"
+                android:drawablePadding="@dimen/padding_mini"
+                android:hint="@string/create_occupation_job_title"
+                android:padding="@dimen/padding_mini" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout_create_occupation_category"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_input_layout_create_occupation_job_title"
+            android:layout_margin="@dimen/padding_mini">
+
+            <AutoCompleteTextView
+                android:id="@+id/create_occupation_category_drop_down"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_mini"
+                android:hint="@string/create_occupation_category"
+                android:inputType="none"
+                android:padding="@dimen/padding_mini" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout_create_occupation_description"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text_input_layout_create_occupation_category"
+            android:layout_margin="@dimen/margin_mini"
+            android:hint="@string/create_occupation_description">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_create_occupation_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/create_occupation_description"
+                android:drawableStart="@drawable/ic_info"
+                android:drawablePadding="@dimen/padding_mini"
+                android:importantForAutofill="no"
+                android:inputType="textMultiLine"
+                android:labelFor="@id/et_create_occupation_description"
+                android:maxLines="3"
+                android:minLines="2" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout_create_occupation_phone_number"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_input_layout_create_occupation_description"
+            android:layout_margin="@dimen/padding_mini"
+            android:hint="@string/create_occupation_phone_number"
+            android:padding="@dimen/padding_mini">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_create_occupation_phone_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/create_occupation_phone_number"
+                android:drawableStart="@drawable/ic_phone"
+                android:drawablePadding="@dimen/padding_mini"
+                android:importantForAutofill="no"
+                android:maxLength="11"
+                android:inputType="number"
+                android:labelFor="@id/et_create_occupation_phone_number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_input_layout_create_occupation_phone_number"
+            android:layout_margin="@dimen/padding_mini"
+            android:orientation="horizontal"
+            android:padding="@dimen/padding_mini"
+            android:weightSum="2">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_create_occupation_cancel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_mini"
+                android:layout_weight="1"
+                android:backgroundTint="@color/reject_color"
+                android:text="@string/cancel"
+                app:strokeColor="@color/custom_primary"
+                app:strokeWidth="1dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_create_occupation_confirm"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_mini"
+                android:layout_weight="1"
+                android:backgroundTint="@color/custom_secondary"
+                android:text="@string/okay"
+                app:strokeColor="@color/custom_primary"
+                app:strokeWidth="1dp" />
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</com.google.android.material.card.MaterialCardView>

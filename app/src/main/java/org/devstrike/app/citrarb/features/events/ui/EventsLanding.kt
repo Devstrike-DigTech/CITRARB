@@ -8,6 +8,7 @@
 
 package org.devstrike.app.citrarb.features.events.ui
 
+import android.app.Dialog
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -30,10 +31,7 @@ import org.devstrike.app.citrarb.features.events.repositories.EventsRepoImpl
 import org.devstrike.app.citrarb.features.members.data.FriendsDao
 import org.devstrike.app.citrarb.network.Resource
 import org.devstrike.app.citrarb.network.handleApiError
-import org.devstrike.app.citrarb.utils.Common
-import org.devstrike.app.citrarb.utils.SessionManager
-import org.devstrike.app.citrarb.utils.toast
-import org.devstrike.app.citrarb.utils.visible
+import org.devstrike.app.citrarb.utils.*
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
@@ -52,6 +50,8 @@ class EventsLanding : BaseFragment<EventsViewModel, FragmentEventsLandingBinding
     var db: CitrarbDatabase by Delegates.notNull()
 
     private val eventsViewModel: EventsViewModel by activityViewModels()
+
+    private var progressDialog: Dialog? = null
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -132,12 +132,13 @@ class EventsLanding : BaseFragment<EventsViewModel, FragmentEventsLandingBinding
     }
 
 
-    private fun showProgressBar(){
-        binding.progressBarEvents.visible(true)
+    private fun showProgressBar() {
+        hideProgressBar()
+        progressDialog = requireActivity().showProgressDialog()
     }
 
-    private fun hideProgressBar(){
-        binding.progressBarEvents.visible(false)
+    private fun hideProgressBar() {
+        progressDialog?.let { if (it.isShowing) it.cancel() }
     }
 
     override fun getFragmentRepo() = EventsRepoImpl(eventsApi, db, friendsDao, eventsDao, sessionManager)

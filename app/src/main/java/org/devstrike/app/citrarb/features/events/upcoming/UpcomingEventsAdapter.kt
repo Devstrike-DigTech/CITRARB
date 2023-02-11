@@ -84,8 +84,14 @@ class UpcomingEventsAdapter @Inject constructor(
             bind(event)
         }.also { itemView ->
             itemView.binding.btnUpcomingEventGoing.setOnClickListener {
-                isInviteAccepted = true
-                onItemAcceptClickListener?.invoke(event)
+                if (itemView.binding.txtAttendanceStatus.text == "Not Going"){
+                    isInviteAccepted = true
+                    onItemAcceptClickListener?.invoke(event)
+                }else{
+                    isInviteAccepted = false
+                    onItemRejectClickListener?.invoke(event)
+                }
+
             }
 //            itemView.binding.btnUpcomingEventNotGoing.setOnClickListener {
 //                isInviteAccepted = false

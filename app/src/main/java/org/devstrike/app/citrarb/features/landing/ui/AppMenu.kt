@@ -26,10 +26,9 @@ import org.devstrike.app.citrarb.databinding.FragmentAppMenuBinding
 import org.devstrike.app.citrarb.features.landing.adapter.LandingMenuAdapter
 import org.devstrike.app.citrarb.features.landing.repositories.LandingRepo
 import org.devstrike.app.citrarb.features.news.newsLanding.data.remote.NewsListResponse
-import org.devstrike.app.citrarb.utils.Common
+import org.devstrike.app.citrarb.network.handleApiError
+import org.devstrike.app.citrarb.utils.*
 import org.devstrike.app.citrarb.utils.Common.deepLinkNewsUrl
-import org.devstrike.app.citrarb.utils.SessionManager
-import org.devstrike.app.citrarb.utils.toast
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
@@ -75,6 +74,7 @@ class AppMenu : BaseFragment<LandingViewModel, FragmentAppMenuBinding, LandingRe
             token = sessionManager.getJwtToken()
         }
         with(binding){
+            val landingToLogin = AppMenuDirections.actionAppMenuToAccountNotLoggedIn()
             cardNews.setOnClickListener {
                 val navToNews = AppMenuDirections.actionAppMenuToNewsLanding()
                 findNavController().navigate(navToNews)
@@ -87,7 +87,8 @@ class AppMenu : BaseFragment<LandingViewModel, FragmentAppMenuBinding, LandingRe
             cardMembers.setOnClickListener {
                 val navToMembers = AppMenuDirections.actionAppMenuToMembersLanding()
                 if (token.isNullOrEmpty())
-                    requireContext().toast("Requires Login") //add an action to navigate to login screen
+                    requireView().loginSnackBar("Requires Login"){findNavController().navigate(landingToLogin)}
+                    //requireContext().toast("Requires Login") //add an action to navigate to login screen
                 else
                     findNavController().navigate(navToMembers)
             }
@@ -102,11 +103,18 @@ class AppMenu : BaseFragment<LandingViewModel, FragmentAppMenuBinding, LandingRe
 
             cardEvents.setOnClickListener {
                 val navToEvents = AppMenuDirections.actionAppMenuToEventsLanding()
-                findNavController().navigate(navToEvents)
+                if (token.isNullOrEmpty())
+                    requireView().loginSnackBar("Requires Login"){findNavController().navigate(landingToLogin)}
+                else
+                    findNavController().navigate(navToEvents)
             }
 
             cardConnect.setOnClickListener {
-                //val navToConnect = AppMenuDirections
+                val navToConnect = AppMenuDirections.actionAppMenuToConnectLanding()
+                if (token.isNullOrEmpty())
+                    requireView().loginSnackBar("Requires Login"){findNavController().navigate(landingToLogin)}
+                else
+                    findNavController().navigate(navToConnect)
             }
 
             cardMusic.setOnClickListener {
@@ -118,20 +126,6 @@ class AppMenu : BaseFragment<LandingViewModel, FragmentAppMenuBinding, LandingRe
             }
         }
     }
-
-
-    //function to set up views and logic for the recycler view UI
-//    private fun setUpRecyclerView() {
-//        binding.landingMenuGrid.apply {
-//            adapter = landingMenuAdapter
-//            layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
-//
-//        }
-//        landingMenuAdapter.submitList(Common.landingMenuList)
-//
-//
-//    }
-
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?

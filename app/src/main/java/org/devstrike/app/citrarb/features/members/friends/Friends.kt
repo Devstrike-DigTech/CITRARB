@@ -8,6 +8,7 @@
 
 package org.devstrike.app.citrarb.features.members.friends
 
+import android.app.Dialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -35,6 +36,7 @@ import org.devstrike.app.citrarb.features.members.ui.MembersViewModel
 import org.devstrike.app.citrarb.network.Resource
 import org.devstrike.app.citrarb.network.handleApiError
 import org.devstrike.app.citrarb.utils.SessionManager
+import org.devstrike.app.citrarb.utils.showProgressDialog
 import org.devstrike.app.citrarb.utils.toast
 import org.devstrike.app.citrarb.utils.visible
 import javax.inject.Inject
@@ -57,6 +59,9 @@ class Friends : BaseFragment<MembersViewModel, FragmentFriendsBinding, MembersRe
     private lateinit var friendsAdapter: FriendAdapter
 
     val TAG = "Friends"
+
+    private var progressDialog: Dialog? = null
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -237,12 +242,14 @@ class Friends : BaseFragment<MembersViewModel, FragmentFriendsBinding, MembersRe
 
 
     private fun showProgressBar() {
-        binding.friendsProgressBar.visible(true)
+        hideProgressBar()
+        progressDialog = requireActivity().showProgressDialog()
     }
 
     private fun hideProgressBar() {
-        binding.friendsProgressBar.visible(false)
+        progressDialog?.let { if (it.isShowing) it.cancel() }
     }
+
 
 
     override fun getFragmentRepo() = MembersRepoImpl(membersApi, friendsDao, sessionManager)

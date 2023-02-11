@@ -8,6 +8,7 @@
 
 package org.devstrike.app.citrarb.features.events.concluded
 
+import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -29,10 +30,9 @@ import org.devstrike.app.citrarb.features.events.data.models.responses.Event
 import org.devstrike.app.citrarb.features.events.repositories.EventsRepoImpl
 import org.devstrike.app.citrarb.features.events.ui.EventsViewModel
 import org.devstrike.app.citrarb.features.members.data.FriendsDao
-import org.devstrike.app.citrarb.utils.SessionManager
-import org.devstrike.app.citrarb.utils.convertISODateToMillis
-import org.devstrike.app.citrarb.utils.toast
-import org.devstrike.app.citrarb.utils.visible
+import org.devstrike.app.citrarb.network.Resource
+import org.devstrike.app.citrarb.network.handleApiError
+import org.devstrike.app.citrarb.utils.*
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
@@ -56,10 +56,14 @@ class ConcludedEvents : BaseFragment<EventsViewModel, FragmentConcludedEventsBin
 
     private lateinit var concludedEventsAdapter: ConcludedEventsAdapter
 
+    private var progressDialog: Dialog? = null
+
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         concludedEventsAdapter = ConcludedEventsAdapter(requireContext())
+        subscribeToEventsListEvent()
         subscribeToConcludedEventsListEvent()
 
         binding.ivSearchConcludedEvents.setOnQueryTextListener(object :
@@ -82,6 +86,34 @@ class ConcludedEvents : BaseFragment<EventsViewModel, FragmentConcludedEventsBin
 
 
     }
+
+    private fun subscribeToEventsListEvent() {
+        eventsViewModel.getAllEvents.observe(viewLifecycleOwner){ result ->
+            lifecycleScope.launch{
+                when(result){
+                    is Resource.Success ->{
+                        val userId = sessionManager.getCurrentUserId()
+                        Common.userId = userId!!
+                        hideProgressBar()
+                        if (result.value!!.isEmpty()) {
+                            requireContext().toast("No events!")
+                        }
+                    }
+                    is Resource.Failure ->{
+                        hideProgressBar()
+                        handleApiError(result.error){subscribeToEventsListEvent()}
+                    }
+                    is Resource.Loading ->{
+                        showProgressBar()
+                    }
+                }
+
+            }
+
+        }
+
+    }
+
 
     //function to actually search the notes with the entered search characters that match saved notes
     private fun searchConcludedEvent(query: String) = lifecycleScope.launch {
@@ -147,6 +179,17 @@ class ConcludedEvents : BaseFragment<EventsViewModel, FragmentConcludedEventsBin
 
 
     }
+
+
+    private fun showProgressBar() {
+        hideProgressBar()
+        progressDialog = requireActivity().showProgressDialog()
+    }
+
+    private fun hideProgressBar() {
+        progressDialog?.let { if (it.isShowing) it.cancel() }
+    }
+
 
 
     override fun getFragmentRepo() = EventsRepoImpl(eventsApi, db, friendsDao, eventsDao, sessionManager)

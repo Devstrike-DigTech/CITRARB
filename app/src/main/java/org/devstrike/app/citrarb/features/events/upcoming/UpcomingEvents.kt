@@ -8,6 +8,7 @@
 
 package org.devstrike.app.citrarb.features.events.upcoming
 
+import android.app.Dialog
 import android.content.ContentValues
 import android.os.Bundle
 import android.provider.CalendarContract
@@ -67,6 +68,9 @@ class UpcomingEvents :
     val eventsViewModel: EventsViewModel by activityViewModels()
     private lateinit var upcomingEventsAdapter: UpcomingEventsAdapter
 
+    private var progressDialog: Dialog? = null
+
+
     val TAG = "UpcomingEvents"
 
 
@@ -74,6 +78,7 @@ class UpcomingEvents :
         super.onViewCreated(view, savedInstanceState)
 
         upcomingEventsAdapter = UpcomingEventsAdapter(requireContext())
+        subscribeToEventsListEvent()
 
         binding.fabAddEvent.setOnClickListener {
             val popup = PopupMenu(requireContext(), it)
@@ -118,6 +123,36 @@ class UpcomingEvents :
         })
 
     }
+
+
+    private fun subscribeToEventsListEvent() {
+        eventsViewModel.getAllEvents.observe(viewLifecycleOwner){ result ->
+            lifecycleScope.launch{
+                when(result){
+                    is Resource.Success ->{
+                        val userId = sessionManager.getCurrentUserId()
+                        Common.userId = userId!!
+                        hideProgressBar()
+                        if (result.value!!.isEmpty()) {
+                            requireContext().toast("No events!")
+                        }
+                    }
+                    is Resource.Failure ->{
+                        hideProgressBar()
+                        handleApiError(result.error){subscribeToEventsListEvent()}
+                    }
+                    is Resource.Loading ->{
+                        showProgressBar()
+                    }
+                }
+
+            }
+
+        }
+
+    }
+
+
 
 
     //function to actually search the notes with the entered search characters that match saved notes
@@ -201,6 +236,13 @@ class UpcomingEvents :
         }
         upcomingEventsAdapter.createOnRejectClickListener { event ->
             requireContext().toast("Not going to ${event.id}")
+            val attendanceRequest = EventAttendanceRequest(
+                eventId = event.id,
+                status = "not going"
+            )
+
+            makeReservation(attendanceRequest, event)
+
         }
 
 
@@ -219,6 +261,7 @@ class UpcomingEvents :
                         addToCalendar(result.value!!.data, event)
                         hideProgressBar()
                         requireContext().toast("Added to calendar!")
+                        subscribeToEventsListEvent()
 
                     }
                     is Resource.Failure -> {
@@ -274,12 +317,15 @@ class UpcomingEvents :
 
 
     private fun showProgressBar() {
-        binding.upcomingEventsProgressBar.visible(true)
+        hideProgressBar()
+        progressDialog = requireActivity().showProgressDialog()
     }
 
     private fun hideProgressBar() {
-        binding.upcomingEventsProgressBar.visible(false)
+        progressDialog?.let { if (it.isShowing) it.cancel() }
     }
+
+
 
     override fun getFragmentRepo() =
         EventsRepoImpl(eventsApi, db, friendsDao, eventsDao, sessionManager)

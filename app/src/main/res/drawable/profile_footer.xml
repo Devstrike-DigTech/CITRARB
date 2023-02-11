@@ -11,11 +11,11 @@
 
     <solid android:color="@color/custom_secondary"/>
     <corners
-        android:topLeftRadius="30dp"
-        android:topRightRadius="30dp"/>
+        android:topLeftRadius="20dp"
+        android:topRightRadius="20dp"/>
 
-    <stroke
-        android:color="@color/custom_primary"
-        android:width="2dp"/>
+<!--    <stroke-->
+<!--        android:color="@color/custom_primary"-->
+<!--        android:width="2dp"/>-->
 
 </shape>

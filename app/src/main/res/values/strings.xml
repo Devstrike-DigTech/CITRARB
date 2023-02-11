@@ -92,4 +92,28 @@
     <string name="create_event">Create Event</string>
     <string name="sort_all_concluded_eventsS">Sort all concluded events alphabetically</string>
     <string name="sort_all_concluded_events">Sort all concluded events alphabetically</string>
+    <string name="message_connect_text">Message Occupation Member via Whatsapp</string>
+    <string name="share_connect_text">"Share Occupation Member "</string>
+    <string name="call_connect_text">Call Occupation Member</string>
+    <string name="occupation_dialog_image">Occupation Member Image</string>
+    <string name="occupation_dialog_call_image">Call Occupation Member</string>
+    <string name="create_occupation_title">Add Occupation</string>
+    <string name="create_occupation_name">Your Work Name</string>
+    <string name="create_occupation_description">Occupation Description (min 25 characters) </string>
+    <string name="create_occupation_category">Category</string>
+    <string name="okay">Okay</string>
+    <string name="connect_fab">Button to add new occupation</string>
+    <string name="create_occupation_job_title">Job Title</string>
+    <string name="create_occupation_phone_number">Job Contact Number</string>
+    <string name="search_all_connects">Search Occupation</string>
+
+    <string-array name="occupation_categories">
+        <item>Tech</item>
+        <item>Artisan (Service)</item>
+        <item>Medical</item>
+        <item>Business</item>
+        <item>Education</item>
+        <item>Others</item>
+
+    </string-array>
 </resources>

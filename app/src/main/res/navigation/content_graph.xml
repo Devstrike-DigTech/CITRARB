@@ -48,6 +48,9 @@
             app:destination="@id/eventsLanding"
             app:enterAnim="@anim/forward_entrance_from_right"
             app:exitAnim="@anim/forward_exit_to_left" />
+        <action
+            android:id="@+id/action_appMenu_to_connectLanding"
+            app:destination="@id/connectLanding" />
     </fragment>
     <fragment
         android:id="@+id/newsLanding"
@@ -134,7 +137,11 @@
         android:id="@+id/accountProfile"
         android:name="org.devstrike.app.citrarb.features.account.ui.AccountProfile"
         android:label="fragment_account_profile"
-        tools:layout="@layout/fragment_account_profile" />
+        tools:layout="@layout/fragment_account_profile" >
+        <action
+            android:id="@+id/action_accountProfile_to_connectLanding"
+            app:destination="@id/connectLanding" />
+    </fragment>
     <fragment
         android:id="@+id/accountLogIn"
         android:name="org.devstrike.app.citrarb.features.account.ui.AccountLogIn"
@@ -228,10 +235,39 @@
         android:id="@+id/upcomingEvents"
         android:name="org.devstrike.app.citrarb.features.events.upcoming.UpcomingEvents"
         android:label="fragment_upcoming_events"
-        tools:layout="@layout/fragment_upcoming_events" />
+        tools:layout="@layout/fragment_upcoming_events" >
+        <action
+            android:id="@+id/action_upcomingEvents_to_eventsLanding"
+            app:destination="@id/eventsLanding" />
+    </fragment>
     <fragment
         android:id="@+id/concludedEvents"
         android:name="org.devstrike.app.citrarb.features.events.concluded.ConcludedEvents"
         android:label="fragment_concluded_events"
         tools:layout="@layout/fragment_concluded_events" />
+    <fragment
+        android:id="@+id/allConnect"
+        android:name="org.devstrike.app.citrarb.features.connect.ui.AllConnect"
+        android:label="AllConnect" />
+    <fragment
+        android:id="@+id/artisanConnect"
+        android:name="org.devstrike.app.citrarb.features.connect.ui.ArtisanConnect"
+        android:label="ArtisanConnect" />
+    <fragment
+        android:id="@+id/businessConnect"
+        android:name="org.devstrike.app.citrarb.features.connect.ui.BusinessConnect"
+        android:label="BusinessConnect" />
+    <fragment
+        android:id="@+id/medicalConnect"
+        android:name="org.devstrike.app.citrarb.features.connect.ui.MedicalConnect"
+        android:label="MedicalConnect" />
+    <fragment
+        android:id="@+id/techConnect"
+        android:name="org.devstrike.app.citrarb.features.connect.ui.TechConnect"
+        android:label="TechConnect" />
+    <fragment
+        android:id="@+id/connectLanding"
+        android:name="org.devstrike.app.citrarb.features.connect.ui.ConnectLanding"
+        android:label="fragment_connect_landing"
+        tools:layout="@layout/fragment_connect_landing" />
 </navigation>

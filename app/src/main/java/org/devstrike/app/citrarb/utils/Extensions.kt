@@ -9,11 +9,15 @@
 package org.devstrike.app.citrarb.utils
 
 import android.app.Activity
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.view.View
 import android.widget.Toast
+import androidx.core.graphics.drawable.toDrawable
 import com.google.android.material.snackbar.Snackbar
+import org.devstrike.app.citrarb.R
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -38,6 +42,15 @@ fun View.snackbar(message: String, action: (() -> Unit)? = null) {
     }
     snackbar.show()
 }
+fun View.loginSnackBar(message: String, action: (() -> Unit)? = null) {
+    val snackBar = Snackbar.make(this, message, Snackbar.LENGTH_LONG)
+    action?.let {
+        snackBar.setAction("Login") {
+            it()
+        }
+    }
+    snackBar.show()
+}
 
 
 //common function to handle progress bar visibility
@@ -61,18 +74,20 @@ fun View.enable(enabled: Boolean) {
     alpha = if (enabled) 1f else 0.5f
 }
 
-//fun Context.showProgressDialog(): Dialog {
-//    val progressDialog = Dialog(this)
-//
-//    progressDialog.let {
-//        it.show()
-//        it.window?.setBackgroundDrawable(Color.TRANSPARENT.toDrawable())
-//        it.setContentView(R.layout.loading_progress_dialog)
-//        it.setCancelable(false)
-//        it.setCanceledOnTouchOutside(false)
-//        return it
-//    }
-//}
+
+
+fun Context.showProgressDialog(): Dialog {
+    val progressDialog = Dialog(this)
+
+    progressDialog.let {
+        it.show()
+        it.window?.setBackgroundDrawable(Color.TRANSPARENT.toDrawable())
+        it.setContentView(R.layout.loading_progress_dialog)
+        it.setCancelable(false)
+        it.setCanceledOnTouchOutside(false)
+        return it
+    }
+}
 
 //function to change milliseconds to date format
 fun getDate(milliSeconds: Long?, dateFormat: String?): String {

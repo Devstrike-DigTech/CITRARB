@@ -23,6 +23,10 @@ import org.devstrike.app.citrarb.base.BaseRepo
 import org.devstrike.app.citrarb.features.account.data.UserApi
 import org.devstrike.app.citrarb.features.account.repositories.UserRepo
 import org.devstrike.app.citrarb.features.account.repositories.UserRepoImpl
+import org.devstrike.app.citrarb.features.connect.data.ConnectApi
+import org.devstrike.app.citrarb.features.connect.data.ConnectDao
+import org.devstrike.app.citrarb.features.connect.repositories.ConnectRepo
+import org.devstrike.app.citrarb.features.connect.repositories.ConnectRepoImpl
 import org.devstrike.app.citrarb.features.events.data.EventsApi
 import org.devstrike.app.citrarb.features.events.data.EventsDao
 import org.devstrike.app.citrarb.features.events.repositories.EventsRepo
@@ -126,6 +130,13 @@ object AppModule {
         appDb: CitrarbDatabase
     ) = appDb.getEventsListDao()
 
+ //Provide Connect Database DAO
+    @Singleton
+    @Provides
+    fun provideConnectListDao(
+        appDb: CitrarbDatabase
+    ) = appDb.getConnectListDao()
+
     // = = = = = = = = = = = = = = = = = = PROVIDE APIS = = = = = = = = = = = = = = = = = = = = = =
 
     //Provides the News api passing the built retrofit instance
@@ -158,6 +169,13 @@ object AppModule {
     @Provides
     fun providesEventsApi(retrofit: Retrofit): EventsApi =
         retrofit.create(EventsApi::class.java)
+
+
+ //Provides the Connect api passing the built retrofit instance
+    @Singleton
+    @Provides
+    fun providesConnectApi(retrofit: Retrofit): ConnectApi =
+        retrofit.create(ConnectApi::class.java)
 
 
     // = = = = = = = = = = = = = = = = = = PROVIDE REPOS = = = = = = = = = = = = = = = = = = = = = =
@@ -237,6 +255,23 @@ object AppModule {
             db,
             friendsDao,
             eventsDao,
+            sessionManager
+        )
+    }
+
+    //provide Connect repo returning the implementation parameters
+    @Singleton
+    @Provides
+    fun providesConnectRepo(
+        connectApi: ConnectApi,
+        db: CitrarbDatabase,
+        connectDao: ConnectDao,
+        sessionManager: SessionManager
+    ): ConnectRepo {
+        return ConnectRepoImpl(
+            connectApi,
+            db,
+            connectDao,
             sessionManager
         )
     }

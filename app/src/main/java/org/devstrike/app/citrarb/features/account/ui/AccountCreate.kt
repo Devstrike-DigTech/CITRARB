@@ -8,6 +8,7 @@
 
 package org.devstrike.app.citrarb.features.account.ui
 
+import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -25,6 +26,7 @@ import org.devstrike.app.citrarb.features.account.data.UserApi
 import org.devstrike.app.citrarb.features.account.repositories.UserRepoImpl
 import org.devstrike.app.citrarb.network.Resource
 import org.devstrike.app.citrarb.utils.SessionManager
+import org.devstrike.app.citrarb.utils.showProgressDialog
 import org.devstrike.app.citrarb.utils.toast
 import org.devstrike.app.citrarb.utils.visible
 import javax.inject.Inject
@@ -41,6 +43,8 @@ class AccountCreate : BaseFragment<AccountViewModel, FragmentAccountCreateBindin
     private val userViewModel: AccountViewModel by activityViewModels()
 
     val TAG = "AccountCreate"
+    private var progressDialog: Dialog? = null
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -77,6 +81,7 @@ class AccountCreate : BaseFragment<AccountViewModel, FragmentAccountCreateBindin
         userViewModel.registerState.collect { result ->
             when(result){
                 is Resource.Success -> {
+                    hideProgressBar()
                     Toast.makeText(
                         requireContext(),
                         "Account Successfully Created",
@@ -98,16 +103,14 @@ class AccountCreate : BaseFragment<AccountViewModel, FragmentAccountCreateBindin
     }
 
 
-    private fun showProgressBar(){
-        binding.createAccountProgressBar.visible(true)
+    private fun showProgressBar() {
+        hideProgressBar()
+        progressDialog = requireActivity().showProgressDialog()
     }
 
-
-    private fun hideProgressBar(){
-
-        binding.createAccountProgressBar.visible(false)
+    private fun hideProgressBar() {
+        progressDialog?.let { if (it.isShowing) it.cancel() }
     }
-
 
 
     override fun getFragmentRepo() = UserRepoImpl(userApi, sessionManager)

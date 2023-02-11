@@ -8,6 +8,7 @@
 
 package org.devstrike.app.citrarb.features.account.ui
 
+import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -23,10 +24,7 @@ import org.devstrike.app.citrarb.features.account.data.models.responses.UserX
 import org.devstrike.app.citrarb.features.account.repositories.UserRepoImpl
 import org.devstrike.app.citrarb.network.Resource
 import org.devstrike.app.citrarb.network.handleApiError
-import org.devstrike.app.citrarb.utils.SessionManager
-import org.devstrike.app.citrarb.utils.convertISODateToMonthAndYear
-import org.devstrike.app.citrarb.utils.toast
-import org.devstrike.app.citrarb.utils.visible
+import org.devstrike.app.citrarb.utils.*
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
@@ -39,6 +37,8 @@ class AccountProfile : BaseFragment<AccountViewModel, FragmentAccountProfileBind
     var sessionManager: SessionManager by Delegates.notNull()
 
     private val userViewModel: AccountViewModel by activityViewModels()
+
+    private var progressDialog: Dialog? = null
 
 
     //val args: AccountProfileArgs by navArgs()
@@ -101,12 +101,13 @@ class AccountProfile : BaseFragment<AccountViewModel, FragmentAccountProfileBind
 
     }
 
-    private fun showProgressBar(){
-        binding.accountProfileProgressBar.visible(true)
+    private fun showProgressBar() {
+        hideProgressBar()
+        progressDialog = requireActivity().showProgressDialog()
     }
 
-    private fun hideProgressBar(){
-        binding.accountProfileProgressBar.visible(false)
+    private fun hideProgressBar() {
+        progressDialog?.let { if (it.isShowing) it.cancel() }
     }
 
 

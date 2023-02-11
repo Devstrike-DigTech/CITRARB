@@ -8,6 +8,7 @@
 
 package org.devstrike.app.citrarb.features.account.ui
 
+import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -24,6 +25,7 @@ import org.devstrike.app.citrarb.features.account.data.UserApi
 import org.devstrike.app.citrarb.features.account.repositories.UserRepoImpl
 import org.devstrike.app.citrarb.network.Resource
 import org.devstrike.app.citrarb.utils.SessionManager
+import org.devstrike.app.citrarb.utils.showProgressDialog
 import org.devstrike.app.citrarb.utils.toast
 import org.devstrike.app.citrarb.utils.visible
 import javax.inject.Inject
@@ -38,6 +40,9 @@ class AccountLogIn : BaseFragment<AccountViewModel, FragmentAccountLogInBinding,
     var sessionManager: SessionManager by Delegates.notNull<SessionManager>()
 
     private val userViewModel: AccountViewModel by activityViewModels()
+
+    private var progressDialog: Dialog? = null
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -67,6 +72,7 @@ class AccountLogIn : BaseFragment<AccountViewModel, FragmentAccountLogInBinding,
         userViewModel.loginState.collect { result ->
             when(result){
                 is Resource.Success -> {
+                    hideProgressBar()
                     Toast.makeText(
                         requireContext(),
                         "Login Successful",
@@ -88,12 +94,13 @@ class AccountLogIn : BaseFragment<AccountViewModel, FragmentAccountLogInBinding,
     }
 
 
-    private fun showProgressBar(){
-        binding.loginProgressBar.visible(true)
+    private fun showProgressBar() {
+        hideProgressBar()
+        progressDialog = requireActivity().showProgressDialog()
     }
 
-    private fun hideProgressBar(){
-        binding.loginProgressBar.visible(false)
+    private fun hideProgressBar() {
+        progressDialog?.let { if (it.isShowing) it.cancel() }
     }
 
 
